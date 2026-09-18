@@ -39,8 +39,8 @@ MLHeroes/
 ## Quick start
 
 ```bash
-# Backend: copy the template, fill in credentials, upload backend/ to public_html/
-cp backend/config/config.sample.php backend/config/database.php
+# Backend: set DB_PASS (and DB_HOST if the panel shows one) in backend/config/database.php,
+# then upload backend/ contents to public_html/ and open https://<host>/api/health.php
 
 # Mobile
 cd mobile
