@@ -177,6 +177,6 @@ item builds (`items`, `builds`, `build_items`), counters (`hero_counters`), user
 - Database and table: created, data entry in progress
 - `backend/` PHP files: written in `backend/` (helpers + health, filters, heroes, hero). Lint-clean and error paths smoke-tested on PHP 8.5 locally. **Not yet tested against a real MySQL** — this PC has no `pdo_mysql`, so the first live test is on Freehostia.
 - Postman collection: not started
-- Expo project: scaffolded at `mobile/` (SDK 57). `expo-image` is installed; `axios` and `@react-native-async-storage/async-storage` are not yet. Template placeholder screens still in place.
+- Expo project: scaffolded at `mobile/` (SDK 57). `axios`, `@react-native-async-storage/async-storage` and `expo-image` are installed. Template placeholder screens still in place.
 
 Next: set the real password in `backend/config/database.php` (exists, git-ignored), upload `backend/` contents to `public_html/`, open `/api/health.php` and confirm `"database":"connected"`.
