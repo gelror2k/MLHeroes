@@ -12,7 +12,7 @@ MLHeroes/
 │   ├── src/components/   HeroCard, FilterBar, …
 │   ├── src/constants/    theme, role colours
 │   └── src/hooks/        useHeroes, useFavorites
-├── backend/       # PHP API — mirrors public_html/ on the host
+├── backend/       # PHP API — mirrors /www/gelror.duckdns.org/ on the host
 │   ├── api/       #   heroes.php, hero.php, filters.php
 │   ├── config/    #   config.sample.php (committed) · database.php (local only, ignored)
 │   └── includes/  #   helpers.php — CORS, JSON envelope, row formatting
@@ -38,15 +38,58 @@ MLHeroes/
 
 ## Quick start
 
-```bash
-# Backend: set DB_PASS (and DB_HOST if the panel shows one) in backend/config/database.php,
-# then upload backend/ contents to public_html/ and open https://<host>/api/health.php
+### Backend
 
-# Mobile
-cd mobile
-npx expo install axios @react-native-async-storage/async-storage expo-image
-npx expo start
-```
+Set `DB_PASS` in `backend/config/database.php` (copy `config.sample.php` if it doesn't exist; on Freehostia `DB_HOST` is `localhost`). Drag the `api/`, `includes/` and `config/` folders from `backend/` into `/www/gelror.duckdns.org/` in Freehostia's File Manager, then open `http://gelror.duckdns.org/api/health.php` — it should return `"database":"connected"`.
+
+### Mobile app (Expo)
+
+1. Install dependencies
+
+   ```bash
+   cd mobile
+   npm install
+   ```
+
+2. Point the app at the API — create `mobile/.env` (git-ignored):
+
+   ```
+   EXPO_PUBLIC_API_URL=http://gelror.duckdns.org/api
+   ```
+
+3. Start the dev server
+
+   ```bash
+   npx expo start
+   ```
+
+   The terminal then offers ways to open the app:
+
+   - [Expo Go](https://expo.dev/go) — scan the QR code with your phone (easiest)
+   - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+   - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/) (macOS only)
+   - [Development build](https://docs.expo.dev/develop/development-builds/introduction/) — needed once native modules go beyond what Expo Go ships
+
+Screens live in `mobile/src/app/` and use [file-based routing](https://docs.expo.dev/router/introduction) (Expo Router). Only screens and layouts go in `src/app/`; everything else lives in `src/components/`, `src/hooks/`, `src/services/`, etc.
+
+Other scripts (run from `mobile/`):
+
+| Command | What it does |
+|---------|--------------|
+| `npx expo start --android` / `--ios` / `--web` | Start straight into one platform |
+| `npx expo lint` | ESLint — see [Using ESLint and Prettier](https://docs.expo.dev/guides/using-eslint/) |
+| `npx tsc --noEmit` | Type check — see [Using TypeScript](https://docs.expo.dev/guides/typescript/) |
+| `npm run reset-project` | **Careful:** moves the whole `src/` and `scripts/` to `example/` and leaves a blank `src/app/`. It wipes `src/constants/`, `src/hooks/`, etc. — not just the template screens. |
+| `npx expo install <package>` | Always this, never plain `npm install <package>`, for Expo-managed packages |
+
+Unit testing isn't set up; if you add it, follow [Unit Testing with Jest](https://docs.expo.dev/develop/unit-testing/).
+
+### Expo resources
+
+- [Expo documentation](https://docs.expo.dev/) and [guides](https://docs.expo.dev/guides)
+- [SDK 57 versioned docs](https://docs.expo.dev/versions/v57.0.0/) — the version this project is pinned to
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/)
+- [Expo on GitHub](https://github.com/expo/expo) · [Discord community](https://chat.expo.dev)
 
 Full plan, phases and API contract: [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md)
 

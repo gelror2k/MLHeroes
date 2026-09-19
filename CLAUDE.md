@@ -17,7 +17,7 @@ Solo student project. Prefer the simplest thing that works over the most correct
 | Local storage | AsyncStorage | Favorites and response caching |
 | Backend | PHP 7+ with PDO | No framework, no Composer |
 | Database | MySQL 8, `gabcas7_gelodb` | Managed through phpMyAdmin |
-| Hosting | Freehostia (shared) | FTP upload to `public_html/` |
+| Hosting | Freehostia (shared) | Domain `gelror.duckdns.org`, web root `/www/gelror.duckdns.org/` |
 | API testing | Postman | Collection in `docs/postman/` |
 
 ## Repository layout
@@ -42,7 +42,7 @@ MLHeroes/
 │       ├── hooks/               # useHeroes, useFavorites
 │       ├── components/
 │       └── constants/           # theme.ts, roleColors.ts
-├── backend/                     # Mirrors public_html/ on the server
+├── backend/                     # Mirrors /www/gelror.duckdns.org/ on the server
 │   ├── api/                     # heroes.php, hero.php, filters.php
 │   ├── config/                  # config.sample.php ONLY in Git
 │   └── includes/helpers.php
@@ -56,7 +56,9 @@ MLHeroes/
 
 Routes live under `mobile/src/app/`, not `mobile/app/` — that is where the Expo template put them. The scaffold currently has placeholder `index.tsx` / `explore.tsx` and a `components/app-tabs.tsx`; replace them with the `(tabs)/` layout above rather than building alongside them.
 
-`mobile/CLAUDE.md` imports Expo's own `AGENTS.md` (SDK 57 guidance). It applies inside `mobile/` in addition to this file.
+Expo's own `AGENTS.md` (SDK 57 guidance) lives at `mobile/AGENTS.md` and is imported here so it applies whenever working inside `mobile/`:
+
+@mobile/AGENTS.md
 
 ## Commands
 
@@ -67,8 +69,9 @@ npx expo install <package>           # ALWAYS this, never plain npm install, for
 npx tsc --noEmit                     # type check
 npx eas build -p android --profile preview   # APK
 
-# Backend has no build step. Upload backend/ contents to public_html/ via FTP.
-# Verify with: https://<host>/api/filters.php  -> should return JSON
+# Backend has no build step. Drag backend/api, backend/includes, backend/config into
+# /www/gelror.duckdns.org/ in Freehostia's File Manager (or FTP).
+# Verify with: http://gelror.duckdns.org/api/health.php  -> {"database":"connected", ...}
 ```
 
 ## Database
@@ -159,9 +162,9 @@ Hero objects include both the raw column and a pre-split array, so the client ne
 
 ## Known constraints
 
-- **Android blocks cleartext HTTP** (API 28+). Symptom: "Network request failed" with no detail. Fix by serving the API over HTTPS. `usesCleartextTraffic` in `app.json` is a fallback and does **not** work inside Expo Go.
+- **The API is `http://` only.** The DuckDNS domain has no SSL certificate (paid add-on on the free plan). Browsers, curl and Postman don't care. Android release builds block cleartext HTTP (API 28+) — symptom: "Network request failed" with no detail — so an EAS APK needs `usesCleartextTraffic` set in `app.json`. Whether Expo Go accepts `http://` is unverified; test it on the phone before assuming either way.
 - **`localhost` on a phone means the phone.** For local testing use the PC's LAN IP, e.g. `http://192.168.1.x/api`.
-- **DuckDNS cannot reliably point at shared hosting.** It sets an A record to an IP; shared hosts route by `Host` header. Use the host's own subdomain unless the backend is self-hosted.
+- **DuckDNS works here only because `gelror.duckdns.org` is registered as a Hosted Domain in the Freehostia panel.** Shared hosts route by `Host` header, so the DuckDNS A record alone is not enough — the panel entry is what makes it resolve to `/www/gelror.duckdns.org/`. Don't move the domain elsewhere without re-registering it there.
 - **Free host limits.** Small storage, throttling, possible suspension. Keep a phpMyAdmin export in `database/` so the DB can be rebuilt.
 - When debugging a failing request, reproduce it in Postman first. That separates API bugs from app bugs.
 
@@ -174,9 +177,10 @@ item builds (`items`, `builds`, `build_items`), counters (`hero_counters`), user
 
 ## Current status
 
-- Database and table: created, data entry in progress
-- `backend/` PHP files: written in `backend/` (helpers + health, filters, heroes, hero). Lint-clean and error paths smoke-tested on PHP 8.5 locally. **Not yet tested against a real MySQL** — this PC has no `pdo_mysql`, so the first live test is on Freehostia.
+- Database and table: created. **Table is empty (0 rows)** — data entry through phpMyAdmin is the current blocker. No `.sql` export in `database/` yet.
+- `backend/` PHP files: **live on Freehostia** at `http://gelror.duckdns.org/api/` (PHP 7.4.33, MySQL 8.4). Verified 2026-09-19: `health.php` reports `database: connected`; `filters.php` / `heroes.php` return correct empty envelopes; `hero.php` returns 404 for a missing id and 400 for a non-numeric one.
+- The server web root also holds older files not in this repo: `.htaccess`, `auth.php`, `connection.php`, `mobile_legends_heroes.php`, `student.php`. `student.php` and `connection.php` belong to the unrelated students project — leave them alone. The `.htaccess` rewrites only touch `mobile_legends_heroes*` URLs and don't affect `api/`.
 - Postman collection: not started
-- Expo project: scaffolded at `mobile/` (SDK 57). `axios`, `@react-native-async-storage/async-storage` and `expo-image` are installed. Template placeholder screens still in place.
+- Expo project: scaffolded at `mobile/` (SDK 57). `axios`, `@react-native-async-storage/async-storage` and `expo-image` are installed. `mobile/.env` exists (git-ignored) with `EXPO_PUBLIC_API_URL=http://gelror.duckdns.org/api`. Template placeholder screens still in place.
 
-Next: set the real password in `backend/config/database.php` (exists, git-ignored), upload `backend/` contents to `public_html/`, open `/api/health.php` and confirm `"database":"connected"`.
+Next: enter hero rows in phpMyAdmin, export them to `database/mobile_legends_heroes.sql`, then replace the template screens with the `(tabs)/` layout.

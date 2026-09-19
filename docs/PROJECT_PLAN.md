@@ -62,7 +62,7 @@ Do these in that order. Skills add the most value for the least work.
 | Tool | Why |
 |------|-----|
 | phpMyAdmin | Already in use — table creation, data entry, SQL |
-| FileZilla or the host's file manager | Upload PHP files to `public_html/` |
+| FileZilla or the host's file manager | Upload PHP files to `/www/gelror.duckdns.org/` |
 | Expo Go | Test on a real phone with no APK build |
 | AsyncStorage (`@react-native-async-storage/async-storage`) | Local favorites and response caching |
 | expo-image | Hero portraits with proper caching |
@@ -83,7 +83,7 @@ No Composer, no Laravel. Free shared hosting usually blocks shell access, so the
                  │  HTTPS, JSON
                  ▼
 ┌──────────────────────────────────┐
-│  PHP REST API (public_html/api/) │
+│  PHP REST API (…/api/ on host)   │
 │  ─ heroes.php   list + filters   │
 │  ─ hero.php     one hero         │
 │  ─ filters.php  distinct values  │
@@ -118,7 +118,7 @@ The `students` table belongs to a different project. The API never touches it �
 | Postman collection | Not yet |
 | Expo project | Not yet |
 
-**Immediate next step:** fill in the DB credentials, upload `backend/` to `public_html/`, and open `/api/filters.php` in a browser. JSON on screen means the whole backend chain works.
+**Immediate next step:** fill in the DB credentials, upload `backend/` to `/www/gelror.duckdns.org/`, and open `/api/filters.php` in a browser. JSON on screen means the whole backend chain works.
 
 ---
 
@@ -259,7 +259,7 @@ Note both `role` (raw string) and `roles` (split array). The app renders one chi
 
 ### 7.4 Server file layout
 ```
-public_html/
+/www/gelror.duckdns.org/
 ├── api/
 │   ├── heroes.php
 │   ├── hero.php
@@ -451,7 +451,7 @@ main        ← working code only
 ```
 mlbb-hero-app/
 ├── mobile/            # Expo project
-├── backend/           # PHP API, mirrors public_html
+├── backend/           # PHP API, mirrors /www/gelror.duckdns.org/
 │   ├── api/
 │   ├── config/        # config.sample.php only
 │   └── includes/
@@ -472,7 +472,7 @@ Commit in small described units (`feat: add role filter chips`). Push daily — 
 
 - [ ] Copy the DB username and password from the hosting control panel
 - [ ] Fill them into `backend/config/database.php` (that file stays off GitHub)
-- [ ] Upload `api/`, `config/`, `includes/` into `public_html/`
+- [ ] Upload `api/`, `config/`, `includes/` into `/www/gelror.duckdns.org/`
 - [ ] Open `https://yoursite/api/filters.php` — expect JSON, not a PHP error page
 - [ ] If connection fails, try the DB host shown in phpMyAdmin instead of `localhost`
 - [ ] Confirm the host's PHP version supports PDO (any PHP 7+ does)
@@ -523,7 +523,7 @@ Mobile Legends: Bang Bang hero names, artwork and skill text are Moonton's intel
 ## 16. Next Actions
 
 1. Fill in the real DB user and password in `config/database.php`.
-2. Upload `backend/` to `public_html/` and open `/api/filters.php` in a browser.
+2. Upload `backend/` to `/www/gelror.duckdns.org/` and open `/api/filters.php` in a browser.
 3. If JSON appears, build the Postman collection and run every test in §10.2.
 4. Decide the DuckDNS question in §5.1 and confirm whether you get HTTPS.
 5. Enter 20 heroes using the conventions in §6.2, then run `upgrade.sql`.

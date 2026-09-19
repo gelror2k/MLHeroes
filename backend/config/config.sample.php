@@ -14,5 +14,5 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'gabcas7_gelodb');
 define('DB_USER', 'gabcas7_gelodb');
-define('DB_PASS', 'gelodatabasefreehostia123?');
+define('DB_PASS', 'CHANGE_ME');
 define('DB_CHARSET', 'utf8mb4');
