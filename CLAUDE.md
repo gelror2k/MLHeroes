@@ -29,19 +29,23 @@ MLHeroes/
 │   ├── tsconfig.json            # "@/*" -> "./src/*"
 │   └── src/
 │       ├── app/                 # Expo Router screens (file-based routing)
-│       │   ├── _layout.tsx
+│       │   ├── _layout.tsx      # loads fonts, holds splash, providers, headerless Stack
 │       │   ├── (tabs)/
-│       │   │   ├── _layout.tsx
-│       │   │   ├── index.tsx    # Hero list + filters + search
+│       │   │   ├── _layout.tsx  # Home / Heroes / Saved / Manage (Manage only with admin key)
+│       │   │   ├── index.tsx    # Home dashboard: stats, spotlight, role ring, difficulty bars, saved
+│       │   │   ├── heroes.tsx   # Hero list + filters + search
 │       │   │   ├── favorites.tsx
-│       │   │   └── about.tsx
-│       │   └── hero/[id].tsx    # Hero detail
+│       │   │   └── manage.tsx   # Admin record list with edit/delete
+│       │   ├── about.tsx        # Reached from the Home header
+│       │   ├── hero/[id].tsx    # Hero detail
+│       │   └── hero/form.tsx    # Create / edit
 │       ├── api/client.ts        # Axios instance + getErrorMessage()
 │       ├── services/            # heroService.ts (API calls), storage.ts (AsyncStorage JSON helper)
 │       ├── types/hero.ts
-│       ├── hooks/               # use-heroes, use-hero, use-filters, use-favorites (context), use-debounced-value
-│       ├── components/          # hero-card, hero-portrait, filter-bar, search-input, chip, favorite-button, state-views
-│       └── constants/           # theme.ts, roleColors.ts
+│       ├── hooks/               # use-heroes, use-hero, use-filters, use-dashboard, use-favorites (context), use-debounced-value
+│       ├── components/          # screen, screen-header, icon-button, button, chip, section-card, stat-tile, hero-card,
+│       │                        # hero-portrait, filter-bar, search-input, text-field, confirm-dialog, toast, role-ring, …
+│       └── constants/           # theme.ts (Palette, Fonts, Spacing, Radius), roleColors.ts
 ├── backend/                     # Mirrors /www/gelror.duckdns.org/ on the server
 │   ├── api/                     # heroes.php, hero.php, filters.php
 │   ├── config/                  # config.sample.php ONLY in Git
@@ -66,7 +70,8 @@ Expo's own `AGENTS.md` (SDK 57 guidance) lives at `mobile/AGENTS.md` and is impo
 # App
 cd mobile && npx expo start          # dev server, scan QR with Expo Go
 npx expo install <package>           # ALWAYS this, never plain npm install, for Expo packages
-npx tsc --noEmit                     # type check
+npm run typecheck                    # regenerates typed routes, then tsc --noEmit (plain `npx tsc` sees stale routes after adding a screen)
+npx expo lint                        # ESLint incl. React Compiler rules; must be clean
 npx eas build -p android --profile preview   # APK
 
 # Backend has no build step. Drag backend/api, backend/includes, backend/config into
@@ -159,6 +164,8 @@ Hero objects include both the raw column and a pre-split array, so the client ne
 - `expo-image` for portraits, with an onError fallback — `picture` URLs are external and may be dead or hotlink-blocked.
 - Colour-code roles from `constants/roleColors.ts`. One colour per role, used consistently.
 - Keep API calls in `src/services/`, not inside components.
+- **Design system ("MetaDex" look, dark only).** All colours come from `Palette` in `constants/theme.ts`, all text goes through `ThemedText` variants (Chakra Petch for display/numbers, Manrope for body — loaded with `useFonts` in the root layout; set weight by picking the family from `Fonts`, never via `fontWeight`). Icons are Feather from `@expo/vector-icons`. Screens draw their own header (`ScreenHeader`) inside `<Screen>`; native headers are off. 44px minimum touch targets.
+- React Compiler is on (`reactCompiler: true`), so `expo lint` enforces its rules: no `setState` synchronously inside an effect (fetch, then `promise.then(apply)`; derive `loading` from state), no `ref.current` during render (lazy `useState(() => …)` for Animated values).
 
 ## Hard rules
 
@@ -189,8 +196,8 @@ item builds (`items`, `builds`, `build_items`), counters (`hero_counters`), user
 - Database and table: created and seeded with 20 heroes (`database/seed_heroes.sql`); full export in `database/mobile_legends_heroes.sql`. `picture` URLs are `placehold.co` placeholders until real artwork links are entered.
 - `backend/` PHP files: **live on Freehostia** at `http://gelror.duckdns.org/api/` (PHP 7.4.33, MySQL 8.4). Verified 2026-09-19: `health.php` reports `database: connected`; `filters.php` / `heroes.php` return correct empty envelopes; `hero.php` returns 404 for a missing id and 400 for a non-numeric one.
 - The server web root also holds older files not in this repo: `.htaccess`, `auth.php`, `connection.php`, `mobile_legends_heroes.php`, `student.php`. `student.php` and `connection.php` belong to the unrelated students project — leave them alone. The `.htaccess` rewrites only touch `mobile_legends_heroes*` URLs and don't affect `api/`.
-- Expo project: **all MVP screens written** (F1–F7): tabs (Heroes / Favorites / About), two-column FlatList with infinite scroll and pull-to-refresh, filter chips from `filters.php`, debounced search, hero detail with skills section, device-local favorites via a context provider, filters + first page cached in AsyncStorage for offline fallback. `tsc` clean and `expo export -p android` bundles. `mobile/.env` exists (git-ignored) with `EXPO_PUBLIC_API_URL=http://gelror.duckdns.org/api`. **Not yet run on a device.**
-- **CRUD**: `POST heroes.php`, `PUT`/`DELETE hero.php` written and lint-clean; validation unit-tested locally. App has an Add/Edit form (`hero/form.tsx`), a "+" on the Heroes header, and edit/delete on the detail screen, all gated on `EXPO_PUBLIC_ADMIN_KEY`. A matching random `ADMIN_KEY` was written to the local `database.php` and `mobile/.env` on 2026-09-19. **Deployed and verified live** the same day: 25-check regression (all methods, 401/400/404/405/409 paths, create → update → delete) passes; role/lane spelling is canonicalised against existing data. App-side CRUD flow not yet exercised on a device.
+- Expo project: **all MVP screens written** (F1–F7) and **restyled to the MetaDex design (2026-09-19)**: tabs Home / Heroes / Saved / Manage(admin), Home dashboard computed client-side from the whole roster (`getAllHeroes()` pages through `per_page=50`; no new endpoint), two-column FlatList with skeleton loading, infinite scroll and pull-to-refresh, role chips + collapsible lane/difficulty rows from `filters.php`, debounced search, hero detail with overview + difficulty meter + skills and a sticky action bar, custom delete confirmation dialog + toast, device-local favorites (bookmark icon) via a context provider, filters / first page / full roster cached in AsyncStorage for offline fallback. Win rate, tiers, attribute radar and Compare from the design were **not** built — they need data the schema doesn't have. `npm run typecheck`, `expo lint` and `expo export -p android` are clean. `mobile/.env` exists (git-ignored) with `EXPO_PUBLIC_API_URL=http://gelror.duckdns.org/api`. **Not yet run on a device.**
+- **CRUD**: `POST heroes.php`, `PUT`/`DELETE hero.php` written and lint-clean; validation unit-tested locally. App has an Add/Edit form (`hero/form.tsx`), a Manage tab (record list with Edit/Delete per row, "+" header button and sticky Add button), and edit/delete on the detail screen, all gated on `EXPO_PUBLIC_ADMIN_KEY`. A matching random `ADMIN_KEY` was written to the local `database.php` and `mobile/.env` on 2026-09-19. **Deployed and verified live** the same day: 25-check regression (all methods, 401/400/404/405/409 paths, create → update → delete) passes; role/lane spelling is canonicalised against existing data. App-side CRUD flow not yet exercised on a device.
 - Postman collection: not started
 
 Next: `cd mobile && npx expo start`, open in Expo Go on a phone, confirm the list loads from the live API (this is also the test of whether Expo Go accepts the `http://` URL). Then replace placeholder portraits with real image URLs, then Postman collection, then EAS APK (needs `expo-build-properties` with `android.usesCleartextTraffic: true`).

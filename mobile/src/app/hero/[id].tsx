@@ -1,119 +1,126 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { useState, type ReactNode } from 'react';
-import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useState } from 'react';
+import { ScrollView, Share, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { getErrorMessage, isAdminEnabled } from '@/api/client';
+import { Button } from '@/components/button';
 import { Chip } from '@/components/chip';
+import { ConfirmDialog } from '@/components/confirm-dialog';
+import { DifficultyMeter } from '@/components/difficulty-meter';
 import { FavoriteButton } from '@/components/favorite-button';
 import { HeroPortrait } from '@/components/hero-portrait';
+import { IconButton } from '@/components/icon-button';
+import { Screen } from '@/components/screen';
+import { ScreenHeader } from '@/components/screen-header';
+import { SectionCard } from '@/components/section-card';
 import { ErrorState, LoadingState } from '@/components/state-views';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import { useToast } from '@/components/toast';
 import { difficultyColor, roleColor } from '@/constants/roleColors';
-import { Spacing } from '@/constants/theme';
+import { Gutter, Radius, Spacing } from '@/constants/theme';
+import { useFavorites } from '@/hooks/use-favorites';
 import { useHero } from '@/hooks/use-hero';
 import { useTheme } from '@/hooks/use-theme';
 import { deleteHero } from '@/services/heroService';
-import type { Hero, Skill } from '@/types/hero';
+import type { Skill } from '@/types/hero';
 
-const SLOT_LABELS: Record<Skill['slot'], string> = {
-  passive: 'Passive',
-  skill1: 'Skill 1',
-  skill2: 'Skill 2',
-  ultimate: 'Ultimate',
-};
+const SLOT_BADGE: Record<Skill['slot'], string> = { passive: 'P', skill1: '1', skill2: '2', ultimate: 'ULT' };
+const SLOT_NAME: Record<Skill['slot'], string> = { passive: 'Passive', skill1: 'Skill 1', skill2: 'Skill 2', ultimate: 'Ultimate' };
 
-function Row({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <View style={styles.row}>
-      <ThemedText type="smallBold" themeColor="textSecondary" style={styles.rowLabel}>
-        {label}
-      </ThemedText>
-      <View style={styles.rowValue}>{children}</View>
-    </View>
-  );
-}
-
-function SkillCard({ skill }: { skill: Skill }) {
+function SkillRow({ skill }: { skill: Skill }) {
   const theme = useTheme();
-  const stats = [skill.cooldown ? `CD ${skill.cooldown}` : null, skill.mana_cost ? `Mana ${skill.mana_cost}` : null]
+  const ultimate = skill.slot === 'ultimate';
+  const stats = [skill.cooldown ? `Cooldown ${skill.cooldown}` : null, skill.mana_cost ? `Mana ${skill.mana_cost}` : null]
     .filter(Boolean)
-    .join('  ·  ');
+    .join(' · ');
+
   return (
-    <View style={[styles.skill, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
-      <ThemedText type="small" themeColor="textSecondary">
-        {SLOT_LABELS[skill.slot] ?? skill.slot}
-      </ThemedText>
-      <ThemedText type="smallBold">{skill.name}</ThemedText>
-      {skill.description ? <ThemedText type="small">{skill.description}</ThemedText> : null}
-      {stats ? (
-        <ThemedText type="small" themeColor="textSecondary">
-          {stats}
+    <View style={styles.skillRow} accessibilityLabel={`${SLOT_NAME[skill.slot]}: ${skill.name}`}>
+      <View
+        style={[
+          styles.slot,
+          ultimate
+            ? { backgroundColor: theme.accentSoft, borderColor: theme.accentBorder }
+            : { backgroundColor: theme.surfaceRaised, borderColor: theme.border },
+        ]}>
+        <ThemedText type="numeral" style={{ color: ultimate ? theme.accent : theme.textMuted, fontSize: 12 }}>
+          {SLOT_BADGE[skill.slot] ?? '?'}
         </ThemedText>
-      ) : null}
+      </View>
+      <View style={styles.skillText}>
+        <ThemedText type="smallStrong" style={styles.skillName}>
+          {skill.name}
+        </ThemedText>
+        {skill.description ? (
+          <ThemedText type="caption" themeColor="textMuted">
+            {skill.description}
+          </ThemedText>
+        ) : null}
+        {stats ? (
+          <ThemedText type="caption" themeColor="textSecondary">
+            {stats}
+          </ThemedText>
+        ) : null}
+      </View>
     </View>
   );
 }
 
-/** Header: edit pencil (admin only) next to the favorite heart. */
-function HeaderActions({ hero }: { hero: Hero }) {
-  const router = useRouter();
-  const theme = useTheme();
-  return (
-    <View style={styles.headerActions}>
-      {isAdminEnabled() && (
-        <Pressable
-          onPress={() => router.push({ pathname: '/hero/form', params: { id: String(hero.hero_id) } })}
-          hitSlop={8}
-          accessibilityRole="button"
-          accessibilityLabel={`Edit ${hero.name}`}
-          style={({ pressed }) => [styles.headerButton, pressed && styles.pressed]}>
-          <Ionicons name="create-outline" size={22} color={theme.tint} />
-        </Pressable>
-      )}
-      <FavoriteButton hero={hero} />
-    </View>
-  );
-}
-
-/** Hero detail: large portrait, tags, and skills when the optional hero_skills table has rows. */
+/** Hero detail: identity block, overview card (lane + difficulty meter), skills, sticky action bar. */
 export default function HeroDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const heroId = Number(id);
   const { hero, loading, error, reload } = useHero(heroId);
+  const { isFavorite, toggleFavorite } = useFavorites();
   const theme = useTheme();
   const router = useRouter();
+  const toast = useToast();
+  const insets = useSafeAreaInsets();
+  const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  function confirmDelete() {
+  const admin = isAdminEnabled();
+  const saved = hero ? isFavorite(hero.hero_id) : false;
+
+  async function share() {
     if (!hero) return;
-    Alert.alert('Delete hero', `Remove ${hero.name} from the database? This cannot be undone.`, [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Delete',
-        style: 'destructive',
-        onPress: async () => {
-          setDeleting(true);
-          try {
-            await deleteHero(hero.hero_id);
-            router.back();
-          } catch (e) {
-            setDeleting(false);
-            Alert.alert('Could not delete', getErrorMessage(e));
-          }
-        },
-      },
-    ]);
+    try {
+      await Share.share({
+        message: `${hero.name} — ${hero.roles.join('/')} · ${hero.lanes.join('/')} · ${hero.difficulty}`,
+      });
+    } catch {
+      // The user dismissed the share sheet; nothing to report.
+    }
+  }
+
+  async function confirmDelete() {
+    if (!hero) return;
+    setDeleting(true);
+    try {
+      await deleteHero(hero.hero_id);
+      toast.show(`${hero.name} removed from the database.`);
+      setConfirming(false);
+      router.back();
+    } catch (e) {
+      toast.show(getErrorMessage(e), 'danger');
+      setDeleting(false);
+    }
   }
 
   return (
-    <ThemedView style={styles.screen}>
-      <Stack.Screen
-        options={{
-          title: hero?.name ?? 'Hero',
-          headerRight: hero ? () => <HeaderActions hero={hero} /> : undefined,
-        }}
+    <Screen>
+      <ScreenHeader
+        back="chevron"
+        backLabel="Back to hero list"
+        right={
+          hero ? (
+            <>
+              <FavoriteButton hero={hero} />
+              <IconButton icon="share-2" label={`Share ${hero.name}`} onPress={share} />
+            </>
+          ) : undefined
+        }
       />
 
       {loading ? (
@@ -121,141 +128,170 @@ export default function HeroDetailScreen() {
       ) : error || !hero ? (
         <ErrorState message={error ?? 'Hero not found.'} onRetry={reload} />
       ) : (
-        <ScrollView contentContainerStyle={styles.content}>
-          <View style={[styles.portraitWrap, { borderColor: theme.border }]}>
-            <HeroPortrait hero={hero} initialSize={96} />
-          </View>
+        <>
+          <ScrollView contentContainerStyle={styles.content}>
+            <View style={styles.identity}>
+              <HeroPortrait hero={hero} size={84} radius={Radius.lg} />
+              <View style={styles.identityText}>
+                <ThemedText type="display" accessibilityRole="header">
+                  {hero.name}
+                </ThemedText>
+                <View style={styles.tags}>
+                  {hero.roles.map((role) => (
+                    <Chip key={role} variant="tag" label={role} color={roleColor(role)} />
+                  ))}
+                  <Chip variant="tag" label={hero.difficulty} color={difficultyColor(hero.difficulty)} />
+                </View>
+              </View>
+            </View>
 
-          <View style={styles.titleBlock}>
-            <ThemedText type="subtitle">{hero.name}</ThemedText>
-            <Chip label={hero.difficulty} color={difficultyColor(hero.difficulty)} selected />
-          </View>
+            <SectionCard title="Overview" gap={Spacing.lg}>
+              <View style={styles.overviewRow}>
+                <ThemedText type="micro" themeColor="textMuted" style={styles.overviewLabel}>
+                  Lane
+                </ThemedText>
+                <View style={styles.tags}>
+                  {hero.lanes.map((lane) => (
+                    <Chip key={lane} variant="tag" label={lane} />
+                  ))}
+                </View>
+              </View>
+              <View style={styles.overviewRow}>
+                <ThemedText type="micro" themeColor="textMuted" style={styles.overviewLabel}>
+                  Role
+                </ThemedText>
+                <ThemedText type="small" themeColor="textSecondary" style={styles.overviewValue}>
+                  {hero.roles.join(' / ')}
+                </ThemedText>
+              </View>
+              <View style={[styles.divider, { backgroundColor: theme.border }]} />
+              <DifficultyMeter difficulty={hero.difficulty} />
+            </SectionCard>
 
-          <View style={[styles.card, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
-            <Row label="Role">
-              {hero.roles.map((role) => (
-                <Chip key={role} label={role} color={roleColor(role)} selected small />
-              ))}
-            </Row>
-            <Row label="Lane">
-              {hero.lanes.map((lane) => (
-                <Chip key={lane} label={lane} small />
-              ))}
-            </Row>
-          </View>
-
-          <View style={styles.skillsBlock}>
-            <ThemedText type="smallBold" themeColor="textSecondary" style={styles.sectionTitle}>
-              Skills
-            </ThemedText>
-            {hero.skills && hero.skills.length > 0 ? (
-              hero.skills.map((skill) => <SkillCard key={skill.skill_id} skill={skill} />)
-            ) : (
-              <ThemedText type="small" themeColor="textSecondary">
-                No skill details for this hero yet.
-              </ThemedText>
-            )}
-          </View>
-
-          {isAdminEnabled() && (
-            <Pressable
-              onPress={confirmDelete}
-              disabled={deleting}
-              accessibilityRole="button"
-              style={({ pressed }) => [
-                styles.deleteButton,
-                { borderColor: theme.danger },
-                (pressed || deleting) && styles.pressed,
-              ]}>
-              {deleting ? (
-                <ActivityIndicator color={theme.danger} />
-              ) : (
-                <>
-                  <Ionicons name="trash-outline" size={18} color={theme.danger} />
-                  <ThemedText type="smallBold" style={{ color: theme.danger }}>
-                    Delete hero
+            <SectionCard
+              title="Skills"
+              aside={
+                hero.skills && hero.skills.length > 0 ? (
+                  <ThemedText type="small" themeColor="textSecondary">
+                    {hero.skills.length} listed
                   </ThemedText>
-                </>
+                ) : undefined
+              }>
+              {hero.skills && hero.skills.length > 0 ? (
+                hero.skills.map((skill) => <SkillRow key={skill.skill_id} skill={skill} />)
+              ) : (
+                <ThemedText type="caption" themeColor="textMuted">
+                  No skill details for this hero yet.
+                </ThemedText>
               )}
-            </Pressable>
-          )}
-        </ScrollView>
+            </SectionCard>
+          </ScrollView>
+
+          <View
+            style={[
+              styles.bottomBar,
+              { backgroundColor: theme.backgroundBar, borderTopColor: theme.border, paddingBottom: Spacing.md + insets.bottom },
+            ]}>
+            <Button
+              label={saved ? 'Saved' : 'Save to favorites'}
+              icon="bookmark"
+              variant={saved ? 'secondary' : 'primary'}
+              onPress={() => toggleFavorite(hero)}
+              style={styles.primaryAction}
+            />
+            {admin ? (
+              <>
+                <IconButton
+                  icon="edit-2"
+                  label={`Edit ${hero.name}`}
+                  size={50}
+                  iconSize={21}
+                  onPress={() => router.push({ pathname: '/hero/form', params: { id: String(hero.hero_id) } })}
+                />
+                <IconButton icon="trash-2" label={`Delete ${hero.name}`} tone="danger" size={50} iconSize={21} onPress={() => setConfirming(true)} />
+              </>
+            ) : null}
+          </View>
+
+          <ConfirmDialog
+            visible={confirming}
+            title={`Delete ${hero.name}?`}
+            message="This removes the hero record and its linked skill rows from the database. The action cannot be undone."
+            hero={hero}
+            busy={deleting}
+            onCancel={() => (deleting ? undefined : setConfirming(false))}
+            onConfirm={confirmDelete}
+          />
+        </>
       )}
-    </ThemedView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
   content: {
-    padding: Spacing.three,
-    gap: Spacing.three,
+    paddingHorizontal: Gutter,
+    paddingTop: Spacing.sm,
+    paddingBottom: Spacing.xxl,
+    gap: Spacing.lg,
   },
-  portraitWrap: {
-    borderRadius: Spacing.four,
-    borderWidth: StyleSheet.hairlineWidth,
-    overflow: 'hidden',
-  },
-  titleBlock: {
+  identity: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: Spacing.two,
+    gap: Spacing.lg,
   },
-  card: {
-    padding: Spacing.three,
-    borderRadius: Spacing.three,
-    borderWidth: StyleSheet.hairlineWidth,
-    gap: Spacing.three,
+  identityText: {
+    flex: 1,
+    gap: 9,
   },
-  row: {
-    gap: Spacing.one,
-  },
-  rowLabel: {
-    textTransform: 'uppercase',
-    fontSize: 12,
-    letterSpacing: 0.5,
-  },
-  rowValue: {
+  tags: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: Spacing.one,
+    gap: 7,
   },
-  skillsBlock: {
-    gap: Spacing.two,
-  },
-  sectionTitle: {
-    textTransform: 'uppercase',
-    fontSize: 12,
-    letterSpacing: 0.5,
-  },
-  skill: {
-    padding: Spacing.three,
-    borderRadius: Spacing.three,
-    borderWidth: StyleSheet.hairlineWidth,
-    gap: Spacing.one,
-  },
-  headerActions: {
+  overviewRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.one,
+    gap: Spacing.md,
   },
-  headerButton: {
-    padding: 6,
+  overviewLabel: {
+    width: 72,
   },
-  pressed: {
-    opacity: 0.6,
+  overviewValue: {
+    flex: 1,
   },
-  deleteButton: {
+  divider: {
+    height: 1,
+  },
+  skillRow: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: Spacing.md,
+  },
+  slot: {
+    width: 42,
+    height: 42,
+    borderRadius: Radius.sm,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: Spacing.two,
-    height: 48,
-    borderRadius: 999,
-    borderWidth: 1,
-    marginTop: Spacing.two,
+  },
+  skillText: {
+    flex: 1,
+    gap: 3,
+  },
+  skillName: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  bottomBar: {
+    flexDirection: 'row',
+    gap: Spacing.sm + 2,
+    paddingHorizontal: Gutter,
+    paddingTop: Spacing.md,
+    borderTopWidth: 1,
+  },
+  primaryAction: {
+    flex: 1,
   },
 });

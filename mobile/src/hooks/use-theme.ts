@@ -1,14 +1,10 @@
+import { Palette } from '@/constants/theme';
+
 /**
- * Learn more about light and dark modes:
- * https://docs.expo.dev/guides/color-schemes/
+ * The app ships one dark theme (app.json sets userInterfaceStyle to "dark"),
+ * so this simply returns the palette. Kept as a hook so a light variant can be
+ * added later without touching every component.
  */
-
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
 export function useTheme() {
-  const scheme = useColorScheme();
-  const theme = scheme === 'unspecified' ? 'light' : scheme;
-
-  return Colors[theme];
+  return Palette;
 }

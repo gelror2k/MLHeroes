@@ -1,129 +1,349 @@
-import { Ionicons } from '@expo/vector-icons';
-import { useCallback, useState, type ReactNode } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 
-import { FilterBar, type FilterSelection } from '@/components/filter-bar';
-import { HeroCard } from '@/components/hero-card';
-import { SearchInput } from '@/components/search-input';
-import { EmptyState, ErrorState, LoadingState } from '@/components/state-views';
+import { BarRow } from '@/components/bar-row';
+import { BrandMark } from '@/components/brand-mark';
+import { Chip } from '@/components/chip';
+import { HeroPortrait } from '@/components/hero-portrait';
+import { IconButton } from '@/components/icon-button';
+import { RoleRing } from '@/components/role-ring';
+import { Screen } from '@/components/screen';
+import { ScreenHeader } from '@/components/screen-header';
+import { SectionCard } from '@/components/section-card';
+import { StatTile } from '@/components/stat-tile';
+import { ErrorState, LoadingState } from '@/components/state-views';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Spacing } from '@/constants/theme';
-import { useDebouncedValue } from '@/hooks/use-debounced-value';
-import { useFilters } from '@/hooks/use-filters';
-import { useHeroes } from '@/hooks/use-heroes';
+import { difficultyColor, roleColor } from '@/constants/roleColors';
+import { Gutter, Radius, Sizes, Spacing } from '@/constants/theme';
+import { useDashboard } from '@/hooks/use-dashboard';
+import { useFavorites } from '@/hooks/use-favorites';
 import { useTheme } from '@/hooks/use-theme';
 import type { Hero } from '@/types/hero';
 
-const NO_FILTERS: FilterSelection = { role: '', lane: '', difficulty: '' };
+const DIFFICULTY_ORDER = ['Easy', 'Medium', 'Hard'];
+const SAVED_PREVIEW = 5;
 
-/** Hero list: search + filter chips on top, two-column grid below with infinite scroll. */
-export default function HeroesScreen() {
-  const theme = useTheme();
-  const [searchText, setSearchText] = useState('');
-  const [selection, setSelection] = useState<FilterSelection>(NO_FILTERS);
-  const search = useDebouncedValue(searchText.trim());
+function timeLabel(ms: number): string {
+  const d = new Date(ms);
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
 
-  const { filters } = useFilters();
-  const list = useHeroes({ search, ...selection });
+/** Small status badge: coloured text on a soft tint of the same colour. */
+function StatusPill({ label, color, soft, border }: { label: string; color: string; soft: string; border: string }) {
+  return (
+    <View style={[styles.pill, { backgroundColor: soft, borderColor: border }]}>
+      <ThemedText type="eyebrow" style={{ color, letterSpacing: 0.9 }}>
+        {label}
+      </ThemedText>
+    </View>
+  );
+}
 
-  const renderItem = useCallback(({ item }: { item: Hero }) => <HeroCard hero={item} />, []);
-  const keyExtractor = useCallback((item: Hero) => String(item.hero_id), []);
-
-  const hasQuery = search !== '' || selection.role !== '' || selection.lane !== '' || selection.difficulty !== '';
-
-  let body: ReactNode;
-  if (list.loading && list.heroes.length === 0) {
-    body = <LoadingState message="Loading heroes…" />;
-  } else if (list.error && list.heroes.length === 0) {
-    body = <ErrorState message={list.error} onRetry={list.retry} />;
-  } else {
-    body = (
-      <FlatList
-        data={list.heroes}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        numColumns={2}
-        columnWrapperStyle={styles.column}
-        contentContainerStyle={styles.listContent}
-        onEndReached={list.loadMore}
-        onEndReachedThreshold={0.5}
-        refreshing={list.refreshing}
-        onRefresh={list.refresh}
-        keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="on-drag"
-        ListEmptyComponent={
-          <EmptyState
-            title="No heroes found"
-            message={hasQuery ? 'Try a different search or clear a filter.' : 'The hero list is empty.'}
-          />
-        }
-        ListFooterComponent={
-          list.loadingMore ? <ActivityIndicator style={styles.footer} color={theme.tint} /> : null
-        }
-      />
-    );
-  }
+/** Today's hero: portrait, role, difficulty, and a jump to the detail screen. */
+function Spotlight({ hero }: { hero: Hero }) {
+  const router = useRouter();
+  const open = () => router.push({ pathname: '/hero/[id]', params: { id: String(hero.hero_id) } });
+  const primaryRole = hero.roles[0] ?? '';
 
   return (
-    <ThemedView style={styles.screen}>
-      <View style={styles.controls}>
-        <View style={styles.searchWrap}>
-          <SearchInput value={searchText} onChangeText={setSearchText} />
-        </View>
-        <FilterBar filters={filters} selection={selection} onChange={setSelection} />
-        <View style={styles.statusRow}>
-          <ThemedText type="small" themeColor="textSecondary">
-            {list.loading ? ' ' : `${list.total} hero${list.total === 1 ? '' : 'es'}`}
+    <SectionCard
+      title="Hero spotlight"
+      aside={
+        <ThemedText type="eyebrow" themeColor="accent" style={{ letterSpacing: 0.9 }}>
+          Today
+        </ThemedText>
+      }>
+      <Pressable onPress={open} accessibilityRole="button" accessibilityLabel={`Open ${hero.name}`} style={styles.spotlightRow}>
+        <HeroPortrait hero={hero} size={64} />
+        <View style={styles.spotlightText}>
+          <ThemedText type="heading" numberOfLines={1}>
+            {hero.name}
           </ThemedText>
-          {list.stale && (
-            <View style={styles.stale}>
-              <Ionicons name="cloud-offline-outline" size={14} color={theme.textSecondary} />
-              <ThemedText type="small" themeColor="textSecondary">
-                Offline. Showing saved list. Pull to refresh.
+          <View style={styles.spotlightMeta}>
+            <Chip variant="tag" label={primaryRole} color={roleColor(primaryRole)} />
+            <ThemedText type="caption" themeColor="textMuted">
+              Difficulty{' '}
+              <ThemedText type="caption" style={{ color: difficultyColor(hero.difficulty) }}>
+                {hero.difficulty}
               </ThemedText>
-            </View>
-          )}
+            </ThemedText>
+          </View>
         </View>
+        <IconButton icon="chevron-right" label={`Open ${hero.name} detail`} onPress={open} iconSize={18} />
+      </Pressable>
+      <View style={styles.tileRow}>
+        <StatTile raised centered value={hero.roles.join(' / ')} label="Role" />
+        <StatTile raised centered value={hero.lanes.join(' / ')} label="Lane" />
+        <StatTile raised centered value={hero.difficulty} label="Difficulty" tone="accent" />
       </View>
-      {body}
-    </ThemedView>
+    </SectionCard>
+  );
+}
+
+/** Hero list + role/lane/difficulty counts + saved heroes, computed from the whole roster. */
+export default function HomeScreen() {
+  const router = useRouter();
+  const theme = useTheme();
+  const { favorites } = useFavorites();
+  const dash = useDashboard();
+
+  const hasData = dash.heroes.length > 0;
+  const multiRole = dash.heroes.some((h) => h.roles.length > 1);
+  const savedPreview = favorites.slice(-SAVED_PREVIEW).reverse();
+
+  const status = dash.stale
+    ? { label: 'Offline · cached', color: theme.warning, soft: 'rgba(255,159,90,0.14)', border: 'rgba(255,159,90,0.34)' }
+    : { label: 'Live data', color: theme.success, soft: theme.successSoft, border: 'rgba(123,224,138,0.34)' };
+
+  return (
+    <Screen>
+      <ScreenHeader right={<IconButton icon="info" label="About MetaDex" onPress={() => router.push('/about')} />}>
+        <BrandMark />
+      </ScreenHeader>
+
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl
+            refreshing={dash.refreshing}
+            onRefresh={dash.refresh}
+            tintColor={theme.accent}
+            colors={[theme.accent]}
+            progressBackgroundColor={theme.surface}
+          />
+        }>
+        <View style={styles.pills}>
+          {hasData || dash.error ? <StatusPill {...status} /> : null}
+          {dash.updatedAt ? (
+            <StatusPill label={`Updated ${timeLabel(dash.updatedAt)}`} color={theme.info} soft={theme.infoSoft} border={theme.infoBorder} />
+          ) : null}
+        </View>
+
+        <Pressable
+          onPress={() => router.push({ pathname: '/heroes', params: { focus: '1', t: String(Date.now()) } })}
+          accessibilityRole="search"
+          accessibilityLabel="Search heroes"
+          style={({ pressed }) => [
+            styles.searchField,
+            { backgroundColor: theme.surface, borderColor: theme.border },
+            pressed && styles.pressed,
+          ]}>
+          <Feather name="search" size={18} color={theme.textMuted} />
+          <ThemedText type="body" themeColor="textMuted">
+            Search hero name
+          </ThemedText>
+        </Pressable>
+
+        <View style={styles.tileRow}>
+          <StatTile value={hasData ? dash.total : '—'} label="Heroes" />
+          <StatTile value={hasData ? dash.roles.length : '—'} label="Roles" />
+          <StatTile value={favorites.length} label="Saved" tone="accent" />
+        </View>
+
+        {dash.loading && !hasData ? (
+          <View style={styles.stateWrap}>
+            <LoadingState message="Counting the roster…" />
+          </View>
+        ) : dash.error && !hasData ? (
+          <View style={styles.stateWrap}>
+            <ErrorState message={dash.error} onRetry={dash.retry} />
+          </View>
+        ) : (
+          <>
+            {dash.spotlight ? <Spotlight hero={dash.spotlight} /> : null}
+
+            <SectionCard
+              title="Role distribution"
+              aside={
+                <ThemedText type="small" themeColor="textSecondary">
+                  {dash.total} total
+                </ThemedText>
+              }>
+              <View style={styles.ringWrap}>
+                <RoleRing
+                  segments={dash.roles.map((r) => ({ label: r.label, value: r.count, color: roleColor(r.label) }))}
+                  centerValue={dash.total}
+                />
+              </View>
+              <View style={styles.legend}>
+                {dash.roles.map((r) => (
+                  <Pressable
+                    key={r.label}
+                    onPress={() => router.push({ pathname: '/heroes', params: { role: r.label, t: String(Date.now()) } })}
+                    accessibilityRole="button"
+                    accessibilityLabel={`${r.label}, ${r.count} heroes. Show them`}
+                    style={({ pressed }) => [styles.legendItem, pressed && styles.pressed]}>
+                    <View style={[styles.swatch, { backgroundColor: roleColor(r.label) }]} />
+                    <ThemedText type="small" themeColor="textSecondary" style={styles.legendLabel} numberOfLines={1}>
+                      {r.label}
+                    </ThemedText>
+                    <ThemedText type="smallStrong">{r.count}</ThemedText>
+                  </Pressable>
+                ))}
+              </View>
+              {multiRole ? (
+                <ThemedText type="caption" themeColor="textMuted">
+                  Multi-role heroes count toward each of their roles. Tap a role to browse it.
+                </ThemedText>
+              ) : (
+                <ThemedText type="caption" themeColor="textMuted">
+                  Tap a role to browse it.
+                </ThemedText>
+              )}
+            </SectionCard>
+
+            <SectionCard
+              title="Difficulty spread"
+              aside={
+                <ThemedText type="small" themeColor="textSecondary">
+                  of {dash.total} heroes
+                </ThemedText>
+              }>
+              {DIFFICULTY_ORDER.map((level) => {
+                const count = dash.difficulties.find((d) => d.label === level)?.count ?? 0;
+                return (
+                  <BarRow
+                    key={level}
+                    label={level}
+                    ratio={dash.total > 0 ? count / dash.total : 0}
+                    value={count}
+                    color={difficultyColor(level)}
+                  />
+                );
+              })}
+            </SectionCard>
+
+            <SectionCard
+              title="Saved heroes"
+              aside={
+                favorites.length > 0 ? (
+                  <Pressable onPress={() => router.push('/favorites')} hitSlop={8} accessibilityRole="link">
+                    <ThemedText type="small" themeColor="textMuted" style={styles.link}>
+                      See all
+                    </ThemedText>
+                  </Pressable>
+                ) : null
+              }>
+              {savedPreview.length === 0 ? (
+                <ThemedText type="caption" themeColor="textMuted">
+                  Tap the bookmark on any hero to keep it here. Saved heroes stay on this device.
+                </ThemedText>
+              ) : (
+                <View style={styles.savedRow}>
+                  {savedPreview.map((hero) => (
+                    <Pressable
+                      key={hero.hero_id}
+                      onPress={() => router.push({ pathname: '/hero/[id]', params: { id: String(hero.hero_id) } })}
+                      accessibilityRole="button"
+                      accessibilityLabel={`Open ${hero.name}`}
+                      style={({ pressed }) => [styles.savedItem, pressed && styles.pressed]}>
+                      <HeroPortrait hero={hero} size={52} />
+                      <ThemedText type="caption" themeColor="textSecondary" numberOfLines={1} style={styles.savedName}>
+                        {hero.name}
+                      </ThemedText>
+                    </Pressable>
+                  ))}
+                </View>
+              )}
+            </SectionCard>
+          </>
+        )}
+      </ScrollView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  content: {
+    paddingHorizontal: Gutter,
+    paddingTop: Spacing.md,
+    paddingBottom: Spacing.xxl,
+    gap: 18,
+  },
+  pills: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.sm,
+  },
+  pill: {
+    paddingVertical: 6,
+    paddingHorizontal: 11,
+    borderRadius: Radius.pill,
+    borderWidth: 1,
+  },
+  searchField: {
+    height: Sizes.input,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    borderRadius: Radius.md,
+    borderWidth: 1,
+  },
+  tileRow: {
+    flexDirection: 'row',
+    gap: Spacing.sm + 2,
+  },
+  stateWrap: {
+    minHeight: 280,
+  },
+  spotlightRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+  },
+  spotlightText: {
+    flex: 1,
+    gap: 7,
+  },
+  spotlightMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  ringWrap: {
+    alignItems: 'center',
+  },
+  legend: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    columnGap: 14,
+    rowGap: 11,
+  },
+  legendItem: {
+    flexBasis: '45%',
+    flexGrow: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+    minHeight: 28,
+  },
+  swatch: {
+    width: 10,
+    height: 10,
+    borderRadius: 3,
+  },
+  legendLabel: {
     flex: 1,
   },
-  controls: {
-    paddingTop: Spacing.two,
-    gap: Spacing.two,
+  link: {
+    textDecorationLine: 'underline',
   },
-  searchWrap: {
-    paddingHorizontal: Spacing.three,
-  },
-  statusRow: {
-    paddingHorizontal: Spacing.three,
+  savedRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    gap: Spacing.md,
+  },
+  savedItem: {
+    width: 52,
     alignItems: 'center',
-    gap: Spacing.two,
+    gap: 7,
   },
-  stale: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.one,
-    flexShrink: 1,
+  savedName: {
+    width: 60,
+    textAlign: 'center',
   },
-  listContent: {
-    padding: Spacing.three,
-    gap: Spacing.three,
-    flexGrow: 1,
-  },
-  column: {
-    gap: Spacing.three,
-  },
-  footer: {
-    paddingVertical: Spacing.three,
+  pressed: {
+    opacity: 0.7,
   },
 });

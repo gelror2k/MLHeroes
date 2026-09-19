@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Chip } from '@/components/chip';
 import { ThemedText } from '@/components/themed-text';
 import { difficultyColor, roleColor } from '@/constants/roleColors';
-import { Spacing } from '@/constants/theme';
+import { Gutter, Spacing } from '@/constants/theme';
 import type { Filters } from '@/types/hero';
 
 export type FilterSelection = {
@@ -12,10 +12,14 @@ export type FilterSelection = {
   difficulty: string;
 };
 
+export const NO_FILTERS: FilterSelection = { role: '', lane: '', difficulty: '' };
+
 type FilterBarProps = {
   filters: Filters;
   selection: FilterSelection;
   onChange: (next: FilterSelection) => void;
+  /** Show the lane and difficulty rows (the header's sliders button toggles this). */
+  expanded: boolean;
 };
 
 type RowProps = {
@@ -27,17 +31,17 @@ type RowProps = {
 };
 
 /** One horizontally scrolling row of chips. Tapping the selected chip clears it. */
-function FilterRow({ title, values, selected, colorFor, onSelect }: RowProps) {
+function ScrollRow({ title, values, selected, colorFor, onSelect }: RowProps) {
   if (values.length === 0) return null;
   return (
     <View style={styles.row}>
-      <ThemedText type="small" themeColor="textSecondary" style={styles.rowTitle}>
+      <ThemedText type="eyebrow" themeColor="textMuted" style={styles.rowTitle}>
         {title}
       </ThemedText>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.chips}
+        contentContainerStyle={styles.scrollChips}
         keyboardShouldPersistTaps="handled">
         <Chip label="All" selected={selected === ''} onPress={() => onSelect('')} />
         {values.map((value) => (
@@ -55,51 +59,63 @@ function FilterRow({ title, values, selected, colorFor, onSelect }: RowProps) {
 }
 
 /**
- * Role / lane / difficulty chip rows. Values come from filters.php and are never hardcoded.
- * Each row is single-select; "All" clears it.
+ * Role chips always visible (wrapped, like the design); lane and difficulty rows
+ * appear when expanded. Values come from filters.php and are never hardcoded.
  */
-export function FilterBar({ filters, selection, onChange }: FilterBarProps) {
+export function FilterBar({ filters, selection, onChange, expanded }: FilterBarProps) {
   return (
     <View style={styles.container}>
-      <FilterRow
-        title="Role"
-        values={filters.roles}
-        selected={selection.role}
-        colorFor={roleColor}
-        onSelect={(role) => onChange({ ...selection, role })}
-      />
-      <FilterRow
-        title="Lane"
-        values={filters.lanes}
-        selected={selection.lane}
-        onSelect={(lane) => onChange({ ...selection, lane })}
-      />
-      <FilterRow
-        title="Difficulty"
-        values={filters.difficulties}
-        selected={selection.difficulty}
-        colorFor={difficultyColor}
-        onSelect={(difficulty) => onChange({ ...selection, difficulty })}
-      />
+      <View style={styles.wrapChips}>
+        <Chip label="All" selected={selection.role === ''} onPress={() => onChange({ ...selection, role: '' })} />
+        {filters.roles.map((role) => (
+          <Chip
+            key={role}
+            label={role}
+            color={roleColor(role)}
+            selected={selection.role === role}
+            onPress={() => onChange({ ...selection, role: selection.role === role ? '' : role })}
+          />
+        ))}
+      </View>
+      {expanded && (
+        <>
+          <ScrollRow
+            title="Lane"
+            values={filters.lanes}
+            selected={selection.lane}
+            onSelect={(lane) => onChange({ ...selection, lane })}
+          />
+          <ScrollRow
+            title="Difficulty"
+            values={filters.difficulties}
+            selected={selection.difficulty}
+            colorFor={difficultyColor}
+            onSelect={(difficulty) => onChange({ ...selection, difficulty })}
+          />
+        </>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    gap: Spacing.two,
+    gap: Spacing.md,
+  },
+  wrapChips: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.sm,
+    paddingHorizontal: Gutter,
   },
   row: {
-    gap: Spacing.one,
+    gap: Spacing.sm,
   },
   rowTitle: {
-    paddingHorizontal: Spacing.three,
-    textTransform: 'uppercase',
-    fontSize: 12,
-    letterSpacing: 0.5,
+    paddingHorizontal: Gutter,
   },
-  chips: {
-    paddingHorizontal: Spacing.three,
-    gap: Spacing.two,
+  scrollChips: {
+    paddingHorizontal: Gutter,
+    gap: Spacing.sm,
   },
 });

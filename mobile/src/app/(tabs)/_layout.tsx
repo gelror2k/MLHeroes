@@ -1,71 +1,49 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Tabs, useRouter } from 'expo-router';
-import { Pressable, StyleSheet, type ColorValue } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import type { ColorValue } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { isAdminEnabled } from '@/api/client';
-import { useTheme } from '@/hooks/use-theme';
+import type { IconName } from '@/components/icon-button';
+import { Fonts, Palette, Spacing } from '@/constants/theme';
 
-type IconName = keyof typeof Ionicons.glyphMap;
+const BAR_HEIGHT = 68; // content height; the home-indicator inset is added below
 
-function tabIcon(active: IconName, inactive: IconName) {
-  return function TabIcon({ color, focused }: { color: ColorValue; focused: boolean }) {
-    return <Ionicons name={focused ? active : inactive} size={24} color={color} />;
+function tabIcon(name: IconName) {
+  return function TabIcon({ color }: { color: ColorValue }) {
+    return <Feather name={name} size={22} color={color} />;
   };
 }
 
-/** Header "+" that opens the create form. Only shown when EXPO_PUBLIC_ADMIN_KEY is set. */
-function AddHeroButton() {
-  const router = useRouter();
-  const theme = useTheme();
-  if (!isAdminEnabled()) return null;
-  return (
-    <Pressable
-      onPress={() => router.push('/hero/form')}
-      hitSlop={8}
-      accessibilityRole="button"
-      accessibilityLabel="Add hero"
-      style={({ pressed }) => [styles.headerButton, pressed && styles.pressed]}>
-      <Ionicons name="add" size={26} color={theme.tint} />
-    </Pressable>
-  );
-}
-
-/** Bottom tabs: Heroes, Favorites, About. */
+/** Bottom tabs: Home, Heroes, Saved, and Manage (only when the admin key is configured). */
 export default function TabsLayout() {
-  const theme = useTheme();
+  const insets = useSafeAreaInsets();
+  const admin = isAdminEnabled();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: theme.tint,
-        tabBarInactiveTintColor: theme.textSecondary,
-        tabBarStyle: { backgroundColor: theme.background, borderTopColor: theme.border },
-        headerStyle: { backgroundColor: theme.background },
-        headerTitleStyle: { color: theme.text },
-        headerShadowVisible: false,
+        headerShown: false,
+        tabBarActiveTintColor: Palette.accent,
+        tabBarInactiveTintColor: Palette.textMuted,
+        tabBarStyle: {
+          backgroundColor: Palette.backgroundBar,
+          borderTopColor: Palette.border,
+          borderTopWidth: 1,
+          height: BAR_HEIGHT + insets.bottom,
+          paddingTop: Spacing.sm,
+        },
+        tabBarItemStyle: { paddingVertical: Spacing.xs },
+        tabBarLabelStyle: { fontFamily: Fonts.bodySemi, fontSize: 11, marginTop: 2 },
+        sceneStyle: { backgroundColor: Palette.background },
       }}>
+      <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: tabIcon('home') }} />
+      <Tabs.Screen name="heroes" options={{ title: 'Heroes', tabBarIcon: tabIcon('grid') }} />
+      <Tabs.Screen name="favorites" options={{ title: 'Saved', tabBarIcon: tabIcon('bookmark') }} />
       <Tabs.Screen
-        name="index"
-        options={{ title: 'Heroes', tabBarIcon: tabIcon('grid', 'grid-outline'), headerRight: AddHeroButton }}
-      />
-      <Tabs.Screen
-        name="favorites"
-        options={{ title: 'Favorites', tabBarIcon: tabIcon('heart', 'heart-outline') }}
-      />
-      <Tabs.Screen
-        name="about"
-        options={{ title: 'About', tabBarIcon: tabIcon('information-circle', 'information-circle-outline') }}
+        name="manage"
+        options={{ title: 'Manage', tabBarIcon: tabIcon('database'), href: admin ? undefined : null }}
       />
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  headerButton: {
-    marginRight: 12,
-    padding: 4,
-  },
-  pressed: {
-    opacity: 0.6,
-  },
-});

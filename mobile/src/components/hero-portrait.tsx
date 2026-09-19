@@ -1,64 +1,75 @@
-import { Image, type ImageStyle } from 'expo-image';
-import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, type StyleProp } from 'react-native';
+import { Image } from 'expo-image';
+import { useState } from 'react';
+import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
+import { ThemedText } from '@/components/themed-text';
 import { roleColor } from '@/constants/roleColors';
+import { Radius } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 import type { Hero } from '@/types/hero';
 
 type HeroPortraitProps = {
   hero: Pick<Hero, 'hero_id' | 'name' | 'picture' | 'roles'>;
-  /** Sizing/border overrides; ImageStyle is a subset of ViewStyle so it fits the fallback View too. */
-  style?: StyleProp<ImageStyle>;
-  /** Font size of the fallback initial; scale with the portrait size. */
-  initialSize?: number;
+  /** Square edge in px. */
+  size?: number;
+  radius?: number;
+  style?: StyleProp<ViewStyle>;
 };
 
+/** "Lancelot" -> "LA". Two letters read better than one at tile sizes. */
+export function monogram(name: string): string {
+  const letters = name.replace(/[^a-z0-9]/gi, '');
+  return (letters.length >= 2 ? letters.slice(0, 2) : letters || '?').toUpperCase();
+}
+
 /**
- * Hero picture via expo-image, with a fallback tile showing the hero's initial.
- * `picture` URLs are external and may be dead or hotlink-blocked, so the fallback is not optional.
+ * Square hero picture via expo-image. Falls back to a monogram tile in the hero's
+ * role colour because `picture` URLs are external and may be dead or hotlink-blocked.
  */
-export function HeroPortrait({ hero, style, initialSize = 40 }: HeroPortraitProps) {
-  const [failed, setFailed] = useState(false);
+export function HeroPortrait({ hero, size = 44, radius = Radius.md, style }: HeroPortraitProps) {
+  const theme = useTheme();
+  // Remember which URL failed so a recycled tile with a new hero gets a fresh attempt.
+  const [failedUri, setFailedUri] = useState<string | null>(null);
+  const failed = failedUri !== null && failedUri === hero.picture;
   const accent = roleColor(hero.roles[0] ?? '');
 
-  // A new hero (list recycling) gets a fresh attempt.
-  useEffect(() => {
-    setFailed(false);
-  }, [hero.hero_id, hero.picture]);
+  const frame = [
+    styles.frame,
+    { width: size, height: size, borderRadius: radius, backgroundColor: theme.surfaceRaised, borderColor: theme.border },
+    style,
+  ];
 
   if (failed || !hero.picture) {
     return (
-      <View style={[styles.base, styles.fallback, { backgroundColor: accent }, style]}>
-        <Text style={[styles.initial, { fontSize: initialSize }]}>{hero.name.charAt(0).toUpperCase()}</Text>
+      <View style={frame} accessibilityLabel={`${hero.name} portrait placeholder`}>
+        <ThemedText type="stat" style={{ color: accent, fontSize: Math.round(size * 0.34), lineHeight: Math.round(size * 0.42) }}>
+          {monogram(hero.name)}
+        </ThemedText>
       </View>
     );
   }
 
   return (
-    <Image
-      source={{ uri: hero.picture }}
-      style={[styles.base, style]}
-      contentFit="cover"
-      transition={150}
-      cachePolicy="disk"
-      onError={() => setFailed(true)}
-      accessibilityLabel={`${hero.name} portrait`}
-    />
+    <View style={frame}>
+      <Image
+        source={{ uri: hero.picture }}
+        style={StyleSheet.absoluteFill}
+        contentFit="cover"
+        transition={150}
+        cachePolicy="disk"
+        onError={() => setFailedUri(hero.picture)}
+        accessibilityLabel={`${hero.name} portrait`}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  base: {
-    width: '100%',
-    aspectRatio: 1,
-    backgroundColor: '#2E3135',
-  },
-  fallback: {
+  frame: {
+    borderWidth: 1,
+    overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  initial: {
-    color: '#ffffff',
-    fontWeight: 700,
+    flexShrink: 0,
   },
 });

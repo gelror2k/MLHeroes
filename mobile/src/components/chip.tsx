@@ -1,64 +1,89 @@
-import { Pressable, StyleSheet, Text, type StyleProp, type ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
-import { Spacing } from '@/constants/theme';
+import { ThemedText } from '@/components/themed-text';
+import { withAlpha } from '@/constants/roleColors';
+import { Radius, Sizes, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 type ChipProps = {
   label: string;
-  /** Accent colour. Tints the background when idle and fills it when selected. */
+  /**
+   * filter = 44px pill that toggles (gold when selected).
+   * tag = small uppercase label with a soft tint of `color`, for role/lane/difficulty on cards.
+   */
+  variant?: 'filter' | 'tag';
+  /** Accent colour for the tag tint or the selected filter fill. Defaults to gold. */
   color?: string;
   selected?: boolean;
   onPress?: () => void;
-  small?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
-/** Rounded pill used for role/lane/difficulty tags and for filter buttons. */
-export function Chip({ label, color, selected = false, onPress, small = false, style }: ChipProps) {
+export function Chip({ label, variant = 'filter', color, selected = false, onPress, style }: ChipProps) {
   const theme = useTheme();
-  const accent = color ?? theme.tint;
-  const background = selected ? accent : theme.backgroundElement;
-  const textColor = selected ? '#ffffff' : color ? accent : theme.text;
 
+  if (variant === 'tag') {
+    const accent = color ?? theme.textSecondary;
+    return (
+      <View style={[styles.tag, { backgroundColor: color ? withAlpha(accent, 0.16) : theme.surfaceRaised }, style]}>
+        <ThemedText type="eyebrow" style={[styles.tagLabel, { color: accent }]} numberOfLines={1}>
+          {label}
+        </ThemedText>
+      </View>
+    );
+  }
+
+  const accent = color ?? theme.accent;
   return (
     <Pressable
       onPress={onPress}
       disabled={!onPress}
-      accessibilityRole={onPress ? 'button' : undefined}
-      accessibilityState={onPress ? { selected } : undefined}
+      accessibilityRole="button"
+      accessibilityState={{ selected }}
       style={({ pressed }) => [
-        styles.chip,
-        small && styles.small,
-        { backgroundColor: background, borderColor: selected ? accent : theme.border },
-        pressed && onPress ? styles.pressed : null,
+        styles.filter,
+        selected
+          ? { backgroundColor: accent, borderColor: accent }
+          : { backgroundColor: theme.surface, borderColor: theme.border },
+        pressed && styles.pressed,
         style,
       ]}>
-      <Text style={[styles.label, small && styles.smallLabel, { color: textColor }]} numberOfLines={1}>
+      {color && !selected ? <View style={[styles.dot, { backgroundColor: color }]} /> : null}
+      <ThemedText
+        type="smallStrong"
+        style={{ color: selected ? theme.onAccent : theme.textSecondary }}
+        numberOfLines={1}>
         {label}
-      </Text>
+      </ThemedText>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  chip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: 999,
-    borderWidth: StyleSheet.hairlineWidth,
+  filter: {
+    height: Sizes.touch,
+    paddingHorizontal: Spacing.lg,
+    borderRadius: Radius.pill,
+    borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
   },
-  small: {
-    paddingHorizontal: Spacing.two,
-    paddingVertical: Spacing.half,
+  dot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
   },
   pressed: {
-    opacity: 0.7,
+    opacity: 0.75,
   },
-  label: {
-    fontSize: 14,
-    fontWeight: 600,
+  tag: {
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: 7,
+    alignSelf: 'flex-start',
   },
-  smallLabel: {
-    fontSize: 11,
+  tagLabel: {
+    letterSpacing: 0.8,
   },
 });

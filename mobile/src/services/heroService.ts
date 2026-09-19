@@ -54,3 +54,23 @@ export async function deleteHero(id: number): Promise<ApiResponse<{ hero_id: num
   heroEvents.emit({ type: 'deleted', heroId: id });
   return res.data;
 }
+
+// ---- Aggregates ------------------------------------------------------------
+
+const ALL_PER_PAGE = 50; // the API's cap
+const ALL_MAX_PAGES = 10; // sanity guard: 500 heroes is far beyond the real roster
+
+/**
+ * Every hero, for the dashboard's counts and spotlight. Pages through heroes.php
+ * at the maximum page size; the roster is small enough that 1–3 requests cover it.
+ */
+export async function getAllHeroes(): Promise<{ heroes: Hero[]; total: number }> {
+  const first = await getHeroes({ page: 1, per_page: ALL_PER_PAGE });
+  const heroes = [...first.data];
+  const totalPages = Math.min(first.meta?.total_pages ?? 1, ALL_MAX_PAGES);
+  for (let page = 2; page <= totalPages; page++) {
+    const res = await getHeroes({ page, per_page: ALL_PER_PAGE });
+    heroes.push(...res.data);
+  }
+  return { heroes, total: first.meta?.total ?? heroes.length };
+}
