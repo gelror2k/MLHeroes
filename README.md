@@ -8,10 +8,11 @@ Expo + React Native front end, plain PHP + MySQL REST API on the back.
 ```
 MLHeroes/
 ├── mobile/        # Expo app (TypeScript, Expo Router)
-│   ├── src/app/          screens — index.tsx, _layout.tsx, hero/[id].tsx
-│   ├── src/components/   HeroCard, FilterBar, …
+│   ├── src/app/          screens — (tabs)/index, favorites, about; hero/[id]
+│   ├── src/components/   hero-card, filter-bar, search-input, state-views, …
+│   ├── src/services/     heroService (API calls), storage (AsyncStorage)
 │   ├── src/constants/    theme, role colours
-│   └── src/hooks/        useHeroes, useFavorites
+│   └── src/hooks/        use-heroes, use-filters, use-favorites, …
 ├── backend/       # PHP API — mirrors /www/gelror.duckdns.org/ on the host
 │   ├── api/       #   heroes.php, hero.php, filters.php
 │   ├── config/    #   config.sample.php (committed) · database.php (local only, ignored)

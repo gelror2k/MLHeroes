@@ -1,18 +1,22 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'react-native';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { FavoritesProvider } from '@/hooks/use-favorites';
 
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
+/** Root stack: the tab group, plus the hero detail pushed on top of it. */
+export default function RootLayout() {
   const colorScheme = useColorScheme();
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
+      <FavoritesProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="hero/[id]" options={{ title: 'Hero', headerBackTitle: 'Back' }} />
+        </Stack>
+        <StatusBar style="auto" />
+      </FavoritesProvider>
     </ThemeProvider>
   );
 }
