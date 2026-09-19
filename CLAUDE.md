@@ -121,6 +121,13 @@ Errors: `success: false`, plain-language `message`, `data: null`, correct HTTP s
 | `GET /api/hero.php` | `id` (required, digits only) | One hero + `skills[]` |
 | `GET /api/filters.php` | — | `{ roles[], lanes[], difficulties[] }` distinct from the table |
 | `GET /api/health.php` | — | `{ database, table, heroes, php }` — connection check, open this first after upload |
+| `POST /api/heroes.php` 🔑 | JSON body `{ name, role, lane, difficulty, picture }` | 201 + the new hero. 400 validation, 409 duplicate name |
+| `PUT /api/hero.php?id=N` 🔑 | JSON body with any subset of the five fields | 200 + updated hero. Omitted fields keep their value |
+| `DELETE /api/hero.php?id=N` 🔑 | — | 200 + `{ hero_id }`. Also deletes the hero's `hero_skills` rows if that table exists |
+
+🔑 = requires header `X-Admin-Key: <ADMIN_KEY>`. `ADMIN_KEY` lives in `config/database.php` (git-ignored; sample has `CHANGE_ME`) and the app sends it from `EXPO_PUBLIC_ADMIN_KEY` in `mobile/.env`. Missing/wrong key → 401. Key unset on the server → 503 and all writes are off. This is one shared secret, not user auth; it exists only so a public URL can't be used to wipe the table. The app hides add/edit/delete controls when `EXPO_PUBLIC_ADMIN_KEY` is empty.
+
+Write validation (`validate_hero_input()` in helpers): `name` 1–255 chars, unique case-insensitively; `role`/`lane` non-empty, normalised to `Part/Part` with `ucfirst` on each part and case-insensitive de-dupe; `difficulty` must be Easy/Medium/Hard (any case in, canonical out); `picture` must be a full `http(s)://` URL ≤ 1000 chars.
 
 Hero objects include both the raw column and a pre-split array, so the client never parses strings:
 
@@ -139,6 +146,8 @@ Hero objects include both the raw column and a pre-split array, so the client ne
 - Return through `json_success()` / `json_error()`. Never `echo` raw JSON.
 - Catch `PDOException`, log with `error_log()`, return a generic message. Never expose SQL, file paths, or credentials to the client.
 - Cap `per_page` at 50.
+- Endpoints that write call `require_method(array(...))` then `require_admin_key()` before touching the body. Read the body with `read_json_body()`, validate with `validate_hero_input()`, never trust fields directly.
+- Freehostia's ModSecurity sits in front of PHP. It returns a plain-text `412 denied by modsecurity` for a bodiless `POST` and for obvious injection strings; requests with a JSON body and `Content-Type` reach PHP normally.
 - Target plain PHP 7 syntax — `array()` over `[]` is already used, no arrow functions, no typed properties. The host's PHP version is unconfirmed.
 - No Composer, no Laravel, no autoloaders. Shared hosting blocks shell access.
 
@@ -157,7 +166,7 @@ Hero objects include both the raw column and a pre-split array, so the client ne
 2. **Never add columns or tables to the plan without saying so explicitly.** The schema above is what exists.
 3. **Do not touch the `students` table.**
 4. Do not introduce a framework, ORM, or build step on the backend.
-5. Do not add server-side auth, users, or login. Favorites are device-local via AsyncStorage. This is a deliberate scope decision.
+5. Do not add server-side auth, users, or login. Favorites are device-local via AsyncStorage. This is a deliberate scope decision. The single shared `ADMIN_KEY` for write endpoints is the one exception — it is a config value, not an account system, and must stay that way.
 6. Do not reproduce Moonton's skill descriptions verbatim. Write original summaries.
 
 ## Known constraints
@@ -181,6 +190,7 @@ item builds (`items`, `builds`, `build_items`), counters (`hero_counters`), user
 - `backend/` PHP files: **live on Freehostia** at `http://gelror.duckdns.org/api/` (PHP 7.4.33, MySQL 8.4). Verified 2026-09-19: `health.php` reports `database: connected`; `filters.php` / `heroes.php` return correct empty envelopes; `hero.php` returns 404 for a missing id and 400 for a non-numeric one.
 - The server web root also holds older files not in this repo: `.htaccess`, `auth.php`, `connection.php`, `mobile_legends_heroes.php`, `student.php`. `student.php` and `connection.php` belong to the unrelated students project — leave them alone. The `.htaccess` rewrites only touch `mobile_legends_heroes*` URLs and don't affect `api/`.
 - Expo project: **all MVP screens written** (F1–F7): tabs (Heroes / Favorites / About), two-column FlatList with infinite scroll and pull-to-refresh, filter chips from `filters.php`, debounced search, hero detail with skills section, device-local favorites via a context provider, filters + first page cached in AsyncStorage for offline fallback. `tsc` clean and `expo export -p android` bundles. `mobile/.env` exists (git-ignored) with `EXPO_PUBLIC_API_URL=http://gelror.duckdns.org/api`. **Not yet run on a device.**
+- **CRUD**: `POST heroes.php`, `PUT`/`DELETE hero.php` written and lint-clean; validation unit-tested locally. App has an Add/Edit form (`hero/form.tsx`), a "+" on the Heroes header, and edit/delete on the detail screen, all gated on `EXPO_PUBLIC_ADMIN_KEY`. A matching random `ADMIN_KEY` was written to the local `database.php` and `mobile/.env` on 2026-09-19. **Deployed and verified live** the same day: 25-check regression (all methods, 401/400/404/405/409 paths, create → update → delete) passes; role/lane spelling is canonicalised against existing data. App-side CRUD flow not yet exercised on a device.
 - Postman collection: not started
 
 Next: `cd mobile && npx expo start`, open in Expo Go on a phone, confirm the list loads from the live API (this is also the test of whether Expo Go accepts the `http://` URL). Then replace placeholder portraits with real image URLs, then Postman collection, then EAS APK (needs `expo-build-properties` with `android.usesCleartextTraffic: true`).

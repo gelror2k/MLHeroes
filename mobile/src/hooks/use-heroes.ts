@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { getErrorMessage } from '@/api/client';
+import { heroEvents } from '@/services/hero-events';
 import { getHeroes } from '@/services/heroService';
 import { loadJson, saveJson } from '@/services/storage';
 import type { Hero, HeroQuery } from '@/types/hero';
@@ -19,7 +20,7 @@ export interface HeroListState {
   stale: boolean; // showing cached data because the request failed
 }
 
-type Mode = 'initial' | 'more' | 'refresh';
+type Mode = 'initial' | 'more' | 'refresh' | 'silent';
 
 /**
  * Paginated hero list for the given filters. Re-fetches from page 1 whenever
@@ -97,6 +98,9 @@ export function useHeroes(query: Omit<HeroQuery, 'page' | 'per_page'>) {
   useEffect(() => {
     fetchPage(1, 'initial');
   }, [fetchPage]);
+
+  // A hero was created, edited or deleted somewhere in the app: reload quietly.
+  useEffect(() => heroEvents.subscribe(() => fetchPage(1, 'silent')), [fetchPage]);
 
   const loadMore = useCallback(() => {
     if (state.loading || state.loadingMore || state.refreshing || !state.hasMore) return;

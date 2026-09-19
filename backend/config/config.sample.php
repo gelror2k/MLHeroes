@@ -16,3 +16,7 @@ define('DB_NAME', 'gabcas7_gelodb');
 define('DB_USER', 'gabcas7_gelodb');
 define('DB_PASS', 'CHANGE_ME');
 define('DB_CHARSET', 'utf8mb4');
+
+// Shared secret for POST / PUT / DELETE. The app sends it as the X-Admin-Key header
+// (EXPO_PUBLIC_ADMIN_KEY in mobile/.env). Leave as CHANGE_ME to disable editing entirely.
+define('ADMIN_KEY', 'CHANGE_ME');

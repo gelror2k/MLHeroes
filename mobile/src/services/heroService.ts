@@ -1,5 +1,6 @@
-import { api } from '@/api/client';
-import type { ApiResponse, Filters, Hero, HeroQuery } from '@/types/hero';
+import { adminHeaders, api } from '@/api/client';
+import { heroEvents } from '@/services/hero-events';
+import type { ApiResponse, Filters, Hero, HeroInput, HeroQuery } from '@/types/hero';
 
 /**
  * All API calls live here. Components and hooks call these; nothing else touches Axios.
@@ -27,5 +28,29 @@ export async function getHero(id: number): Promise<ApiResponse<Hero>> {
 
 export async function getFilters(): Promise<ApiResponse<Filters>> {
   const res = await api.get<ApiResponse<Filters>>('/filters.php');
+  return res.data;
+}
+
+// ---- Writes (need the admin key) ------------------------------------------
+// Each one announces the change through heroEvents so open screens refresh.
+
+export async function createHero(input: HeroInput): Promise<ApiResponse<Hero>> {
+  const res = await api.post<ApiResponse<Hero>>('/heroes.php', input, { headers: adminHeaders() });
+  heroEvents.emit({ type: 'created', hero: res.data.data });
+  return res.data;
+}
+
+export async function updateHero(id: number, input: Partial<HeroInput>): Promise<ApiResponse<Hero>> {
+  const res = await api.put<ApiResponse<Hero>>('/hero.php', input, { params: { id }, headers: adminHeaders() });
+  heroEvents.emit({ type: 'updated', hero: res.data.data });
+  return res.data;
+}
+
+export async function deleteHero(id: number): Promise<ApiResponse<{ hero_id: number }>> {
+  const res = await api.delete<ApiResponse<{ hero_id: number }>>('/hero.php', {
+    params: { id },
+    headers: adminHeaders(),
+  });
+  heroEvents.emit({ type: 'deleted', heroId: id });
   return res.data;
 }

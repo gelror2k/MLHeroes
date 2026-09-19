@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { getErrorMessage } from '@/api/client';
+import { heroEvents } from '@/services/hero-events';
 import { getHero } from '@/services/heroService';
 import type { Hero } from '@/types/hero';
 
@@ -31,6 +32,17 @@ export function useHero(id: number) {
   useEffect(() => {
     load();
   }, [load]);
+
+  useEffect(
+    () =>
+      heroEvents.subscribe((event) => {
+        if (event.type === 'updated' && event.hero.hero_id === id) {
+          // Keep skills from the last full load; the update response has none.
+          setHero((current) => ({ ...event.hero, skills: current?.skills ?? [] }));
+        }
+      }),
+    [id],
+  );
 
   return { hero, loading, error, reload: load };
 }

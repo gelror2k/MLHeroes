@@ -1,11 +1,54 @@
 <?php
 /**
- * GET /api/heroes.php?search=&role=&lane=&difficulty=&page=1&per_page=20
- * Paginated hero list. All params optional. per_page is capped at 50.
+ * GET  /api/heroes.php?search=&role=&lane=&difficulty=&page=1&per_page=20
+ *      Paginated hero list. All params optional. per_page is capped at 50.
+ *
+ * POST /api/heroes.php   (header X-Admin-Key required)
+ *      Create a hero. JSON body: { name, role, lane, difficulty, picture }.
+ *      Returns 201 with the new hero, 400 on validation errors, 409 if the name exists.
  */
 require_once __DIR__ . '/../includes/helpers.php';
-require_get();
+require_method(array('GET', 'POST'));
 
+// ---- POST: create ---------------------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_admin_key();
+    $input  = read_json_body();
+    $result = validate_hero_input($input, false);
+    if (count($result['errors'])) {
+        json_error(implode('. ', $result['errors']) . '.', 400);
+    }
+    $v   = $result['values'];
+    $pdo = db();
+
+    try {
+        if (hero_name_taken($pdo, $v['name'])) {
+            json_error('A hero named "' . $v['name'] . '" already exists', 409);
+        }
+        $v['role'] = canonicalise_list($pdo, 'role', $v['role']);
+        $v['lane'] = canonicalise_list($pdo, 'lane', $v['lane']);
+        $stmt = $pdo->prepare(
+            'INSERT INTO mobile_legends_heroes (name, role, lane, difficulty, picture)
+             VALUES (:name, :role, :lane, :difficulty, :picture)'
+        );
+        $stmt->execute(array(
+            ':name'       => $v['name'],
+            ':role'       => $v['role'],
+            ':lane'       => $v['lane'],
+            ':difficulty' => $v['difficulty'],
+            ':picture'    => $v['picture'],
+        ));
+        $row = fetch_hero_row($pdo, $pdo->lastInsertId());
+    } catch (PDOException $e) {
+        error_log('heroes create: ' . $e->getMessage());
+        json_error('Could not create hero', 500);
+    }
+
+    http_response_code(201);
+    json_success(format_hero($row), null, 'Hero created');
+}
+
+// ---- GET: list ------------------------------------------------------------
 $search     = isset($_GET['search'])     ? trim($_GET['search'])     : '';
 $role       = isset($_GET['role'])       ? trim($_GET['role'])       : '';
 $lane       = isset($_GET['lane'])       ? trim($_GET['lane'])       : '';

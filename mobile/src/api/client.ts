@@ -44,3 +44,17 @@ export function getErrorMessage(error: unknown): string {
 export function isConfigured(): boolean {
   return typeof process.env.EXPO_PUBLIC_API_URL === 'string' && process.env.EXPO_PUBLIC_API_URL !== '';
 }
+
+/**
+ * Write endpoints need the shared admin key (EXPO_PUBLIC_ADMIN_KEY in .env, matching
+ * ADMIN_KEY on the server). When it is not set the app hides the add/edit/delete controls.
+ */
+export function isAdminEnabled(): boolean {
+  const key = process.env.EXPO_PUBLIC_ADMIN_KEY;
+  return typeof key === 'string' && key.trim() !== '';
+}
+
+export function adminHeaders(): Record<string, string> {
+  const key = process.env.EXPO_PUBLIC_ADMIN_KEY;
+  return key ? { 'X-Admin-Key': key } : {};
+}

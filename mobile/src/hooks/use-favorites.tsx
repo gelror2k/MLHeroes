@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
+import { heroEvents } from '@/services/hero-events';
 import { loadJson, saveJson } from '@/services/storage';
 import type { Hero } from '@/types/hero';
 
@@ -34,6 +35,25 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       cancelled = true;
     };
   }, []);
+
+  // Keep saved copies in step with server-side edits and deletions.
+  useEffect(
+    () =>
+      heroEvents.subscribe((event) => {
+        setFavorites((current) => {
+          let next = current;
+          if (event.type === 'deleted') {
+            next = current.filter((h) => h.hero_id !== event.heroId);
+          } else if (event.type === 'updated') {
+            const { skills: _skills, ...slim } = event.hero;
+            next = current.map((h) => (h.hero_id === slim.hero_id ? slim : h));
+          }
+          if (next !== current) saveJson(STORAGE_KEY, next);
+          return next;
+        });
+      }),
+    [],
+  );
 
   const ids = useMemo(() => new Set(favorites.map((h) => h.hero_id)), [favorites]);
 

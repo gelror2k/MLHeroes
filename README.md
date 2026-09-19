@@ -41,7 +41,7 @@ MLHeroes/
 
 ### Backend
 
-Set `DB_PASS` in `backend/config/database.php` (copy `config.sample.php` if it doesn't exist; on Freehostia `DB_HOST` is `localhost`). Drag the `api/`, `includes/` and `config/` folders from `backend/` into `/www/gelror.duckdns.org/` in Freehostia's File Manager, then open `http://gelror.duckdns.org/api/health.php` — it should return `"database":"connected"`.
+Set `DB_PASS` and `ADMIN_KEY` in `backend/config/database.php` (copy `config.sample.php` if it doesn't exist; on Freehostia `DB_HOST` is `localhost`). `ADMIN_KEY` is the shared secret for add/edit/delete; put the same value in `mobile/.env` as `EXPO_PUBLIC_ADMIN_KEY`. Drag the `api/`, `includes/` and `config/` folders from `backend/` into `/www/gelror.duckdns.org/` in Freehostia's File Manager, then open `http://gelror.duckdns.org/api/health.php` — it should return `"database":"connected"`.
 
 ### Mobile app (Expo)
 
@@ -56,7 +56,10 @@ Set `DB_PASS` in `backend/config/database.php` (copy `config.sample.php` if it d
 
    ```
    EXPO_PUBLIC_API_URL=http://gelror.duckdns.org/api
+   EXPO_PUBLIC_ADMIN_KEY=<same value as ADMIN_KEY on the server>
    ```
+
+   Leave `EXPO_PUBLIC_ADMIN_KEY` out for a read-only build; the add/edit/delete controls disappear.
 
 3. Start the dev server
 

@@ -14,6 +14,7 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="hero/[id]" options={{ title: 'Hero', headerBackTitle: 'Back' }} />
+          <Stack.Screen name="hero/form" options={{ title: 'Hero', headerBackTitle: 'Back' }} />
         </Stack>
         <StatusBar style="auto" />
       </FavoritesProvider>

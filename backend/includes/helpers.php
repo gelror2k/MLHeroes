@@ -7,8 +7,8 @@
 // ---- Headers + CORS preflight ------------------------------------------
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Admin-Key');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
@@ -40,11 +40,208 @@ function json_error($message, $status = 400)
     exit;
 }
 
-function require_get()
+/** 405 unless the request method is one of $allowed, e.g. array('GET', 'POST'). */
+function require_method($allowed)
 {
-    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    if (!in_array($_SERVER['REQUEST_METHOD'], $allowed, true)) {
+        header('Allow: ' . implode(', ', $allowed));
         json_error('Method not allowed', 405);
     }
+}
+
+function require_get()
+{
+    require_method(array('GET'));
+}
+
+// ---- Write access --------------------------------------------------------
+/**
+ * Writes need the shared admin key from config/database.php, sent as an
+ * X-Admin-Key header. This is deliberately not user auth: one secret, no
+ * accounts. If the key is unset (or still CHANGE_ME) writes are refused.
+ */
+function require_admin_key()
+{
+    db(); // loads config/database.php so ADMIN_KEY is defined
+    if (!defined('ADMIN_KEY') || ADMIN_KEY === '' || ADMIN_KEY === 'CHANGE_ME') {
+        error_log('ADMIN_KEY is not set in config/database.php - write endpoints are disabled');
+        json_error('Editing is disabled on this server', 503);
+    }
+
+    $given = '';
+    if (isset($_SERVER['HTTP_X_ADMIN_KEY'])) {
+        $given = $_SERVER['HTTP_X_ADMIN_KEY'];
+    } elseif (function_exists('getallheaders')) {
+        foreach (getallheaders() as $k => $v) {
+            if (strtolower($k) === 'x-admin-key') {
+                $given = $v;
+                break;
+            }
+        }
+    }
+
+    if ($given === '' || !hash_equals(ADMIN_KEY, (string) $given)) {
+        json_error('Admin key missing or incorrect', 401);
+    }
+}
+
+/** Decode the JSON request body into an array (400 if it is not valid JSON). Falls back to form fields. */
+function read_json_body()
+{
+    $raw = file_get_contents('php://input');
+    if ($raw === false || trim($raw) === '') {
+        return is_array($_POST) ? $_POST : array();
+    }
+    $data = json_decode($raw, true);
+    if (!is_array($data)) {
+        json_error('Request body must be a JSON object', 400);
+    }
+    return $data;
+}
+
+// ---- Hero input validation -----------------------------------------------
+/**
+ * Normalise "mage , tank" / "Mage|Tank" to "Mage/Tank": parts trimmed, first letter
+ * upper-cased (ucfirst, not ucwords, so "EXP" stays "EXP"), duplicates dropped.
+ * Keeps filters.php from growing a second "marksman" chip next to "Marksman".
+ */
+function normalise_list($value)
+{
+    $out  = array();
+    $seen = array();
+    foreach (split_list($value) as $part) {
+        $key = strtolower($part);
+        if (isset($seen[$key])) {
+            continue;
+        }
+        $seen[$key] = true;
+        $out[]      = ucfirst($part);
+    }
+    return implode('/', $out);
+}
+
+/**
+ * Validate and clean the hero fields from a request body.
+ * With $partial = true (PUT) only the fields present are checked, so the
+ * caller can merge them over the existing row.
+ * Returns array('values' => array(...), 'errors' => array(...)).
+ */
+function validate_hero_input($input, $partial = false)
+{
+    $values = array();
+    $errors = array();
+    $difficulties = array('easy' => 'Easy', 'medium' => 'Medium', 'hard' => 'Hard');
+
+    $fields = array('name', 'role', 'lane', 'difficulty', 'picture');
+    foreach ($fields as $f) {
+        $present = array_key_exists($f, $input);
+        if (!$present) {
+            if (!$partial) {
+                $errors[] = $f . ' is required';
+            }
+            continue;
+        }
+        $v = is_string($input[$f]) ? trim($input[$f]) : '';
+
+        switch ($f) {
+            case 'name':
+                if ($v === '') {
+                    $errors[] = 'name is required';
+                } elseif (mb_strlen($v) > 255) {
+                    $errors[] = 'name must be 255 characters or fewer';
+                } else {
+                    $values['name'] = $v;
+                }
+                break;
+
+            case 'role':
+            case 'lane':
+                $clean = normalise_list($v);
+                if ($clean === '') {
+                    $errors[] = $f . ' is required';
+                } elseif (mb_strlen($clean) > 255) {
+                    $errors[] = $f . ' must be 255 characters or fewer';
+                } else {
+                    $values[$f] = $clean;
+                }
+                break;
+
+            case 'difficulty':
+                $key = strtolower($v);
+                if (!isset($difficulties[$key])) {
+                    $errors[] = 'difficulty must be Easy, Medium or Hard';
+                } else {
+                    $values['difficulty'] = $difficulties[$key];
+                }
+                break;
+
+            case 'picture':
+                if ($v === '') {
+                    $errors[] = 'picture is required';
+                } elseif (mb_strlen($v) > 1000) {
+                    $errors[] = 'picture must be 1000 characters or fewer';
+                } elseif (!preg_match('#^https?://#i', $v) || filter_var($v, FILTER_VALIDATE_URL) === false) {
+                    $errors[] = 'picture must be a full http:// or https:// image URL';
+                } else {
+                    $values['picture'] = $v;
+                }
+                break;
+        }
+    }
+
+    return array('values' => $values, 'errors' => $errors);
+}
+
+/**
+ * Map each part of a role/lane value onto the spelling already used in the table
+ * ("roam" or "ROAM" -> "Roam") so filters.php never grows a near-duplicate chip.
+ * Parts the table has never seen keep the caller's spelling.
+ * $column is whitelisted to role/lane before it touches the SQL string.
+ */
+function canonicalise_list($pdo, $column, $value)
+{
+    if ($column !== 'role' && $column !== 'lane') {
+        return $value;
+    }
+    $known = array();
+    foreach ($pdo->query('SELECT ' . $column . ' FROM mobile_legends_heroes')->fetchAll() as $r) {
+        foreach (split_list($r[$column]) as $p) {
+            $k = strtolower($p);
+            if (!isset($known[$k])) {
+                $known[$k] = $p;
+            }
+        }
+    }
+    $out = array();
+    foreach (split_list($value) as $p) {
+        $k     = strtolower($p);
+        $out[] = isset($known[$k]) ? $known[$k] : $p;
+    }
+    return implode('/', $out);
+}
+
+/** Fetch one raw hero row by id, or null. Caller handles the 404. */
+function fetch_hero_row($pdo, $id)
+{
+    $stmt = $pdo->prepare(
+        'SELECT hero_id, name, role, lane, difficulty, picture
+           FROM mobile_legends_heroes
+          WHERE hero_id = :id
+          LIMIT 1'
+    );
+    $stmt->execute(array(':id' => (int) $id));
+    $row = $stmt->fetch();
+    return $row ? $row : null;
+}
+
+/** True if another hero (not $except_id) already uses this name, case-insensitively. */
+function hero_name_taken($pdo, $name, $except_id = 0)
+{
+    $stmt = $pdo->prepare(
+        'SELECT COUNT(*) AS n FROM mobile_legends_heroes WHERE LOWER(name) = LOWER(:name) AND hero_id <> :id'
+    );
+    $stmt->execute(array(':name' => $name, ':id' => (int) $except_id));
+    return (int) $stmt->fetch()['n'] > 0;
 }
 
 // ---- Database ------------------------------------------------------------

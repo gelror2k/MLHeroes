@@ -47,6 +47,15 @@ export interface Filters {
   difficulties: string[];
 }
 
+/** Fields the API accepts when creating or updating a hero. */
+export interface HeroInput {
+  name: string;
+  role: string; // "Mage/Tank" style, same as the column
+  lane: string;
+  difficulty: string;
+  picture: string;
+}
+
 /** Query parameters accepted by /api/heroes.php. All optional. */
 export interface HeroQuery {
   search?: string;
