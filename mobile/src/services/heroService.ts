@@ -1,6 +1,7 @@
 import { adminHeaders, api } from '@/api/client';
+import bundledSkills from '@/data/hero-skills.json';
 import { heroEvents } from '@/services/hero-events';
-import type { ApiResponse, Filters, Hero, HeroInput, HeroQuery } from '@/types/hero';
+import type { ApiResponse, Filters, Hero, HeroInput, HeroQuery, Skill } from '@/types/hero';
 
 /**
  * All API calls live here. Components and hooks call these; nothing else touches Axios.
@@ -21,9 +22,26 @@ export async function getHeroes(query: HeroQuery = {}): Promise<ApiResponse<Hero
   return res.data;
 }
 
+/**
+ * Skills shipped with the app, keyed by hero name: the same rows as database/seed_skills.sql.
+ * hero.php returns `skills: []` until that file has been run on the server (or for a hero
+ * nobody entered skills for), and this fills the gap so the profile is never empty.
+ * Rows from the API always win when present.
+ */
+type BundledSkill = Omit<Skill, 'skill_id'>;
+const BUNDLED_SKILLS = bundledSkills as Record<string, BundledSkill[]>;
+
+function withBundledSkills(hero: Hero): Hero {
+  if (hero.skills && hero.skills.length > 0) return hero;
+  const rows = BUNDLED_SKILLS[hero.name];
+  if (!rows) return hero;
+  // Negative ids so they can never collide with real hero_skills rows.
+  return { ...hero, skills: rows.map((row, i) => ({ ...row, skill_id: -(i + 1) })) };
+}
+
 export async function getHero(id: number): Promise<ApiResponse<Hero>> {
   const res = await api.get<ApiResponse<Hero>>('/hero.php', { params: { id } });
-  return res.data;
+  return { ...res.data, data: withBundledSkills(res.data.data) };
 }
 
 export async function getFilters(): Promise<ApiResponse<Filters>> {

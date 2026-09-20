@@ -124,6 +124,9 @@ function normalise_list($value)
  * Validate and clean the hero fields from a request body.
  * With $partial = true (PUT) only the fields present are checked, so the
  * caller can merge them over the existing row.
+ * picture is optional: absent on create, or sent as "", stores "" (no portrait
+ * link). The app shows a monogram tile for those. When a value is given it
+ * must still be a full http(s) URL, never image data.
  * Returns array('values' => array(...), 'errors' => array(...)).
  */
 function validate_hero_input($input, $partial = false)
@@ -136,7 +139,11 @@ function validate_hero_input($input, $partial = false)
     foreach ($fields as $f) {
         $present = array_key_exists($f, $input);
         if (!$present) {
-            if (!$partial) {
+            if ($f === 'picture') {
+                if (!$partial) {
+                    $values['picture'] = '';
+                }
+            } elseif (!$partial) {
                 $errors[] = $f . ' is required';
             }
             continue;
@@ -177,7 +184,7 @@ function validate_hero_input($input, $partial = false)
 
             case 'picture':
                 if ($v === '') {
-                    $errors[] = 'picture is required';
+                    $values['picture'] = ''; // remove the portrait link
                 } elseif (mb_strlen($v) > 1000) {
                     $errors[] = 'picture must be 1000 characters or fewer';
                 } elseif (!preg_match('#^https?://#i', $v) || filter_var($v, FILTER_VALIDATE_URL) === false) {

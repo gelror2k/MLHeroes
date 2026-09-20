@@ -14,7 +14,7 @@ Solo student project. Prefer the simplest thing that works over the most correct
 |-------|--------|-------|
 | App | Expo SDK 57 + React Native 0.86 + TypeScript | Expo Router for navigation |
 | HTTP | Axios | Base URL from `process.env.EXPO_PUBLIC_API_URL` |
-| Local storage | AsyncStorage | Favorites and response caching |
+| Local storage | AsyncStorage + expo-file-system | Favorites, response caching, device-local hero photos |
 | Backend | PHP 7+ with PDO | No framework, no Composer |
 | Database | MySQL 8, `gabcas7_gelodb` | Managed through phpMyAdmin |
 | Hosting | Freehostia (shared) | Domain `gelror.duckdns.org`, web root `/www/gelror.duckdns.org/` |
@@ -36,13 +36,13 @@ MLHeroes/
 │       │   │   ├── heroes.tsx   # Hero list + filters + search
 │       │   │   ├── favorites.tsx
 │       │   │   └── manage.tsx   # Admin record list with edit/delete
-│       │   ├── about.tsx        # Reached from the Home header
-│       │   ├── hero/[id].tsx    # Hero detail
+│       │   ├── hero/[id].tsx    # Hero profile: full-width picture, overview, skills with icons
 │       │   └── hero/form.tsx    # Create / edit
 │       ├── api/client.ts        # Axios instance + getErrorMessage()
-│       ├── services/            # heroService.ts (API calls), storage.ts (AsyncStorage JSON helper)
+│       ├── data/hero-skills.json # bundled skills (same rows as database/seed_skills.sql), fallback when hero.php has none
+│       ├── services/            # heroService.ts (API calls), storage.ts (AsyncStorage JSON helper), portraits.ts (device photo files)
 │       ├── types/hero.ts
-│       ├── hooks/               # use-heroes, use-hero, use-filters, use-dashboard, use-favorites (context), use-debounced-value
+│       ├── hooks/               # use-heroes, use-hero, use-filters, use-dashboard, use-favorites (context), use-portraits (context), use-debounced-value
 │       ├── components/          # screen, screen-header, icon-button, button, chip, section-card, stat-tile, hero-card,
 │       │                        # hero-portrait, filter-bar, search-input, text-field, confirm-dialog, toast, role-ring, …
 │       └── constants/           # theme.ts (Palette, Fonts, Spacing, Radius), roleColors.ts
@@ -51,8 +51,10 @@ MLHeroes/
 │   ├── config/                  # config.sample.php ONLY in Git
 │   └── includes/helpers.php
 ├── database/
-│   ├── mobile_legends_heroes.sql
-│   └── upgrade.sql
+│   ├── mobile_legends_heroes.sql   # phpMyAdmin export of the hero table
+│   ├── seed_heroes.sql             # the 133 heroes, without ids
+│   ├── upgrade.sql                 # creates hero_skills
+│   └── seed_skills.sql             # 532 skill rows, hero_id looked up by name
 └── docs/
     ├── PROJECT_PLAN.md
     └── postman/
@@ -90,23 +92,27 @@ mobile_legends_heroes
   role        VARCHAR(255) NOT NULL   -- "Mage" or "Mage/Tank"
   lane        VARCHAR(255) NOT NULL   -- "Mid" or "Gold/EXP"
   difficulty  VARCHAR(255) NOT NULL   -- "Easy" | "Medium" | "Hard"
-  picture     VARCHAR(1000) NOT NULL  -- full https:// image URL
+  picture     VARCHAR(1000) NOT NULL  -- full https:// image URL, or '' for no portrait link
 ```
 
-Optional, may not exist yet — code must tolerate its absence:
+**Exists on the live DB since 2026-09-20** (created and filled by `database/seed_skills.sql`; 532 rows, verified through the API for all 133 heroes). Code must still tolerate its absence (`hero.php` returns `skills: []` when the table is missing):
 
 ```sql
 hero_skills
-  skill_id, hero_id (FK), slot ENUM('passive','skill1','skill2','ultimate'),
-  name, description, cooldown, mana_cost, icon_url
+  skill_id, hero_id (FK, ON DELETE CASCADE), slot ENUM('passive','skill1','skill2','ultimate'),
+  name VARCHAR(80), description TEXT, cooldown VARCHAR(40), mana_cost VARCHAR(40), icon_url VARCHAR(500)
+  UNIQUE (hero_id, slot)
 ```
+
+Skill rows (`database/seed_skills.sql`, self-contained and re-runnable via `REPLACE INTO`): `name`, `cooldown`, `mana_cost` and `icon_url` come from the Mobile Legends fandom wiki's `{{Ability}}` blocks and icon files (read through its MediaWiki API on 2026-09-20; every URL checked to serve an image); `description` is a short original summary (rule 6). Cooldown/mana are stored as "level 1-max", e.g. `12.0-8.0`. Hirara, Julian and Suyou have no ultimate, so their third/combo skill sits in the `ultimate` slot.
 
 The same database contains a `students` table from an unrelated project. **Never query, alter, or reference it.**
 
 ### Data conventions
 - Multiple roles/lanes are separated by `/`. The API splits on `/`, `,` and `|`.
 - `difficulty` is one of exactly `Easy`, `Medium`, `Hard`.
-- `picture` holds a URL. Never store image binaries in the database or on the host.
+- `picture` holds a URL or `''`. Never store image binaries in the database or on the host. Photos picked in the app stay on that device (see the portrait rule under TypeScript / React Native).
+- **Image links point at the Mobile Legends fandom wiki CDN** (`static.wikia.nocookie.net/mobile-legends/images/...`): hero `picture` = the wiki's `HeroNNN-portrait.png` (240×390), skill `icon_url` = the wiki's `<Skill name>.png` (100×100). Resolve new ones through the wiki's MediaWiki API (`api.php?action=query&titles=File:<name>.png&prop=imageinfo&iiprop=url`), never by guessing paths. The CDN sits behind Cloudflare: a burst of ~90 requests/5 s from one IP triggered a temporary "Just a moment" challenge (HTTP 403 HTML), so scripts that touch it must pace requests (≈1/s) and the app relies on expo-image's disk cache. `HeroPortrait` crops from the top because the portraits are tall.
 
 ## API contract
 
@@ -126,13 +132,13 @@ Errors: `success: false`, plain-language `message`, `data: null`, correct HTTP s
 | `GET /api/hero.php` | `id` (required, digits only) | One hero + `skills[]` |
 | `GET /api/filters.php` | — | `{ roles[], lanes[], difficulties[] }` distinct from the table |
 | `GET /api/health.php` | — | `{ database, table, heroes, php }` — connection check, open this first after upload |
-| `POST /api/heroes.php` 🔑 | JSON body `{ name, role, lane, difficulty, picture }` | 201 + the new hero. 400 validation, 409 duplicate name |
-| `PUT /api/hero.php?id=N` 🔑 | JSON body with any subset of the five fields | 200 + updated hero. Omitted fields keep their value |
+| `POST /api/heroes.php` 🔑 | JSON body `{ name, role, lane, difficulty, picture? }` | 201 + the new hero. 400 validation, 409 duplicate name |
+| `PUT /api/hero.php?id=N` 🔑 | JSON body with any subset of the five fields | 200 + updated hero. Omitted fields keep their value; `picture: ""` removes the link |
 | `DELETE /api/hero.php?id=N` 🔑 | — | 200 + `{ hero_id }`. Also deletes the hero's `hero_skills` rows if that table exists |
 
 🔑 = requires header `X-Admin-Key: <ADMIN_KEY>`. `ADMIN_KEY` lives in `config/database.php` (git-ignored; sample has `CHANGE_ME`) and the app sends it from `EXPO_PUBLIC_ADMIN_KEY` in `mobile/.env`. Missing/wrong key → 401. Key unset on the server → 503 and all writes are off. This is one shared secret, not user auth; it exists only so a public URL can't be used to wipe the table. The app hides add/edit/delete controls when `EXPO_PUBLIC_ADMIN_KEY` is empty.
 
-Write validation (`validate_hero_input()` in helpers): `name` 1–255 chars, unique case-insensitively; `role`/`lane` non-empty, normalised to `Part/Part` with `ucfirst` on each part and case-insensitive de-dupe; `difficulty` must be Easy/Medium/Hard (any case in, canonical out); `picture` must be a full `http(s)://` URL ≤ 1000 chars.
+Write validation (`validate_hero_input()` in helpers): `name` 1–255 chars, unique case-insensitively; `role`/`lane` non-empty, normalised to `Part/Part` with `ucfirst` on each part and case-insensitive de-dupe; `difficulty` must be Easy/Medium/Hard (any case in, canonical out); `picture` is optional — omitted or `""` stores `''`, otherwise it must be a full `http(s)://` URL ≤ 1000 chars (`data:` URIs are rejected).
 
 Hero objects include both the raw column and a pre-split array, so the client never parses strings:
 
@@ -162,6 +168,8 @@ Hero objects include both the raw column and a pre-split array, so the client ne
 - `FlatList` for the hero list, never `ScrollView` + `.map()`.
 - Every screen handles three states: loading, error with retry, empty.
 - `expo-image` for portraits, with an onError fallback — `picture` URLs are external and may be dead or hotlink-blocked.
+- **Bundled skills fallback.** `services/heroService.ts` `getHero()` fills `skills` from `data/hero-skills.json` (keyed by hero name, negative `skill_id`s) whenever `hero.php` returns none, so profiles work before `seed_skills.sql` has been run on the server. API rows always win. The JSON and the SQL are generated from the same dataset — change both together or the app and DB drift.
+- **Hero photos are device-local.** The form has no URL field; the user picks a photo from the gallery (`expo-image-picker`, gallery only, no camera) and it is copied into the app's document directory by `services/portraits.ts`, indexed `hero_id → file name` in AsyncStorage and served through the `PortraitsProvider` context. `HeroPortrait` resolves device photo → `picture` URL → monogram. "Remove" clears the device photo and sends `picture: ""`. Photos are never uploaded, so another device sees the URL or the monogram. Never add win rates, tiers or other stats the schema doesn't have.
 - Colour-code roles from `constants/roleColors.ts`. One colour per role, used consistently.
 - Keep API calls in `src/services/`, not inside components.
 - **Design system ("MetaDex" look, dark only).** All colours come from `Palette` in `constants/theme.ts`, all text goes through `ThemedText` variants (Chakra Petch for display/numbers, Manrope for body — loaded with `useFonts` in the root layout; set weight by picking the family from `Fonts`, never via `fontWeight`). Icons are Feather from `@expo/vector-icons`. Screens draw their own header (`ScreenHeader`) inside `<Screen>`; native headers are off. 44px minimum touch targets.
@@ -193,11 +201,14 @@ item builds (`items`, `builds`, `build_items`), counters (`hero_counters`), user
 
 ## Current status
 
-- Database and table: created and seeded with 20 heroes (`database/seed_heroes.sql`); full export in `database/mobile_legends_heroes.sql`. `picture` URLs are `placehold.co` placeholders until real artwork links are entered.
+- Database and table: created and holds **133 heroes** (20 seeded 2026-09-19, 113 more inserted through phpMyAdmin 2026-09-20; `hero_id` 3–139, 6 roles / 5 lanes, spellings consistent). `database/seed_heroes.sql` and the export `database/mobile_legends_heroes.sql` were regenerated from the live API the same day, so either rebuilds the table. `picture` URLs are the wiki portraits (no placeholders left since 2026-09-20). The app needs no change for roster size: `getAllHeroes()` pages at 50 (3 requests for 133).
 - `backend/` PHP files: **live on Freehostia** at `http://gelror.duckdns.org/api/` (PHP 7.4.33, MySQL 8.4). Verified 2026-09-19: `health.php` reports `database: connected`; `filters.php` / `heroes.php` return correct empty envelopes; `hero.php` returns 404 for a missing id and 400 for a non-numeric one.
 - The server web root also holds older files not in this repo: `.htaccess`, `auth.php`, `connection.php`, `mobile_legends_heroes.php`, `student.php`. `student.php` and `connection.php` belong to the unrelated students project — leave them alone. The `.htaccess` rewrites only touch `mobile_legends_heroes*` URLs and don't affect `api/`.
 - Expo project: **all MVP screens written** (F1–F7) and **restyled to the MetaDex design (2026-09-19)**: tabs Home / Heroes / Saved / Manage(admin), Home dashboard computed client-side from the whole roster (`getAllHeroes()` pages through `per_page=50`; no new endpoint), two-column FlatList with skeleton loading, infinite scroll and pull-to-refresh, role chips + collapsible lane/difficulty rows from `filters.php`, debounced search, hero detail with overview + difficulty meter + skills and a sticky action bar, custom delete confirmation dialog + toast, device-local favorites (bookmark icon) via a context provider, filters / first page / full roster cached in AsyncStorage for offline fallback. Win rate, tiers, attribute radar and Compare from the design were **not** built — they need data the schema doesn't have. `npm run typecheck`, `expo lint` and `expo export -p android` are clean. `mobile/.env` exists (git-ignored) with `EXPO_PUBLIC_API_URL=http://gelror.duckdns.org/api`. **Not yet run on a device.**
+- **Home / profile (2026-09-20)**: the About screen and the "Live data" / "Updated HH:MM" pills were removed from Home (an "Offline · cached" pill still appears only when the roster came from cache). The hero profile now opens with a full-width hero picture (device photo → `picture` URL → monogram) and lists skills with their `icon_url` image (slot badge as fallback), slot label, name, summary and cooldown/mana when present.
+- **Real images (2026-09-20)**: all 133 `picture` values on the live DB were replaced with the wiki portraits through `PUT hero.php` (placeholders gone). `database/seed_skills.sql` (532 rows, wiki names/cooldowns/mana/icons, original summaries) was run in phpMyAdmin the same day: `hero.php` now returns 4 skills for every hero, and the bundled copy (`mobile/src/data/hero-skills.json`) only kicks in for a hero with no rows. 86 of the skill names first written from memory were wrong (revamped heroes: Alice, Grock, Kimmy, Masha, Johnson, Kaja, Helcurt, Aurora, Phoveus…) and were corrected against the wiki — don't trust memory for skill names, query the wiki.
+- **Portraits (2026-09-20)**: the Picture URL field was removed from the form. Users pick a gallery photo (device-local, see the TypeScript rules) or remove the portrait; `picture` is optional on the API (validator unit-tested locally, 13 cases). **Deployed to Freehostia and verified live 2026-09-20**: POST without `picture` → 201 with `""`, PUT `picture: ""` clears, bad URL → 400, create → update → delete round-trip clean. Picker not yet exercised on a device.
 - **CRUD**: `POST heroes.php`, `PUT`/`DELETE hero.php` written and lint-clean; validation unit-tested locally. App has an Add/Edit form (`hero/form.tsx`), a Manage tab (record list with Edit/Delete per row, "+" header button and sticky Add button), and edit/delete on the detail screen, all gated on `EXPO_PUBLIC_ADMIN_KEY`. A matching random `ADMIN_KEY` was written to the local `database.php` and `mobile/.env` on 2026-09-19. **Deployed and verified live** the same day: 25-check regression (all methods, 401/400/404/405/409 paths, create → update → delete) passes; role/lane spelling is canonicalised against existing data. App-side CRUD flow not yet exercised on a device.
 - Postman collection: not started
 
-Next: `cd mobile && npx expo start`, open in Expo Go on a phone, confirm the list loads from the live API (this is also the test of whether Expo Go accepts the `http://` URL). Then replace placeholder portraits with real image URLs, then Postman collection, then EAS APK (needs `expo-build-properties` with `android.usesCleartextTraffic: true`).
+Next: `cd mobile && npx expo start`, open in Expo Go — list, portraits and profile skills all work from the live API + bundled fallback. Backend and skills table are deployed; no server chores left. Then `cd mobile && npx expo start`, open in Expo Go on a phone, confirm the list loads from the live API (this is also the test of whether Expo Go accepts the `http://` URL) and try Choose photo / Remove on the form. Then Postman collection, then EAS APK (needs `expo-build-properties` with `android.usesCleartextTraffic: true`).

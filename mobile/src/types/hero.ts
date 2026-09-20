@@ -37,7 +37,7 @@ export interface Hero {
   lane: string;
   lanes: string[];
   difficulty: string; // "Easy" | "Medium" | "Hard" by convention, but typed loosely on purpose
-  picture: string;
+  picture: string; // image URL, or "" when the hero has no portrait link
   skills?: Skill[]; // only present from /api/hero.php
 }
 
@@ -53,7 +53,7 @@ export interface HeroInput {
   role: string; // "Mage/Tank" style, same as the column
   lane: string;
   difficulty: string;
-  picture: string;
+  picture: string; // "" removes the portrait link; a photo picked in the app never goes here
 }
 
 /** Query parameters accepted by /api/heroes.php. All optional. */

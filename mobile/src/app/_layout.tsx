@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { ToastProvider } from '@/components/toast';
 import { Palette } from '@/constants/theme';
 import { FavoritesProvider } from '@/hooks/use-favorites';
+import { PortraitsProvider } from '@/hooks/use-portraits';
 
 // Hold the splash until the two typefaces are ready so text never flashes in a system font.
 SplashScreen.preventAutoHideAsync();
@@ -27,7 +28,7 @@ const NavigationTheme = {
   },
 };
 
-/** Root stack: the tab group, plus hero detail, the hero form and About pushed on top of it. */
+/** Root stack: the tab group, plus hero detail and the hero form pushed on top of it. */
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
     ChakraPetch_500Medium,
@@ -48,19 +49,20 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={NavigationTheme}>
       <FavoritesProvider>
-        <ToastProvider>
-          <Stack
-            screenOptions={{
-              headerShown: false, // every screen draws its own header from the design
-              contentStyle: { backgroundColor: Palette.background },
-            }}>
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="hero/[id]" />
-            <Stack.Screen name="hero/form" />
-            <Stack.Screen name="about" />
-          </Stack>
-          <StatusBar style="light" />
-        </ToastProvider>
+        <PortraitsProvider>
+          <ToastProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false, // every screen draws its own header from the design
+                contentStyle: { backgroundColor: Palette.background },
+              }}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="hero/[id]" />
+              <Stack.Screen name="hero/form" />
+            </Stack>
+            <StatusBar style="light" />
+          </ToastProvider>
+        </PortraitsProvider>
       </FavoritesProvider>
     </ThemeProvider>
   );

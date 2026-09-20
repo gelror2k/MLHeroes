@@ -1,0 +1,4524 @@
+{
+ "Layla": [
+  {
+   "slot": "passive",
+   "name": "Malefic Gun",
+   "description": "Her shots hit harder the farther the target is from her.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Malefic_Gun_-_Layla.png/revision/latest?cb=20220613134225"
+  },
+  {
+   "slot": "skill1",
+   "name": "Malefic Bomb",
+   "description": "Fires an energy shot that damages the first enemy hit and extends her next attack's reach.",
+   "cooldown": "6.0-4.0",
+   "mana_cost": "40-65",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ee/Malefic_Bomb.png/revision/latest?cb=20220613134304"
+  },
+  {
+   "slot": "skill2",
+   "name": "Void Projectile",
+   "description": "Lobs a blast that slows the target and splashes damage onto enemies nearby.",
+   "cooldown": "7.5-6.5",
+   "mana_cost": "65-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b8/Void_Projectile.png/revision/latest?cb=20220613134332"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Destruction Rush",
+   "description": "Unleashes a long-range beam that pierces everything in a straight line.",
+   "cooldown": "37.0-27.0",
+   "mana_cost": "130-170",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5e/Destruction_Rush.png/revision/latest?cb=20220613134348"
+  }
+ ],
+ "Miya": [
+  {
+   "slot": "passive",
+   "name": "Moon Blessing",
+   "description": "Each attack on a target stacks attack speed; at full stacks her arrows split to hit extra targets.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d8/Moon_Blessing.png/revision/latest?cb=20220302071911"
+  },
+  {
+   "slot": "skill1",
+   "name": "Moon Arrow",
+   "description": "Her next attacks fire additional arrows that also strike nearby enemies.",
+   "cooldown": "11.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0e/Moon_Arrow.png/revision/latest?cb=20220302071842"
+  },
+  {
+   "slot": "skill2",
+   "name": "Arrow of Eclipse",
+   "description": "Rains arrows on an area, damaging and slowing enemies inside, then slowing them further on repeat hits.",
+   "cooldown": "8.0",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/73/Arrow_of_Eclipse.png/revision/latest?cb=20220302071714"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Hidden Moonlight",
+   "description": "Clears debuffs, turns invisible briefly and gains a burst of movement and attack speed.",
+   "cooldown": "30.0-20.0",
+   "mana_cost": "120-170",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ec/Hidden_Moonlight.png/revision/latest?cb=20220302071615"
+  }
+ ],
+ "Tigreal": [
+  {
+   "slot": "passive",
+   "name": "Fearless",
+   "description": "Taking hits builds stacks that reduce the damage of the next enemy skill.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/02/Fearless.png/revision/latest?cb=20250918045822"
+  },
+  {
+   "slot": "skill1",
+   "name": "Attack Wave",
+   "description": "Slams the ground in a line, damaging and slowing enemies in front of him.",
+   "cooldown": "7.0-4.0",
+   "mana_cost": "45",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/96/Attack_Wave.png/revision/latest?cb=20250918045844"
+  },
+  {
+   "slot": "skill2",
+   "name": "Sacred Hammer",
+   "description": "Charges forward and then swings his hammer to knock enemies up and toss them behind him.",
+   "cooldown": "12.5-10.0",
+   "mana_cost": "70",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3b/Sacred_Hammer.png/revision/latest?cb=20250918045909"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Implosion",
+   "description": "Drags nearby enemies toward himself and stuns them.",
+   "cooldown": "45.0-37.0",
+   "mana_cost": "120-160",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0e/Implosion.png/revision/latest?cb=20250918045911"
+  }
+ ],
+ "Eudora": [
+  {
+   "slot": "passive",
+   "name": "Superconductor",
+   "description": "Her skills leave a mark that makes her next skill on that target deal extra damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a7/Superconductor.png/revision/latest?cb=20260129103510"
+  },
+  {
+   "slot": "skill1",
+   "name": "Forked Lightning",
+   "description": "Fires a fan of lightning that damages every enemy in the cone.",
+   "cooldown": "7.0-5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e6/Forked_Lightning.png/revision/latest?cb=20260129103509"
+  },
+  {
+   "slot": "skill2",
+   "name": "Ball Lightning",
+   "description": "Hurls a lightning orb at one enemy, damaging them and cutting their defense.",
+   "cooldown": "11.0-8.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d7/Ball_Lightning.png/revision/latest?cb=20260129103506"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Thunder's Wrath",
+   "description": "Calls a lightning blast on an area, hitting hardest at the center and bursting on marked targets.",
+   "cooldown": "32.0-26.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f9/Thunder%27s_Wrath.png/revision/latest?cb=20260129103512"
+  }
+ ],
+ "Zilong": [
+  {
+   "slot": "passive",
+   "name": "Dragon Flurry",
+   "description": "After three hits his next basic attack strikes three times and heals him.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a8/Dragon_Flurry.png/revision/latest?cb=20210903165112"
+  },
+  {
+   "slot": "skill1",
+   "name": "Spear Flip",
+   "description": "Grabs an enemy and flips them over his shoulder, tossing them behind him.",
+   "cooldown": "12.0-9.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c2/Spear_Flip.png/revision/latest?cb=20210903165308"
+  },
+  {
+   "slot": "skill2",
+   "name": "Spear Strike",
+   "description": "Dashes at a target with a rapid series of spear thrusts.",
+   "cooldown": "12.0-9.0",
+   "mana_cost": "40",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b6/Spear_Strike.png/revision/latest?cb=20210903165358"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Supreme Warrior",
+   "description": "Boosts movement and attack speed and becomes immune to slows for a while.",
+   "cooldown": "35.0-27.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b0/Supreme_Warrior.png/revision/latest?cb=20210903165435"
+  }
+ ],
+ "Balmond": [
+  {
+   "slot": "passive",
+   "name": "Bloodthirst",
+   "description": "Killing a minion or hero restores a chunk of his HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/34/Bloodthirst.png/revision/latest?cb=20220624121727"
+  },
+  {
+   "slot": "skill1",
+   "name": "Soul Lock",
+   "description": "Charges forward and stops at the first enemy hero hit, slowing them.",
+   "cooldown": "8.0-5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/dd/Soul_Lock.png/revision/latest?cb=20220624121809"
+  },
+  {
+   "slot": "skill2",
+   "name": "Cyclone Sweep",
+   "description": "Spins his axe to repeatedly damage everything around him.",
+   "cooldown": "6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/db/Cyclone_Sweep.png/revision/latest?cb=20220624121821"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Lethal Counter",
+   "description": "Smashes the ground with a blow that deals more damage the less HP the target has.",
+   "cooldown": "34.0-24.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/50/Lethal_Counter.png/revision/latest?cb=20220624121847"
+  }
+ ],
+ "Nana": [
+  {
+   "slot": "passive",
+   "name": "Molina's Gift",
+   "description": "When hit hard she briefly becomes untargetable and drops a Molina that slows enemies.",
+   "cooldown": "150.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/61/Molina%27s_Gift.png/revision/latest?cb=20210924002747"
+  },
+  {
+   "slot": "skill1",
+   "name": "Magic Boomerang",
+   "description": "Throws a boomerang that damages enemies on the way out and back.",
+   "cooldown": "5.5-4.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ea/Magic_Boomerang.png/revision/latest?cb=20210924003015"
+  },
+  {
+   "slot": "skill2",
+   "name": "Molina Smooch",
+   "description": "Sends a Molina that turns the enemy hit into a harmless creature for a moment.",
+   "cooldown": "14.5-12.0",
+   "mana_cost": "80-105",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0e/Molina_Smooch.png/revision/latest?cb=20210924002930"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Molina Blitz",
+   "description": "Summons three Molina attacks in an area that damage and slow enemies.",
+   "cooldown": "36.0-28.0",
+   "mana_cost": "135-165",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d1/Molina_Blitz.png/revision/latest?cb=20210924002855"
+  }
+ ],
+ "Estes": [
+  {
+   "slot": "passive",
+   "name": "Scripture of the Moon Elf",
+   "description": "Every few attacks his basic attack heals himself and slows the target.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b7/Scripture_of_the_Moon_Elf.png/revision/latest?cb=20220404063820"
+  },
+  {
+   "slot": "skill1",
+   "name": "Moonlight Immersion",
+   "description": "Links to an ally and heals them over time while they stay close.",
+   "cooldown": "11.0-7.0",
+   "mana_cost": "110-210",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2b/Moonlight_Immersion.png/revision/latest?cb=20220404063857"
+  },
+  {
+   "slot": "skill2",
+   "name": "Domain of Moon Goddess",
+   "description": "Creates a field that damages and slows enemies passing through it.",
+   "cooldown": "12.0-9.5",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2f/Domain_of_Moon_Goddess.png/revision/latest?cb=20220404064002"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Blessing of Moon Goddess",
+   "description": "Heals all nearby allies and empowers his healing links for a while.",
+   "cooldown": "55.0-45.0",
+   "mana_cost": "150-350",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/db/Blessing_of_Moon_Goddess.png/revision/latest?cb=20220404064022"
+  }
+ ],
+ "Alucard": [
+  {
+   "slot": "passive",
+   "name": "Pursuit",
+   "description": "After using a skill his next basic attack leaps to the target and strikes harder.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/04/Pursuit.png/revision/latest?cb=20211216232556"
+  },
+  {
+   "slot": "skill1",
+   "name": "Groundsplitter",
+   "description": "Jumps to a spot and slams down, damaging everything around him.",
+   "cooldown": "8.5-6.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2d/Groundsplitter.png/revision/latest?cb=20200718155948"
+  },
+  {
+   "slot": "skill2",
+   "name": "Whirling Smash",
+   "description": "Spins his blade to hit surrounding enemies, healing based on damage dealt.",
+   "cooldown": "6.0-4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1d/Whirling_Smash.png/revision/latest?cb=20211216232613"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Fission Wave",
+   "description": "Sends a slashing wave forward and gains extra lifesteal for a short time.",
+   "cooldown": "40.0-30.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a0/Fission_Wave.png/revision/latest?cb=20211216232655"
+  }
+ ],
+ "Franco": [
+  {
+   "slot": "passive",
+   "name": "Wasteland Force",
+   "description": "Regains HP and moves faster while he stays out of combat.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ac/Wasteland_Force.png/revision/latest?cb=20211208235145"
+  },
+  {
+   "slot": "skill1",
+   "name": "Iron Hook",
+   "description": "Throws a hook that drags the first enemy hit back to him.",
+   "cooldown": "15.0-11.0",
+   "mana_cost": "135-160",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a4/Iron_Hook.png/revision/latest?cb=20211208235153"
+  },
+  {
+   "slot": "skill2",
+   "name": "Fury Shock",
+   "description": "Slams the ground to damage and slow enemies around him.",
+   "cooldown": "7.0-4.5",
+   "mana_cost": "40-65",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/06/Fury_Shock.png/revision/latest?cb=20211208235201"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Bloody Hunt",
+   "description": "Locks a target in place with a chain of rapid strikes.",
+   "cooldown": "62.0-45.0",
+   "mana_cost": "110-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0d/Bloody_Hunt.png/revision/latest?cb=20211208235209"
+  }
+ ],
+ "Saber": [
+  {
+   "slot": "passive",
+   "name": "Enemy's Bane",
+   "description": "His attacks reduce the target's physical defense with stacking hits.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/20/Enemy%27s_Bane.png/revision/latest?cb=20200718155708"
+  },
+  {
+   "slot": "skill1",
+   "name": "Orbiting Swords",
+   "description": "Summons blades that circle him, then sends them flying at nearby enemies.",
+   "cooldown": "9.0",
+   "mana_cost": "75-125",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d9/Orbiting_Swords.png/revision/latest?cb=20201214101424"
+  },
+  {
+   "slot": "skill2",
+   "name": "Charge",
+   "description": "Dashes forward and damages enemies along the path.",
+   "cooldown": "7.0",
+   "mana_cost": "70-45",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/db/Charge.png/revision/latest?cb=20200718155500"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Triple Sweep",
+   "description": "Knocks a hero into the air and follows with a chain of slashes.",
+   "cooldown": "44.0-36.0",
+   "mana_cost": "100-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0e/Triple_Sweep.png/revision/latest?cb=20200718160427"
+  }
+ ],
+ "Karina": [
+  {
+   "slot": "passive",
+   "name": "Shadow Combo",
+   "description": "Every third hit on the same target deals bonus true damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/94/Shadow_Combo.png/revision/latest?cb=20220220014127"
+  },
+  {
+   "slot": "skill1",
+   "name": "Dance of Blades",
+   "description": "Blocks incoming basic attacks and empowers her next strike to slow and crit.",
+   "cooldown": "7.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9d/Dance_of_Blades.png/revision/latest?cb=20220220014511"
+  },
+  {
+   "slot": "skill2",
+   "name": "Dance of Death",
+   "description": "Spins her twin blades to damage everything around her.",
+   "cooldown": "6.0-4.5",
+   "mana_cost": "60-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6e/Dance_of_Death.png/revision/latest?cb=20210808074021"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Shadow Assault",
+   "description": "Dashes to a target for heavy damage; a kill soon after resets the cooldown.",
+   "cooldown": "34.0-26.0",
+   "mana_cost": "100-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/66/Shadow_Assault.png/revision/latest?cb=20210808074105"
+  }
+ ],
+ "Angela": [
+  {
+   "slot": "passive",
+   "name": "Smart Heart",
+   "description": "Casting skills gives her a temporary burst of movement speed.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7b/Smart_Heart.png/revision/latest?cb=20210816222919"
+  },
+  {
+   "slot": "skill1",
+   "name": "Love Waves",
+   "description": "Fires heart projectiles that heal allies and damage enemies they pass through.",
+   "cooldown": "2.0",
+   "mana_cost": "60-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/88/Love_Waves.png/revision/latest?cb=20210816223021"
+  },
+  {
+   "slot": "skill2",
+   "name": "Puppet-on-a-String",
+   "description": "Tethers an enemy, slowing them and dealing damage while the link holds.",
+   "cooldown": "13.0-10.0",
+   "mana_cost": "90-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a6/Puppet-on-a-String.png/revision/latest?cb=20210816223118"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Heartguard",
+   "description": "Shields an ally and possesses them, letting her cast her skills from inside them.",
+   "cooldown": "60.0",
+   "mana_cost": "100-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a0/Heartguard.png/revision/latest?cb=20210816223245"
+  }
+ ],
+ "Lesley": [
+  {
+   "slot": "passive",
+   "name": "Lethal Shot",
+   "description": "Standing still charges her next shot with extra range and damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f1/Lethal_Shot.png/revision/latest?cb=20220908163801"
+  },
+  {
+   "slot": "skill1",
+   "name": "Master of Camouflage",
+   "description": "Turns invisible and gains movement speed and crit rate.",
+   "cooldown": "5.0-2.0",
+   "mana_cost": "30",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/32/Master_of_Camouflage.png/revision/latest?cb=20220908163809"
+  },
+  {
+   "slot": "skill2",
+   "name": "Tactical Grenade",
+   "description": "Throws a grenade that knocks back enemies and hops her backward.",
+   "cooldown": "10.0-7.0",
+   "mana_cost": "40",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5f/Tactical_Grenade.png/revision/latest?cb=20220908163815"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Ultimate Snipe",
+   "description": "Fires a series of long-range shots that lock onto one target.",
+   "cooldown": "40.0",
+   "mana_cost": "0",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/95/Ultimate_Snipe.png/revision/latest?cb=20220908163825"
+  }
+ ],
+ "Fanny": [
+  {
+   "slot": "passive",
+   "name": "Air Superiority",
+   "description": "Damage dealt while flying builds energy and applies a mark for bonus damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ab/Air_Superiority.png/revision/latest?cb=20211205125003"
+  },
+  {
+   "slot": "skill1",
+   "name": "Tornado Strike",
+   "description": "Spins her blades to damage enemies close to her.",
+   "cooldown": "3.5-2.5",
+   "mana_cost": "12",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/35/Tornado_Strike.png/revision/latest?cb=20211205125011"
+  },
+  {
+   "slot": "skill2",
+   "name": "Steel Cable",
+   "description": "Fires a cable and pulls herself to where it lands, slicing enemies on the way.",
+   "cooldown": "0.0",
+   "mana_cost": "19-14",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/06/Steel_Cable.png/revision/latest?cb=20211205125019"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Cut Throat",
+   "description": "Dives onto a target for burst damage that scales with her marks.",
+   "cooldown": "35.0-25.0",
+   "mana_cost": "12",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/46/Cut_Throat.png/revision/latest?cb=20211205125029"
+  }
+ ],
+ "Gusion": [
+  {
+   "slot": "passive",
+   "name": "Dagger Specialist",
+   "description": "Hitting an enemy with a skill marks them; his next basic attack detonates it.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/56/Dagger_Specialist.png/revision/latest?cb=20220908163637"
+  },
+  {
+   "slot": "skill1",
+   "name": "Sword Spike",
+   "description": "Throws a dagger, then can blink to the marked target.",
+   "cooldown": "9.0-6.0",
+   "mana_cost": "70",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1c/Sword_Spike.png/revision/latest?cb=20220908163717"
+  },
+  {
+   "slot": "skill2",
+   "name": "Shadowblade Slaughter",
+   "description": "Throws a fan of daggers and recalls them for a second wave of damage.",
+   "cooldown": "11.0-9.0",
+   "mana_cost": "65-115",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c8/Shadowblade_Slaughter.png/revision/latest?cb=20220908163704"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Incandescence",
+   "description": "Dashes in a direction and resets his other skills.",
+   "cooldown": "28.0-20.0",
+   "mana_cost": "100-0",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/52/Incandescence.png/revision/latest?cb=20220908163651"
+  }
+ ],
+ "Lancelot": [
+  {
+   "slot": "passive",
+   "name": "Soul Cutter",
+   "description": "Marked targets take extra damage when he lands his skills.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/42/Soul_Cutter.png/revision/latest?cb=20210930072659"
+  },
+  {
+   "slot": "skill1",
+   "name": "Puncture",
+   "description": "Dashes through a target; hitting a new target lets him dash again.",
+   "cooldown": "14.0-12.0",
+   "mana_cost": "50-40",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/35/Puncture.png/revision/latest?cb=20210930072740"
+  },
+  {
+   "slot": "skill2",
+   "name": "Thorned Rose",
+   "description": "Unleashes a flurry of stabs in a cone in front of him.",
+   "cooldown": "10-7.0",
+   "mana_cost": "120-80",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/32/Thorned_Rose.png/revision/latest?cb=20210930072752"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Phantom Execution",
+   "description": "Becomes untargetable and charges forward with a devastating slash.",
+   "cooldown": "27.0-21.0",
+   "mana_cost": "100-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9d/Phantom_Execution.png/revision/latest?cb=20210930072804"
+  }
+ ],
+ "Chou": [
+  {
+   "slot": "passive",
+   "name": "Only Fast",
+   "description": "Every few steps his next basic attack pierces armor and slows.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/02/Only_Fast.png/revision/latest?cb=20210808080206"
+  },
+  {
+   "slot": "skill1",
+   "name": "Jeet Kune Do",
+   "description": "A three-hit combo; the last hit knocks the target into the air.",
+   "cooldown": "9.5-8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/48/Jeet_Kune_Do.png/revision/latest?cb=20210808080309"
+  },
+  {
+   "slot": "skill2",
+   "name": "Shunpo",
+   "description": "Dashes forward, shrugging off crowd control with a shield.",
+   "cooldown": "5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/72/Shunpo.png/revision/latest?cb=20210808080502"
+  },
+  {
+   "slot": "ultimate",
+   "name": "The Way of Dragon",
+   "description": "Kicks an enemy away and can follow up to kick them again.",
+   "cooldown": "34.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/65/The_Way_of_Dragon.png/revision/latest?cb=20210808080412"
+  }
+ ],
+ "Kagura": [
+  {
+   "slot": "passive",
+   "name": "Yin Yang Gathering",
+   "description": "Retrieving her umbrella grants a shield and briefly disables nearby enemies.",
+   "cooldown": "4.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/79/Yin_Yang_Gathering.png/revision/latest?cb=20210930071737"
+  },
+  {
+   "slot": "skill1",
+   "name": "Seimei Umbrella Open",
+   "description": "Sends her umbrella to a spot, damaging and slowing enemies there.",
+   "cooldown": "5.0-3.5",
+   "mana_cost": "50-80",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5d/Seimei_Umbrella_Open.png/revision/latest?cb=20210930071832"
+  },
+  {
+   "slot": "skill2",
+   "name": "Rasho Umbrella Flee",
+   "description": "Blinks a short distance, cleansing debuffs, with a different effect while holding the umbrella.",
+   "cooldown": "12.0-9.5",
+   "mana_cost": "55-80",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/51/Rasho_Umbrella_Flee.png/revision/latest?cb=20210930071843"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Yin Yang Overturn",
+   "description": "Slams the umbrella to knock enemies back or pull them in, depending on where it sits.",
+   "cooldown": "43.0-33.0",
+   "mana_cost": "85-115",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/ce/Yin_Yang_Overturn.png/revision/latest?cb=20210930071853"
+  }
+ ],
+ "Hayabusa": [
+  {
+   "slot": "passive",
+   "name": "Ninjutsu: Trace of Shadow",
+   "description": "Each hit on the same hero stacks up bonus damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f4/Ninjutsu_Trace_of_Shadow.png/revision/latest?cb=20210930072349"
+  },
+  {
+   "slot": "skill1",
+   "name": "Ninjutsu: Phantom Shuriken",
+   "description": "Throws shuriken that slow enemies and steal a little energy.",
+   "cooldown": "4.0",
+   "mana_cost": "30",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/59/Ninjutsu_Phantom_Shuriken.png/revision/latest?cb=20210930072401"
+  },
+  {
+   "slot": "skill2",
+   "name": "Ninjutsu: Quad Shadow",
+   "description": "Casts four shadows he can teleport to for repositioning.",
+   "cooldown": "20.0-16.0",
+   "mana_cost": "25",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c7/Ninjutsu_Quad_Shadow.png/revision/latest?cb=20210930072410"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Ougi: Shadow Kill",
+   "description": "Becomes untargetable and strikes a target repeatedly from the shadows.",
+   "cooldown": "50.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5e/Ougi_Shadow_Kill.png/revision/latest?cb=20210930072425"
+  }
+ ],
+ "Aamon": [
+  {
+   "slot": "passive",
+   "name": "Invisible Armor",
+   "description": "Hitting an enemy lets him vanish and gain speed while regaining HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0b/Invisible_Armor.png/revision/latest?cb=20211203045614"
+  },
+  {
+   "slot": "skill1",
+   "name": "Soul Shards",
+   "description": "Skills and hits charge his armor; when full, his next attack throws shards that scatter and keep striking.",
+   "cooldown": "9.0-6.5",
+   "mana_cost": "60-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e3/Soul_Shards.png/revision/latest?cb=20211203045706"
+  },
+  {
+   "slot": "skill2",
+   "name": "Slayer Shards",
+   "description": "Sends shards that scatter and return to him, damaging enemies on both paths.",
+   "cooldown": "15.0-12.5",
+   "mana_cost": "110-80",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/52/Slayer_Shards.png/revision/latest?cb=20211203045819"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Endless Shards",
+   "description": "Rains shards on a target for damage that grows with their missing HP.",
+   "cooldown": "46.0-38.0",
+   "mana_cost": "150-190",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/37/Endless_Shards.png/revision/latest?cb=20211203045950"
+  }
+ ],
+ "Akai": [
+  {
+   "slot": "passive",
+   "name": "Tai Chi",
+   "description": "Every skill cast grants a shield based on his max HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f6/Tai_Chi.png/revision/latest?cb=20220807024925"
+  },
+  {
+   "slot": "skill1",
+   "name": "Headbutt",
+   "description": "Charges forward and knocks the first enemy hero hit into the air.",
+   "cooldown": "13.0-10.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1a/Headbutt.png/revision/latest?cb=20220807024902"
+  },
+  {
+   "slot": "skill2",
+   "name": "Body Slam",
+   "description": "Belly-flops onto the ground to damage and slow enemies nearby.",
+   "cooldown": "7.0-5.5",
+   "mana_cost": "70-95",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2c/Body_Slam.png/revision/latest?cb=20220807024854"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Heavy Spin",
+   "description": "Spins for several seconds, pushing enemies around and shrugging off slows.",
+   "cooldown": "40.0-32.0",
+   "mana_cost": "120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d1/Heavy_Spin.png/revision/latest?cb=20220807024909"
+  }
+ ],
+ "Aldous": [
+  {
+   "slot": "passive",
+   "name": "Contract: Transform",
+   "description": "Casting a skill grants him a shield.",
+   "cooldown": "5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8c/Contract_Transform.png/revision/latest?cb=20220201144120"
+  },
+  {
+   "slot": "skill1",
+   "name": "Contract: Soul Steal",
+   "description": "His next attack hits harder and stores permanent stacks when it kills.",
+   "cooldown": "4.0",
+   "mana_cost": "60-85",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a0/Contract_Soul_Steal.png/revision/latest?cb=20220201144201"
+  },
+  {
+   "slot": "skill2",
+   "name": "Contract: Explosion",
+   "description": "Raises a guard that stuns nearby enemies when it ends.",
+   "cooldown": "12.0-9.5",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a3/Contract_Explosion.png/revision/latest?cb=20220201144246"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Contract: Chase Fate",
+   "description": "Reveals every enemy hero, then lets him dash to one for a heavy knockback strike.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": "150-250",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/db/Contract_Chase_Fate.png/revision/latest?cb=20220201144314"
+  }
+ ],
+ "Alice": [
+  {
+   "slot": "passive",
+   "name": "Crimson Blood Banquet",
+   "description": "Skill hits stack Crimson; at two stacks she drains nearby enemies while healing and moving faster.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d5/Crimson_Blood_Banquet.png/revision/latest?cb=20250917073508"
+  },
+  {
+   "slot": "skill1",
+   "name": "Crimson Gleam",
+   "description": "Fires blood energy forward and can recast to blink to where it is.",
+   "cooldown": "12.0-8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f0/Crimson_Gleam.png/revision/latest?cb=20250917073509"
+  },
+  {
+   "slot": "skill2",
+   "name": "Doom Waltz",
+   "description": "A dance that damages and heavily slows nearby enemies, scorching them while her banquet is active.",
+   "cooldown": "4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2d/Doom_Waltz.png/revision/latest?cb=20250917073510"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Throne of Ruin",
+   "description": "Wraps herself in blood with control immunity, then slams down to damage and immobilize enemies around her.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2b/Throne_of_Ruin.png/revision/latest?cb=20250917073511"
+  }
+ ],
+ "Alpha": [
+  {
+   "slot": "passive",
+   "name": "Beta, Advance!",
+   "description": "His skills mark enemies for Beta to strafe with extra damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/15/Beta%2C_Advance%21.png/revision/latest?cb=20210616065533"
+  },
+  {
+   "slot": "skill1",
+   "name": "Rotary Impact",
+   "description": "Swings his blade in a wave and Beta follows up on the marked line.",
+   "cooldown": "4.0",
+   "mana_cost": "50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/ba/Rotary_Impact.png/revision/latest?cb=20210616065548"
+  },
+  {
+   "slot": "skill2",
+   "name": "Force Swing",
+   "description": "Sweeps in a cone, slowing enemies and healing himself per hit.",
+   "cooldown": "6.0-4.0",
+   "mana_cost": "45-70",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Force_Swing.png/revision/latest?cb=20210616065559"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Spear of Alpha",
+   "description": "Fires a spear and pulls himself to it, knocking enemies up on arrival.",
+   "cooldown": "20.0-16.0",
+   "mana_cost": "70-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5e/Spear_of_Alpha.png/revision/latest?cb=20210616065612"
+  }
+ ],
+ "Argus": [
+  {
+   "slot": "passive",
+   "name": "Warmonger",
+   "description": "Attacks charge his blade; when full it deals bonus true damage.",
+   "cooldown": null,
+   "mana_cost": "100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/90/Warmonger.png/revision/latest?cb=20210313153523"
+  },
+  {
+   "slot": "skill1",
+   "name": "Demonic Grip",
+   "description": "Throws a chain to pull himself toward a target and slows nearby enemies.",
+   "cooldown": "12.0-10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e6/Demonic_Grip.png/revision/latest?cb=20210313153103"
+  },
+  {
+   "slot": "skill2",
+   "name": "Meteoric Sword",
+   "description": "Slashes to leave a trail that boosts his movement and attack speed.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Meteoric_Sword.png/revision/latest?cb=20210313153044"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Eternal Evil",
+   "description": "Becomes immune to death for a few seconds, converting damage into healing.",
+   "cooldown": "42.0-35.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/62/Eternal_Evil.png/revision/latest?cb=20210313152940"
+  }
+ ],
+ "Arlott": [
+  {
+   "slot": "passive",
+   "name": "Demon Gaze",
+   "description": "Enemies affected by crowd control get marked; his next hit on them heals him.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/48/Demon_Gaze.png/revision/latest?cb=20240605113340"
+  },
+  {
+   "slot": "skill1",
+   "name": "Dauntless Strike",
+   "description": "Thrusts forward to damage and knock back enemies in a cone.",
+   "cooldown": "8.0-5.0",
+   "mana_cost": "-",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7d/Dauntless_Strike.png/revision/latest?cb=20240605113357"
+  },
+  {
+   "slot": "skill2",
+   "name": "Vengeance",
+   "description": "Dashes to a marked target and knocks them up.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": "-",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/74/Vengeance_%28Arlott%29.png/revision/latest?cb=20240605113419"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Final Slash",
+   "description": "Cuts a line that flings every enemy in it toward one side.",
+   "cooldown": "24.0-18.0",
+   "mana_cost": "100-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2a/Final_Slash.png/revision/latest?cb=20240605113435"
+  }
+ ],
+ "Atlas": [
+  {
+   "slot": "passive",
+   "name": "Frigid Breath",
+   "description": "Emits a cold aura that slows nearby enemies until they freeze.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/64/Frigid_Breath.png/revision/latest?cb=20220410091657"
+  },
+  {
+   "slot": "skill1",
+   "name": "Annihilate",
+   "description": "Triggers explosions around him that damage and slow enemies.",
+   "cooldown": "7.0-4.5",
+   "mana_cost": "60-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8c/Annihilate.png/revision/latest?cb=20220410091648"
+  },
+  {
+   "slot": "skill2",
+   "name": "Perfect Match",
+   "description": "Ejects from his mecha to move fast, then reunites to stun enemies at the landing spot.",
+   "cooldown": "15.0-10.0",
+   "mana_cost": "75-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/12/Perfect_Match.png/revision/latest?cb=20220410091559"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Fatal Links",
+   "description": "Chains nearby enemies and drags them all toward one point.",
+   "cooldown": "55.0-45.0",
+   "mana_cost": "130-170",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/41/Fatal_Links.png/revision/latest?cb=20220410091537"
+  }
+ ],
+ "Aulus": [
+  {
+   "slot": "passive",
+   "name": "Fighting Spirit",
+   "description": "Stacks power from hitting heroes and grows stronger the longer he fights.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/75/Fighting_Spirit.png/revision/latest?cb=20260423100255"
+  },
+  {
+   "slot": "skill1",
+   "name": "Aulus, Charge!",
+   "description": "Boosts movement speed and enhances his next attacks.",
+   "cooldown": "14.0-12.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8e/Aulus%2C_Charge%21.png/revision/latest?cb=20260423100322"
+  },
+  {
+   "slot": "skill2",
+   "name": "The Power of Axe",
+   "description": "Swings his axe in a sweep that slows and damages enemies in front.",
+   "cooldown": "5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/86/The_Power_of_Axe.png/revision/latest?cb=20260423100344"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Cleaving Axe",
+   "description": "Swings repeatedly at nearby enemies, then a wide finishing slash, taking less damage while swinging.",
+   "cooldown": "50.0-40.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/84/Cleaving_Axe.png/revision/latest?cb=20260423100403"
+  }
+ ],
+ "Aurora": [
+  {
+   "slot": "passive",
+   "name": "Pride of Ice",
+   "description": "Every few skill casts her next skill freezes the target.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/62/Pride_of_Ice.png/revision/latest?cb=20240207104508"
+  },
+  {
+   "slot": "skill1",
+   "name": "Hailstone Blast",
+   "description": "Drops an icy meteorite on a spot, damaging and slowing enemies there.",
+   "cooldown": "6.0-4.0",
+   "mana_cost": "55-105",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/25/Hailstone_Blast.png/revision/latest?cb=20240207104504"
+  },
+  {
+   "slot": "skill2",
+   "name": "Frosty Breeze",
+   "description": "Blows a cone of frost that damages enemies and can freeze them.",
+   "cooldown": "13.0",
+   "mana_cost": "110-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e9/Frosty_Breeze.png/revision/latest?cb=20240207104501"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Frigid Glacier",
+   "description": "Lays a frost path that slows enemies, then grows into glaciers that shatter for damage.",
+   "cooldown": "50.0-40.0",
+   "mana_cost": "150-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6e/Frigid_Glacier.png/revision/latest?cb=20240207104457"
+  }
+ ],
+ "Badang": [
+  {
+   "slot": "passive",
+   "name": "Chivalry Fist",
+   "description": "Every few basic attacks his punch sends a shockwave that hits enemies behind the target.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/94/Chivalry_Fist.png/revision/latest?cb=20260919020957"
+  },
+  {
+   "slot": "skill1",
+   "name": "Fist Wind",
+   "description": "Punches a gust forward that damages, slows and knocks back, exploding when it hits an obstacle.",
+   "cooldown": "10.4-7.2",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/55/Fist_Wind.png/revision/latest?cb=20260919021046"
+  },
+  {
+   "slot": "skill2",
+   "name": "Fist Break",
+   "description": "Dashes to a spot and raises a wall of fists that blocks enemy movement.",
+   "cooldown": "9.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/ce/Fist_Break.png/revision/latest?cb=20260919021121"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Fist Crack",
+   "description": "Channels a rapid barrage of punches in a direction.",
+   "cooldown": "30.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/56/Fist_Crack.png/revision/latest?cb=20260919021157"
+  }
+ ],
+ "Bane": [
+  {
+   "slot": "passive",
+   "name": "Shark Bite",
+   "description": "After a skill cast his next basic attack deals bonus damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/51/Shark_Bite.png/revision/latest?cb=20210519073932"
+  },
+  {
+   "slot": "skill1",
+   "name": "Crab Claw Cannon",
+   "description": "Fires a cannonball that bounces to another enemy after hitting the first.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": "30",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e5/Crab_Claw_Cannon.png/revision/latest?cb=20210519073958"
+  },
+  {
+   "slot": "skill2",
+   "name": "Ale",
+   "description": "Drinks to recover HP and gain speed, then can spit venom in a cone.",
+   "cooldown": "7.5-4.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a2/Ale.png/revision/latest?cb=20210519074017"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Deadly Catch",
+   "description": "Sends a school of sharks in a direction, knocking enemies up.",
+   "cooldown": "40.0-30.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/85/Deadly_Catch.png/revision/latest?cb=20210519074033"
+  }
+ ],
+ "Barats": [
+  {
+   "slot": "passive",
+   "name": "Big Guy",
+   "description": "His skills stack up to grow bigger, gaining defense and size.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/20/Big_Guy.png/revision/latest?cb=20240104040408"
+  },
+  {
+   "slot": "skill1",
+   "name": "So-Called Teamwork",
+   "description": "Detona spits oil that damages and slows enemies in an area.",
+   "cooldown": "7.0-5.0",
+   "mana_cost": "25-50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d7/So-Called_Teamwork.png/revision/latest?cb=20240104040431"
+  },
+  {
+   "slot": "skill2",
+   "name": "Missile Expert",
+   "description": "Fires missiles that pull enemies toward him and knock them up.",
+   "cooldown": "11.0-8.0",
+   "mana_cost": "70-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d5/Missile_%27Expert%27.png/revision/latest?cb=20240104040506"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Detona's Welcome",
+   "description": "Detona swallows an enemy hero and spits them out in a chosen direction.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": "100-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6f/Detona%27s_Welcome.png/revision/latest?cb=20240104040522"
+  }
+ ],
+ "Baxia": [
+  {
+   "slot": "passive",
+   "name": "Baxia Mark",
+   "description": "His attacks reduce the healing enemies receive.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3e/Baxia_Mark.png/revision/latest?cb=20220622095220"
+  },
+  {
+   "slot": "skill1",
+   "name": "Baxia-Shield Unity",
+   "description": "Rolls forward at high speed and stuns the first enemy hit.",
+   "cooldown": "15.0-12.0",
+   "mana_cost": "100-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/23/Shield_Unity.png/revision/latest?cb=20220622095232"
+  },
+  {
+   "slot": "skill2",
+   "name": "Shield of Spirit",
+   "description": "Hurls his shield to damage and slow enemies in a line.",
+   "cooldown": "10.0-7.0",
+   "mana_cost": "25-50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c5/Shield_of_Spirit.png/revision/latest?cb=20220622095245"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Tortoise's Puissance",
+   "description": "Leaves a burning trail while moving faster and taking less damage.",
+   "cooldown": "40.0-35.0",
+   "mana_cost": "150-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d1/Tortoise%27s_Puissance.png/revision/latest?cb=20220622095259"
+  }
+ ],
+ "Beatrix": [
+  {
+   "slot": "passive",
+   "name": "Mechanical Genius",
+   "description": "Carries two guns and swaps between them, each with a different attack style.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2b/Mechanical_Genius_%28Renner%29.png/revision/latest?cb=20210905120255"
+  },
+  {
+   "slot": "skill1",
+   "name": "Masterful Gunner",
+   "description": "Reloads and fires an empowered attack whose effect depends on the equipped gun.",
+   "cooldown": "12-7",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Masterful_Gunner.png/revision/latest?cb=20210905120003"
+  },
+  {
+   "slot": "skill2",
+   "name": "Tactical Reposition",
+   "description": "Rolls in a direction and readies a full magazine.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f0/Tactical_Reposition.png/revision/latest?cb=20210905120337"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Renner's Apathy / Bennett's Rage / Wesker's Elation / Nibiru's Passion",
+   "description": "A special shot whose form depends on the equipped gun: a snipe, an explosive round, a spread or a rapid burst.",
+   "cooldown": "24.0-18.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c9/Renner%27s_Apathy.png/revision/latest?cb=20210905120358"
+  }
+ ],
+ "Belerick": [
+  {
+   "slot": "passive",
+   "name": "Deadly Thorns",
+   "description": "Taking damage lets him retaliate with thorn hits on nearby enemies.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b2/Deadly_Thorns.png/revision/latest?cb=20200529095331"
+  },
+  {
+   "slot": "skill1",
+   "name": "Ancient Seed",
+   "description": "Sends out roots that damage and slow enemies in a line.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": "60-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/af/Ancient_Seed.png/revision/latest?cb=20200529095427"
+  },
+  {
+   "slot": "skill2",
+   "name": "Nature's Strike",
+   "description": "Regains HP and taunts nearby enemies.",
+   "cooldown": "12.0-9.0",
+   "mana_cost": "90-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/66/Nature%27s_Strike.png/revision/latest?cb=20200529095248"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Wrath of Dryad",
+   "description": "Whips out vines that drag enemies toward him.",
+   "cooldown": "50.0-42.0",
+   "mana_cost": "150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a8/Wrath_of_Dryad.png/revision/latest?cb=20200529095206"
+  }
+ ],
+ "Benedetta": [
+  {
+   "slot": "passive",
+   "name": "Elapsed Daytime",
+   "description": "Holding a basic attack charges sword energy; releasing it dashes and slashes.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/4e/Elapsed_Daytime.png/revision/latest?cb=20210808075005"
+  },
+  {
+   "slot": "skill1",
+   "name": "Phantom Slash",
+   "description": "Dashes forward and follows with a slash that hits enemies in a line.",
+   "cooldown": "10.0-6.5",
+   "mana_cost": "55-85",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e6/Phantom_Slash.png/revision/latest?cb=20210808075102"
+  },
+  {
+   "slot": "skill2",
+   "name": "An Eye for An Eye",
+   "description": "Raises her blade to block damage, then thrusts and stuns if she was hit.",
+   "cooldown": "15.0-12.0",
+   "mana_cost": "100-125",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/15/An_Eye_for_An_Eye.png/revision/latest?cb=20210808075205"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Alecto: Final Blow",
+   "description": "Dashes through an area, slowing enemies, then returns to slash them again.",
+   "cooldown": "45.0-35.0",
+   "mana_cost": "110-160",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d3/Alecto_Final_Blow.png/revision/latest?cb=20210808075249"
+  }
+ ],
+ "Brody": [
+  {
+   "slot": "passive",
+   "name": "Abyss Corrosion",
+   "description": "Basic attacks move him slightly and stack marks on the target.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/73/Abyss_Corrosion.png/revision/latest?cb=20260916131216"
+  },
+  {
+   "slot": "skill1",
+   "name": "Abyss Impact",
+   "description": "Fires a shockwave that damages and slows enemies in a line.",
+   "cooldown": "4.0",
+   "mana_cost": "40-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f3/Abyss_Impact.png/revision/latest?cb=20260916131215"
+  },
+  {
+   "slot": "skill2",
+   "name": "Corrosive Strike",
+   "description": "Dashes to a target, stunning them and gaining movement speed.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": "75-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a2/Corrosive_Strike.png/revision/latest?cb=20260916131213"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Torn-Apart Memory",
+   "description": "Locks onto marked enemies and unleashes stacked-based damage on each.",
+   "cooldown": "24.0-19.0",
+   "mana_cost": "120-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/bf/Torn-Apart_Memory.png/revision/latest?cb=20260916131212"
+  }
+ ],
+ "Bruno": [
+  {
+   "slot": "passive",
+   "name": "Mecha Legs",
+   "description": "Every critical hit raises his crit damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/79/Mecha_Legs.png/revision/latest?cb=20260916132629"
+  },
+  {
+   "slot": "skill1",
+   "name": "Volley Shot",
+   "description": "Kicks a ball that damages and slows the first enemy hit, then can be re-kicked.",
+   "cooldown": "10.0-7.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b0/Volley_Shot.png/revision/latest?cb=20260916132628"
+  },
+  {
+   "slot": "skill2",
+   "name": "Slide",
+   "description": "Slides forward, briefly stunning enemies on the way, and readies a ball at the end.",
+   "cooldown": "7.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/95/Slide.png/revision/latest?cb=20260916132627"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Worldie",
+   "description": "Kicks an energy ball at a hero that knocks them back and bounces on to others.",
+   "cooldown": "38.0-28.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/fa/Worldie.png/revision/latest?cb=20260916132626"
+  }
+ ],
+ "Carmilla": [
+  {
+   "slot": "passive",
+   "name": "Vampire Pact",
+   "description": "Attacking heroes steals defense from them and grants it to her.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d9/Vampire_Pact.png/revision/latest?cb=20241020152046"
+  },
+  {
+   "slot": "skill1",
+   "name": "Crimson Flower",
+   "description": "Circles blood blossoms around her that damage nearby enemies and heal her.",
+   "cooldown": "9.0",
+   "mana_cost": "50-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5d/Crimson_Flower.png/revision/latest?cb=20241020152042"
+  },
+  {
+   "slot": "skill2",
+   "name": "Bloodbath",
+   "description": "Dashes to a target, dealing damage and slowing them.",
+   "cooldown": "12.0-8.0",
+   "mana_cost": "85-160",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/cf/Bloodbath.png/revision/latest?cb=20241020152039"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Curse of Blood",
+   "description": "Throws a curse that links nearby enemies so damage spreads between them.",
+   "cooldown": "60.0-44.0",
+   "mana_cost": "150-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/37/Curse_of_Blood.png/revision/latest?cb=20241020152035"
+  }
+ ],
+ "Cecilion": [
+  {
+   "slot": "passive",
+   "name": "Overflowing",
+   "description": "Hitting enemies with skills permanently increases his max mana.",
+   "cooldown": "1.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/55/Overflowing.png/revision/latest?cb=20210809090952"
+  },
+  {
+   "slot": "skill1",
+   "name": "Bat Impact",
+   "description": "Sends a bat that damages enemies in a line and returns.",
+   "cooldown": "1.5",
+   "mana_cost": "75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f0/Bat_Impact.png/revision/latest?cb=20210809091024"
+  },
+  {
+   "slot": "skill2",
+   "name": "Sanguine Claws",
+   "description": "Summons claws that pull enemies to a point and stun them.",
+   "cooldown": "12.0-8.0",
+   "mana_cost": "95-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1c/Sanguine_Claws.png/revision/latest?cb=20210809091115"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Bats Feast",
+   "description": "Moves while continuously firing bats that damage and slow enemies.",
+   "cooldown": "44.0-38.0",
+   "mana_cost": "150-250",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0f/Bats_Feast.png/revision/latest?cb=20210809091208"
+  }
+ ],
+ "Chang'e": [
+  {
+   "slot": "passive",
+   "name": "Trouble Maker",
+   "description": "Gains a shield when using skills near allies.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d5/Trouble_Maker.png/revision/latest?cb=20210816222133"
+  },
+  {
+   "slot": "skill1",
+   "name": "Starmoon Shockwave",
+   "description": "Sends an energy sphere that damages and slows enemies; extra spheres follow while her Crescent Moon is up.",
+   "cooldown": "7.0",
+   "mana_cost": "70-95",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c0/Starmoon_Shockwave.png/revision/latest?cb=20210816222224"
+  },
+  {
+   "slot": "skill2",
+   "name": "Crescent Moon",
+   "description": "Summons a barrier that blocks projectiles and boosts her movement.",
+   "cooldown": "12.0-9.5",
+   "mana_cost": "60-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e7/Crescent_Moon.png/revision/latest?cb=20210816222319"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Meteor Shower",
+   "description": "Rapid-fires a stream of meteors in a direction while she moves.",
+   "cooldown": "36.0-30.0",
+   "mana_cost": "150-250",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/cf/Meteor_Shower.png/revision/latest?cb=20210816222411"
+  }
+ ],
+ "Chip": [
+  {
+   "slot": "passive",
+   "name": "Snack Time!",
+   "description": "Eats chips while out of combat to regain HP faster.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a2/Snack_Time%21.png/revision/latest?cb=20240605110012"
+  },
+  {
+   "slot": "skill1",
+   "name": "Crash Course",
+   "description": "Jumps and slams the ground, marking enemies; hitting a marked enemy again stuns them.",
+   "cooldown": "5.5-4.0",
+   "mana_cost": "40-65",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d4/Crash_Course.png/revision/latest?cb=20240605110128"
+  },
+  {
+   "slot": "skill2",
+   "name": "Overtime",
+   "description": "Builds up movement speed, then charges his next attack to knock the target back.",
+   "cooldown": "13.0-10.0",
+   "mana_cost": "75-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3f/Overtime.png/revision/latest?cb=20240605110146"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Shortcut",
+   "description": "Opens a portal that allies and enemies can use to travel across the map.",
+   "cooldown": "70.0-50.0",
+   "mana_cost": "110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Shortcut.png/revision/latest?cb=20240605110203"
+  }
+ ],
+ "Cici": [
+  {
+   "slot": "passive",
+   "name": "Performer's Delight",
+   "description": "Dealing damage stacks movement speed and spell vamp.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/97/Performer%27s_Delight.png/revision/latest?cb=20231223051030"
+  },
+  {
+   "slot": "skill1",
+   "name": "Yo-Yo Blitz",
+   "description": "Swings her yo-yo at an enemy, hitting them repeatedly while she stays close.",
+   "cooldown": "6.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/59/Yo-Yo_Blitz.png/revision/latest?cb=20231223050624"
+  },
+  {
+   "slot": "skill2",
+   "name": "Buoyant Bounce",
+   "description": "Leaps to a spot and can bounce again toward a target, damaging where she lands.",
+   "cooldown": "9.5-7.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2e/Buoyant_Bounce.png/revision/latest?cb=20231223050621"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Curtain Call",
+   "description": "Tethers an enemy hero so they take extra damage and are slowed while linked.",
+   "cooldown": "40.0-32.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/06/Curtain_Call.png/revision/latest?cb=20231223050623"
+  }
+ ],
+ "Claude": [
+  {
+   "slot": "passive",
+   "name": "Battle Side-by-Side",
+   "description": "Dexter, his monkey, attacks alongside him and stacks attack speed.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a5/Battle_Side-by-side.png/revision/latest?cb=20211205134824"
+  },
+  {
+   "slot": "skill1",
+   "name": "Art of Thievery",
+   "description": "Fires a wave that steals movement and attack speed from enemies hit.",
+   "cooldown": "5.0",
+   "mana_cost": "65-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8f/Art_of_Thievery.png/revision/latest?cb=20211205134839"
+  },
+  {
+   "slot": "skill2",
+   "name": "Battle Mirror Image",
+   "description": "Places a mirror image he can swap places with.",
+   "cooldown": "11.0-8.5",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/51/Battle_Mirror_Image.png/revision/latest?cb=20211205134848"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Blazing Duet",
+   "description": "Sprays bullets at all nearby enemies while moving and gains a shield.",
+   "cooldown": "50.0-40.0",
+   "mana_cost": "150-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0c/Blazing_Duet.png/revision/latest?cb=20211205134856"
+  }
+ ],
+ "Clint": [
+  {
+   "slot": "passive",
+   "name": "Double Shot",
+   "description": "After a skill his next basic attack fires a piercing shot.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9a/Double_Shot.png/revision/latest?cb=20260918135120"
+  },
+  {
+   "slot": "skill1",
+   "name": "Quick Draw",
+   "description": "Fires a spread of bullets in a cone that damages every enemy hit.",
+   "cooldown": "8.0-5.0",
+   "mana_cost": "50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/39/Quick_Draw.png/revision/latest?cb=20260918135145"
+  },
+  {
+   "slot": "skill2",
+   "name": "Trapping Recoil",
+   "description": "Fires a net that traps the enemy hit while he hops backward.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/57/Trapping_Recoil.png/revision/latest?cb=20260918135302"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Grenade Bombardment",
+   "description": "Lobs grenades that explode on enemies, with several charges stored.",
+   "cooldown": "1.5-0.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/be/Grenade_Bombardment.png/revision/latest?cb=20260918135404"
+  }
+ ],
+ "Cyclops": [
+  {
+   "slot": "passive",
+   "name": "Starlit Hourglass",
+   "description": "Landing skills shortens his cooldowns.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/00/Starlit_Hourglass.png/revision/latest?cb=20171009130450"
+  },
+  {
+   "slot": "skill1",
+   "name": "Stardust Shock",
+   "description": "Fires two waves of star energy in a direction.",
+   "cooldown": "9.0",
+   "mana_cost": "100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9d/Stardust_Shock.png/revision/latest?cb=20171009130518"
+  },
+  {
+   "slot": "skill2",
+   "name": "Planets Attack",
+   "description": "Summons orbs that circle him and shoot at nearby enemies.",
+   "cooldown": "14-10.5",
+   "mana_cost": "60-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/ca/Planets_Attack.png/revision/latest?cb=20171009130630"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Star Power Lockdown",
+   "description": "Launches a homing orb that chases a target and roots them on impact.",
+   "cooldown": "43.0",
+   "mana_cost": "160-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a8/Star_Power_Lockdown.png/revision/latest?cb=20171009130650"
+  }
+ ],
+ "Diggie": [
+  {
+   "slot": "passive",
+   "name": "Young Again",
+   "description": "On death he becomes an egg that can still move, cannot be targeted and revives later.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5e/Young_Again.png/revision/latest?cb=20211002145722"
+  },
+  {
+   "slot": "skill1",
+   "name": "Auto Alarm Bomb",
+   "description": "Drops a bomb that chases enemies and explodes to slow them.",
+   "cooldown": "8.0-5.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/4b/Auto_Alarm_Bomb.png/revision/latest?cb=20211002145736"
+  },
+  {
+   "slot": "skill2",
+   "name": "Reverse Time",
+   "description": "Marks a target so they are pulled back to where they were after a delay.",
+   "cooldown": "15.0-10.0",
+   "mana_cost": "90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/34/Reverse_Time.png/revision/latest?cb=20211002145746"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Time Journey",
+   "description": "Frees nearby allies from crowd control and shields them.",
+   "cooldown": "76.0-64.0",
+   "mana_cost": "130-170",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a2/Time_Journey.png/revision/latest?cb=20211002145917"
+  }
+ ],
+ "Dyrroth": [
+  {
+   "slot": "passive",
+   "name": "Wrath of the Abyss",
+   "description": "Every few basic attacks he deals bonus damage and regains HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/53/Wrath_of_the_Abyss.png/revision/latest?cb=20250917081930"
+  },
+  {
+   "slot": "skill1",
+   "name": "Burst Strike",
+   "description": "Two rapid slashes, the second one slowing enemies hit.",
+   "cooldown": "5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/96/Burst_Strike.png/revision/latest?cb=20250917081928"
+  },
+  {
+   "slot": "skill2",
+   "name": "Spectre Step",
+   "description": "Dashes forward and can dash again to strike a target.",
+   "cooldown": "8.0-4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/09/Spectre_Step.png/revision/latest?cb=20250917081929"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Abysm Strike",
+   "description": "A heavy blow that deals more damage the less HP the target has.",
+   "cooldown": "36.0-28.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/ff/Abysm_Strike.png/revision/latest?cb=20250917081927"
+  }
+ ],
+ "Edith": [
+  {
+   "slot": "passive",
+   "name": "Overload",
+   "description": "Casting skills charges her attacks to chain lightning between enemies.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a7/Overload.png/revision/latest?cb=20211224061826"
+  },
+  {
+   "slot": "skill1",
+   "name": "Earth Shatter",
+   "description": "Phylax slams the ground to knock enemies into the air.",
+   "cooldown": "8.5-6.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/64/Earth_Shatter.png/revision/latest?cb=20211224061841"
+  },
+  {
+   "slot": "skill2",
+   "name": "Onward",
+   "description": "Phylax charges forward and tosses the first hero hit over its shoulder.",
+   "cooldown": "10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e7/Onward.png/revision/latest?cb=20211224061907"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Primal Wrath",
+   "description": "Ejects from Phylax to fight as a ranged attacker with charged shots.",
+   "cooldown": "40.0-34.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/24/Primal_Wrath.png/revision/latest?cb=20211224061924"
+  }
+ ],
+ "Esmeralda": [
+  {
+   "slot": "passive",
+   "name": "Starmoon Casket",
+   "description": "Absorbs enemy shields and turns them into her own shield.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Starmoon_Casket.png/revision/latest?cb=20210808075519"
+  },
+  {
+   "slot": "skill1",
+   "name": "Frostmoon Shield",
+   "description": "Gains a shield and movement speed while draining nearby enemies' shields.",
+   "cooldown": "8.5",
+   "mana_cost": "60-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/58/Frostmoon_Shield.png/revision/latest?cb=20210808075630"
+  },
+  {
+   "slot": "skill2",
+   "name": "Stardust Dance",
+   "description": "Sweeps in an arc to damage enemies around her.",
+   "cooldown": "4.5-3.5",
+   "mana_cost": "75-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/05/Stardust_Dance.png/revision/latest?cb=20210808075728"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Falling Starmoon",
+   "description": "Charges and throws a wave that damages and slows enemies in its path.",
+   "cooldown": "32.0-24.0",
+   "mana_cost": "150-250",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Falling_Starmoon.png/revision/latest?cb=20210808075820"
+  }
+ ],
+ "Faramis": [
+  {
+   "slot": "passive",
+   "name": "Vicious Retrieval",
+   "description": "Gathers soul fragments from fallen units to shorten his death timer.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7e/Vicious_Retrieval.png/revision/latest?cb=20220612054039"
+  },
+  {
+   "slot": "skill1",
+   "name": "Shadow Stampede",
+   "description": "Turns into a shadow, pulling enemies he passes through toward his stop point.",
+   "cooldown": "15.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b4/Shadow_Stampede.png/revision/latest?cb=20220612054032"
+  },
+  {
+   "slot": "skill2",
+   "name": "Ghost Bursters",
+   "description": "Fires a bolt that bounces between enemies.",
+   "cooldown": "6.0-5.0",
+   "mana_cost": "75-125",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/14/Ghost_Bursters.png/revision/latest?cb=20220612054026"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Nether Realm",
+   "description": "Turns the area into a realm that shields allies and briefly resurrects them if the shield breaks.",
+   "cooldown": "80.0-70.0",
+   "mana_cost": "150-350",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f5/Nether_Realm.png/revision/latest?cb=20260313084936"
+  }
+ ],
+ "Floryn": [
+  {
+   "slot": "passive",
+   "name": "Dew",
+   "description": "Grants allies a flower item that heals them whenever she heals.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ee/Dew.png/revision/latest?cb=20210930073514"
+  },
+  {
+   "slot": "skill1",
+   "name": "Sow",
+   "description": "Throws a seed that damages an enemy and heals nearby allies.",
+   "cooldown": "9.0-7.5",
+   "mana_cost": "90-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d6/Sow.png/revision/latest?cb=20210930073600"
+  },
+  {
+   "slot": "skill2",
+   "name": "Sprout",
+   "description": "Fires a bolt that bounces to nearby enemies and slows them.",
+   "cooldown": "13.0-10.0",
+   "mana_cost": "100-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/34/Sprout.png/revision/latest?cb=20210930073631"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Bloom",
+   "description": "Heals every ally on the map and shields those with low HP.",
+   "cooldown": "70.0",
+   "mana_cost": "150-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/28/Bloom.png/revision/latest?cb=20210930073642"
+  }
+ ],
+ "Fredrinn": [
+  {
+   "slot": "passive",
+   "name": "Crystalline Armor",
+   "description": "Stores a portion of damage taken as energy to spend on his ultimate.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/dd/Crystalline_Armor.png/revision/latest?cb=20220807030146"
+  },
+  {
+   "slot": "skill1",
+   "name": "Piercing Strike",
+   "description": "Thrusts his blade forward to damage enemies in a line.",
+   "cooldown": "7.5-6.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b3/Piercing_Strike.png/revision/latest?cb=20220807030157"
+  },
+  {
+   "slot": "skill2",
+   "name": "Brave Assault",
+   "description": "Dashes forward and can follow with a wide sweep that knocks up.",
+   "cooldown": "7.5-6.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/96/Brave_Assault.png/revision/latest?cb=20220807030045"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Energy Eruption",
+   "description": "Releases stored energy to damage and taunt nearby enemies, gaining defense for each one hit.",
+   "cooldown": "8.0-5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/73/Energy_Eruption.png/revision/latest?cb=20220807030151"
+  }
+ ],
+ "Freya": [
+  {
+   "slot": "passive",
+   "name": "Power of Einherjar",
+   "description": "Landing skills builds stacks that empower her attacks.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9d/Power_of_Einherjar.png/revision/latest?cb=20251110105718"
+  },
+  {
+   "slot": "skill1",
+   "name": "Leap of Faith",
+   "description": "Leaps to a spot, damaging and slowing enemies where she lands.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/55/Leap_of_Faith.png/revision/latest?cb=20251110105717"
+  },
+  {
+   "slot": "skill2",
+   "name": "Valkyrie Slash",
+   "description": "Charges and slashes to damage and slow enemies, spending Sacred Orbs instead of a cooldown.",
+   "cooldown": "0.4",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c7/Valkyrie_Slash.png/revision/latest?cb=20251110105436"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Valkyrie Descent",
+   "description": "Enters a stronger form with a shield and empowered strikes.",
+   "cooldown": "34.0-26.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1a/Valkyrie_Descent.png/revision/latest?cb=20251110105720"
+  }
+ ],
+ "Gatotkaca": [
+  {
+   "slot": "passive",
+   "name": "Steel Bones",
+   "description": "Converts lost HP into extra physical defense.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f0/Steel_Bones.png/revision/latest?cb=20210627030035"
+  },
+  {
+   "slot": "skill1",
+   "name": "Blast Iron Fist",
+   "description": "Punches the ground to damage and slow enemies in a line.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d4/Blast_Iron_Fist.png/revision/latest?cb=20210627025912"
+  },
+  {
+   "slot": "skill2",
+   "name": "Unbreakable",
+   "description": "Taunts nearby enemies and gains a shield.",
+   "cooldown": "12.0-10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ef/Unbreakable.png/revision/latest?cb=20171010092652"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Avatar of the Guardian",
+   "description": "Leaps to a spot and slams down, knocking enemies into the air.",
+   "cooldown": "54.0-46.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/4e/Avatar_of_the_Guardian.png/revision/latest?cb=20171010092756"
+  }
+ ],
+ "Gloo": [
+  {
+   "slot": "passive",
+   "name": "Stick, Stick",
+   "description": "Skills leave goo that sticks to enemies and slows them.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6a/Stick%2C_Stick.png/revision/latest?cb=20250827131608"
+  },
+  {
+   "slot": "skill1",
+   "name": "Slam, Slam",
+   "description": "Slams the ground twice to damage and slow enemies nearby.",
+   "cooldown": "10.0-6.0",
+   "mana_cost": "25-50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c5/Slam%2C_Slam.png/revision/latest?cb=20250827131633"
+  },
+  {
+   "slot": "skill2",
+   "name": "Spread, Spread",
+   "description": "Splits into goos that damage and immobilize enemies in a cone, then pulls itself back together.",
+   "cooldown": "12.0-10.0",
+   "mana_cost": "80-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/53/Spread%2C_Spread.png/revision/latest?cb=20250827132038"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Grab, Grab",
+   "description": "Attaches to a fully stuck enemy hero, healing itself and passing most damage it takes onto them.",
+   "cooldown": "50.0",
+   "mana_cost": "150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8f/Grab%2C_Grab.png/revision/latest?cb=20250827132205"
+  }
+ ],
+ "Gord": [
+  {
+   "slot": "passive",
+   "name": "Mystic Favor",
+   "description": "Every few skill hits on a target deal bonus true damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/69/Mystic_Favor.png/revision/latest?cb=20171023001614"
+  },
+  {
+   "slot": "skill1",
+   "name": "Mystic Projectile",
+   "description": "Fires an orb that damages and stuns enemies in an area.",
+   "cooldown": "10.0-7.5",
+   "mana_cost": "90-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/68/Mystic_Projectile.png/revision/latest?cb=20171023001237"
+  },
+  {
+   "slot": "skill2",
+   "name": "Mystic Injunction",
+   "description": "Lays a zone that repeatedly damages enemies inside.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": "55-105",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8b/Mystic_Injunction.png/revision/latest?cb=20171023001345"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Mystic Gush",
+   "description": "Channels a wide beam that continuously damages enemies in its path.",
+   "cooldown": "44.0-36.0",
+   "mana_cost": "150-190",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5d/Mystic_Gush.png/revision/latest?cb=20171023001719"
+  }
+ ],
+ "Granger": [
+  {
+   "slot": "passive",
+   "name": "Capriccio",
+   "description": "His gun and cannon run on demonic energy that refills over time and grows with each kill.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b0/Capriccio.png/revision/latest?cb=20241107093833"
+  },
+  {
+   "slot": "skill1",
+   "name": "Rhapsody",
+   "description": "Fires all remaining bullets in a cone.",
+   "cooldown": "0.3",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e2/Rhapsody.png/revision/latest?cb=20241107093851"
+  },
+  {
+   "slot": "skill2",
+   "name": "Rondo",
+   "description": "Dashes forward and reloads a bullet.",
+   "cooldown": "12.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1e/Rondo.png/revision/latest?cb=20241107093903"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Death Sonata",
+   "description": "Turns his violin into a cannon and fires powerful long-range rounds.",
+   "cooldown": "0.6",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/61/Death_Sonata.png/revision/latest?cb=20241107093910"
+  }
+ ],
+ "Grock": [
+  {
+   "slot": "passive",
+   "name": "Bastion of Stone",
+   "description": "Periodically gains a shield and an empowered attack that bites a share of max HP, recharging faster near walls.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/eb/Bastion_of_Stone.png/revision/latest?cb=20250811073743"
+  },
+  {
+   "slot": "skill1",
+   "name": "Mighty Swing",
+   "description": "A heavy strike that slams enemies into terrain behind them for extra damage and a knock-up.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7f/Mighty_Swing.png/revision/latest?cb=20250811073747"
+  },
+  {
+   "slot": "skill2",
+   "name": "Earthen Rampart",
+   "description": "Raises a stone wall that damages and knocks back enemies where it appears.",
+   "cooldown": "14.0-10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/fd/Earthen_Rampart.png/revision/latest?cb=20250811073745"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Tectonic Charge",
+   "description": "Charges forward; hitting terrain sets off an explosion that knocks nearby enemies airborne.",
+   "cooldown": "55.0-45.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/72/Tectonic_Charge.png/revision/latest?cb=20250811073748"
+  }
+ ],
+ "Guinevere": [
+  {
+   "slot": "passive",
+   "name": "Super Magic",
+   "description": "Casting skills empowers her next basic attack with bonus damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/21/Super_Magic.png/revision/latest?cb=20210808074341"
+  },
+  {
+   "slot": "skill1",
+   "name": "Energy Wave",
+   "description": "Fires an energy ball that damages and slows the first enemy hit.",
+   "cooldown": "4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Energy_Wave.png/revision/latest?cb=20210808074449"
+  },
+  {
+   "slot": "skill2",
+   "name": "Spatial Migration",
+   "description": "Leaps to a spot, knocking enemies there airborne, and can blink back afterward.",
+   "cooldown": "17.0-14.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/bd/Spatial_Migration.png/revision/latest?cb=20210808074631"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Violet Requiem",
+   "description": "Unleashes a barrage on airborne enemies, keeping them in the air.",
+   "cooldown": "52.0-40.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/04/Violet_Requiem.png/revision/latest?cb=20210808074543"
+  }
+ ],
+ "Hanabi": [
+  {
+   "slot": "passive",
+   "name": "Ninjutsu: Petal Barrage",
+   "description": "Her attacks launch petal blades that bounce between nearby enemies.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/88/Ninjutsu_Petal_Barrage.png/revision/latest?cb=20221217033136"
+  },
+  {
+   "slot": "skill1",
+   "name": "Ninjutsu: Equinox",
+   "description": "Gains a shield that grants control immunity, speed and lifesteal while it holds.",
+   "cooldown": "14.0-12.0",
+   "mana_cost": "35-60",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5d/Ninjutsu_Equinox.png/revision/latest?cb=20221217033128"
+  },
+  {
+   "slot": "skill2",
+   "name": "Ninjutsu: Soul Scroll",
+   "description": "Throws a scroll that damages and slows enemies in a line.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": "35-60",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d4/Ninjutsu_Soul_Scroll.png/revision/latest?cb=20221217033141"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Forbidden Jutsu: Higanbana",
+   "description": "Plants a flower that blooms to root enemies caught inside.",
+   "cooldown": "40.0-30.0",
+   "mana_cost": "120-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/bc/Forbidden_Jutsu_Higanbana.png/revision/latest?cb=20221217033119"
+  }
+ ],
+ "Hanzo": [
+  {
+   "slot": "passive",
+   "name": "Ame no Habakiri",
+   "description": "Killing units gathers demon blood that fuels his ultimate.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d0/Ame_no_Habakiri.png/revision/latest?cb=20250213043646"
+  },
+  {
+   "slot": "skill1",
+   "name": "Ninjutsu: Demon Feast",
+   "description": "Devours a target for damage and blood; can also eat jungle monsters.",
+   "cooldown": "30.0-20.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7a/Ninjutsu_Demon_Feast.png/revision/latest?cb=20250213043813"
+  },
+  {
+   "slot": "skill2",
+   "name": "Ninjutsu: Dark Mist",
+   "description": "Dashes and leaves a mist behind that damages and slows enemies inside it.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/4c/Ninjutsu_Dark_Mist.png/revision/latest?cb=20250213043908"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Kinjutsu: Pinnacle Ninja",
+   "description": "Leaves his body as a demon that fights independently while the body hides.",
+   "cooldown": "24.0-16.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ee/Kinjutsu_Pinnacle_Ninja.png/revision/latest?cb=20250213044240"
+  }
+ ],
+ "Harith": [
+  {
+   "slot": "passive",
+   "name": "Key Insight",
+   "description": "Hitting heroes with his skills reduces the effect of crowd control on him.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/08/Key_Insight.png/revision/latest?cb=20240123231012"
+  },
+  {
+   "slot": "skill1",
+   "name": "Synchro Fission",
+   "description": "Sends out a phantom that damages enemies and returns to him.",
+   "cooldown": "5.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0f/Synchro_Fission.png/revision/latest?cb=20240123230739"
+  },
+  {
+   "slot": "skill2",
+   "name": "Chrono Dash",
+   "description": "Dashes and empowers his next attack with a shield-boosting strike.",
+   "cooldown": "9.3",
+   "mana_cost": "40-55",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6e/Chrono_Dash.png/revision/latest?cb=20240123230652"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Zaman Force",
+   "description": "Creates a rift that slows enemies and resets his dash when he passes through it.",
+   "cooldown": "40.0-30.0",
+   "mana_cost": "120-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/20/Zaman_Force.png/revision/latest?cb=20240123230545"
+  }
+ ],
+ "Harley": [
+  {
+   "slot": "passive",
+   "name": "Magic Master",
+   "description": "His basic attacks deal magic damage instead of physical.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a7/Magic_Master.png/revision/latest?cb=20210802144608"
+  },
+  {
+   "slot": "skill1",
+   "name": "Poker Trick",
+   "description": "Throws a spread of cards that damage enemies in front.",
+   "cooldown": "6.0",
+   "mana_cost": "90-115",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3f/Poker_Trick.png/revision/latest?cb=20210802144324"
+  },
+  {
+   "slot": "skill2",
+   "name": "Space Escape",
+   "description": "Blinks forward and can return to his starting spot shortly after.",
+   "cooldown": "8.5-6.5",
+   "mana_cost": "60-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/36/Space_Escape.png/revision/latest?cb=20210802144227"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Deadly Magic",
+   "description": "Places a burning ring on a target that explodes for damage based on hits taken.",
+   "cooldown": "36.0-30.0",
+   "mana_cost": "120-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/52/Deadly_Magic.png/revision/latest?cb=20210802144459"
+  }
+ ],
+ "Helcurt": [
+  {
+   "slot": "passive",
+   "name": "Shadow of Styx",
+   "description": "Stays hidden until spotted, regenerating and gaining a burst of speed when he breaks cover.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9f/Shadow_of_Styx.png/revision/latest?cb=20240605110519"
+  },
+  {
+   "slot": "skill1",
+   "name": "Hidden Terror",
+   "description": "Blinks to a spot; cast from the shadows it also terrifies nearby enemies.",
+   "cooldown": "15.0-10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/72/Hidden_Terror.png/revision/latest?cb=20240605110545"
+  },
+  {
+   "slot": "skill2",
+   "name": "Deadly Stinger",
+   "description": "Fires a stack of stingers at a target.",
+   "cooldown": "4.0-2.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7a/Deadly_Stinger.png/revision/latest?cb=20240605110608"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Dark Night Falls",
+   "description": "Darkens the map for enemies and boosts his speed.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b3/Dark_Night_Falls.png/revision/latest?cb=20240605110619"
+  }
+ ],
+ "Hilda": [
+  {
+   "slot": "passive",
+   "name": "Blessing of Wilderness",
+   "description": "Regains HP and moves faster while standing in bushes.",
+   "cooldown": "6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a5/Blessing_of_Wilderness.png/revision/latest?cb=20210315234250"
+  },
+  {
+   "slot": "skill1",
+   "name": "Combat Ritual",
+   "description": "Charges forward with a shield and boosted speed.",
+   "cooldown": "10.0-7.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8c/Combat_Ritual.png/revision/latest?cb=20210315234429"
+  },
+  {
+   "slot": "skill2",
+   "name": "Art of Hunting",
+   "description": "Slashes twice in a cone to damage and slow enemies.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f8/Art_of_Hunting.png/revision/latest?cb=20210315234319"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Power of Wildness",
+   "description": "Leaps onto a target for a heavy strike that grows with stacked kills.",
+   "cooldown": "32.0-24.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3f/Power_of_Wildness.png/revision/latest?cb=20210315234351"
+  }
+ ],
+ "Hirara": [
+  {
+   "slot": "passive",
+   "name": "Twin Fans: Ukifune",
+   "description": "She can drag one skill onto the other to cast a combined combo skill.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8c/Twin_Fans_Ukifune.png/revision/latest?cb=20260618092850"
+  },
+  {
+   "slot": "skill1",
+   "name": "Meisen-e",
+   "description": "Rides the waves with up to two joystick dashes that damage enemies hit.",
+   "cooldown": "9.0-5.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/23/Meisen-e.png/revision/latest?cb=20260618092851"
+  },
+  {
+   "slot": "skill2",
+   "name": "Kaerazu",
+   "description": "Sweeps a crimson maple in a cone, then strikes the target spot again for double damage.",
+   "cooldown": "5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a3/Kaerazu.png/revision/latest?cb=20260618092849"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Infernal Torrent",
+   "description": "Combo skill (Skill 1 then Skill 2): a wave of fan strikes across a wide area. Hirara has no ultimate.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/39/Infernal_Torrent.png/revision/latest?cb=20260618092847"
+  }
+ ],
+ "Hylos": [
+  {
+   "slot": "passive",
+   "name": "Thickened Blood",
+   "description": "Extra mana is converted into bonus max HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a7/Thickened_Blood.png/revision/latest?cb=20171201071431"
+  },
+  {
+   "slot": "skill1",
+   "name": "Law and Order",
+   "description": "Stuns a target and deals damage.",
+   "cooldown": "12.0-8.0",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f6/Law_and_Order.png/revision/latest?cb=20171201071413"
+  },
+  {
+   "slot": "skill2",
+   "name": "Ring of Punishment",
+   "description": "Emits a ring that repeatedly damages and slows nearby enemies.",
+   "cooldown": "1.0",
+   "mana_cost": "30-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/4e/Ring_of_Punishment.png/revision/latest?cb=20171201070705"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Glorious Pathway",
+   "description": "Lays a path that speeds up allies and slows enemies walking on it.",
+   "cooldown": "40.0-32.0",
+   "mana_cost": "150-450",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/fa/Glorious_Pathway.png/revision/latest?cb=20171201071444"
+  }
+ ],
+ "Irithel": [
+  {
+   "slot": "passive",
+   "name": "Jungle Heart",
+   "description": "Can fire basic attacks while moving.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b8/Jungle_Heart.png/revision/latest?cb=20260618090445"
+  },
+  {
+   "slot": "skill1",
+   "name": "Strafe",
+   "description": "Fires a volley of arrows that lowers enemy defense.",
+   "cooldown": "10.0",
+   "mana_cost": "0",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/af/Strafe.png/revision/latest?cb=20260618090444"
+  },
+  {
+   "slot": "skill2",
+   "name": "Force of the Queen",
+   "description": "Leo roars to damage and slow nearby enemies.",
+   "cooldown": "10.0-7.0",
+   "mana_cost": "0",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8c/Force_of_the_Queen.png/revision/latest?cb=20260618090443"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Heavy Crossbow",
+   "description": "Empowers her attacks to fire piercing bolts.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/63/Heavy_Crossbow.png/revision/latest?cb=20260618090442"
+  }
+ ],
+ "Ixia": [
+  {
+   "slot": "passive",
+   "name": "Siphon Starlium",
+   "description": "Her hits stack charges; a basic attack on a double-stacked target siphons extra damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/dc/Siphon_Starlium.png/revision/latest?cb=20231230023556"
+  },
+  {
+   "slot": "skill1",
+   "name": "Dual Beam",
+   "description": "Fires twin beams that damage enemies in a line.",
+   "cooldown": "8.0-4.0",
+   "mana_cost": "40-65",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/ce/Dual_Beam.png/revision/latest?cb=20231230023610"
+  },
+  {
+   "slot": "skill2",
+   "name": "Star Helix",
+   "description": "Dashes and fires a wave that slows enemies.",
+   "cooldown": "11.0-9.0",
+   "mana_cost": "75-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9f/Star_Helix.png/revision/latest?cb=20231230023637"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Full Barrage",
+   "description": "Unleashes a long barrage of shots at enemies in a wide area.",
+   "cooldown": "54.0-42.0",
+   "mana_cost": "75-105",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0a/Full_Barrage.png/revision/latest?cb=20231230023654"
+  }
+ ],
+ "Jawhead": [
+  {
+   "slot": "passive",
+   "name": "Mecha Suppression",
+   "description": "His attacks stack marks that make enemies take more damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/de/Mecha_Suppression.png/revision/latest?cb=20210930074449"
+  },
+  {
+   "slot": "skill1",
+   "name": "Smart Missiles",
+   "description": "Fires a volley of homing missiles at nearby enemies.",
+   "cooldown": "5.0",
+   "mana_cost": "60-85",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6f/Smart_Missiles.png/revision/latest?cb=20210930074500"
+  },
+  {
+   "slot": "skill2",
+   "name": "Ejector",
+   "description": "Grabs a unit and throws it in a direction, stunning heroes on landing.",
+   "cooldown": "15.0-12.0",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c4/Ejector.png/revision/latest?cb=20210930074510"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Unstoppable Force",
+   "description": "Charges at a target, knocking them back and stunning them.",
+   "cooldown": "35.0-25.0",
+   "mana_cost": "120-180",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/58/Unstoppable_Force.png/revision/latest?cb=20210930074522"
+  }
+ ],
+ "Johnson": [
+  {
+   "slot": "passive",
+   "name": "Electro-airbag",
+   "description": "Gains a shield when his HP drops low.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/05/Electro_Airbag.png/revision/latest?cb=20231231123336"
+  },
+  {
+   "slot": "skill1",
+   "name": "Impact Wrench",
+   "description": "Throws his wrench, damaging enemies in its path and stunning those around where it lands.",
+   "cooldown": "8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/bb/Impact_Wrench.png/revision/latest?cb=20231231123358"
+  },
+  {
+   "slot": "skill2",
+   "name": "Electromagnetic Waves",
+   "description": "Raises his shield to continuously damage and slow enemies in a cone, ramping up on repeat hits.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5f/Electromagnetic_Waves.png/revision/latest?cb=20231231123411"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Full Throttle",
+   "description": "Turns into a car that speeds up and explodes on impact to stun enemies; one ally can ride along.",
+   "cooldown": "36.0-30.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3f/Full_Throttle.png/revision/latest?cb=20231231123508"
+  }
+ ],
+ "Joy": [
+  {
+   "slot": "passive",
+   "name": "Humph, Joy's Angry!",
+   "description": "Skill hits on non-minions add bonus damage and a decaying burst of movement speed.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/51/Humph%2C_Joy%27s_Angry%21.png/revision/latest?cb=20221111121050"
+  },
+  {
+   "slot": "skill1",
+   "name": "Look, Leonin Crystal!",
+   "description": "Summons a crystal that damages and slows nearby enemies and serves as a springboard for her dashes.",
+   "cooldown": "4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c0/Look%2C_Leonin_Crystal%21.png/revision/latest?cb=20221111121055"
+  },
+  {
+   "slot": "skill2",
+   "name": "Meow, Rhythm of Joy!",
+   "description": "Dashes in rhythm several times, each hit on beat adding a stack.",
+   "cooldown": "8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c4/Meow%2C_Rhythm_of_Joy%21.png/revision/latest?cb=20221111121101"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Ha, Electrifying Beats!",
+   "description": "Gains defense and speed, then pulses damage around her; casts on the beat hit harder.",
+   "cooldown": "28.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d2/Ha%2C_Electrifying_Beats%21.png/revision/latest?cb=20221111121040"
+  }
+ ],
+ "Julian": [
+  {
+   "slot": "passive",
+   "name": "Smith's Legacy",
+   "description": "Casting two different skills empowers the third into a stronger version.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/69/Smith%27s_Legacy.png/revision/latest?cb=20220525112147"
+  },
+  {
+   "slot": "skill1",
+   "name": "Scythe",
+   "description": "Throws a scythe that damages and slows enemies in a line.",
+   "cooldown": "10.0-6.5",
+   "mana_cost": "30-50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/cd/Scythe.png/revision/latest?cb=20220525111831"
+  },
+  {
+   "slot": "skill2",
+   "name": "Sword",
+   "description": "Dashes forward with a sword that damages enemies along the path.",
+   "cooldown": "10.0-6.5",
+   "mana_cost": "30-50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Sword.png/revision/latest?cb=20220525111243"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Chain",
+   "description": "His third skill: throws chains that pull enemies together. Julian has no ultimate.",
+   "cooldown": "10.0-6.5",
+   "mana_cost": "30-50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ae/Chain.png/revision/latest?cb=20220525112413"
+  }
+ ],
+ "Kadita": [
+  {
+   "slot": "passive",
+   "name": "Thalassophobia",
+   "description": "Regains lost HP shortly after taking damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/43/Thalassophobia.png/revision/latest?cb=20210809092741"
+  },
+  {
+   "slot": "skill1",
+   "name": "Ocean Ode",
+   "description": "Rides a wave out and back, damaging and slowing enemies, immune to control while riding.",
+   "cooldown": "9.0-6.5",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/40/Ocean_Ode.png/revision/latest?cb=20210809092828"
+  },
+  {
+   "slot": "skill2",
+   "name": "Breath of the Ocean",
+   "description": "Summons a wave that knocks enemies into the air after a delay.",
+   "cooldown": "8.0",
+   "mana_cost": "90-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6d/Breath_of_the_Ocean.png/revision/latest?cb=20210809092915"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Rough Waves",
+   "description": "Sends out waves that return to her, damaging enemies twice.",
+   "cooldown": "40.0-32.0",
+   "mana_cost": "200-280",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a0/Rough_Waves.png/revision/latest?cb=20210809093025"
+  }
+ ],
+ "Kaja": [
+  {
+   "slot": "passive",
+   "name": "Wings of Lightning",
+   "description": "His skill damage paralyzes enemies, slowing them and reducing their damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8f/Wings_of_Lightning.png/revision/latest?cb=20260805103803"
+  },
+  {
+   "slot": "skill1",
+   "name": "Ring of Order",
+   "description": "Emits an electric ring that damages and slows enemies around him.",
+   "cooldown": "7.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c2/Ring_of_Order.png/revision/latest?cb=20260805103800"
+  },
+  {
+   "slot": "skill2",
+   "name": "Soaring Wings",
+   "description": "Dashes to an area with control immunity, knocking enemies back and stunning them, then flies over terrain.",
+   "cooldown": "14.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c9/Soaring_Wings.png/revision/latest?cb=20260805103801"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Divine Binding",
+   "description": "Hurls a lightning lasso; enemy heroes still in the area take damage and are restrained.",
+   "cooldown": "70.0-60.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2b/Divine_Binding.png/revision/latest?cb=20260805103802"
+  }
+ ],
+ "Kalea": [
+  {
+   "slot": "passive",
+   "name": "Surge of Life",
+   "description": "Skills drop a water zone; casting inside it empowers her next three attacks with dashes and healing.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1c/Surge_of_Life.png/revision/latest?cb=20250222151008"
+  },
+  {
+   "slot": "skill1",
+   "name": "Wavebreaker",
+   "description": "Creates a water zone and readies her enhanced attacks.",
+   "cooldown": "4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/08/Wavebreaker.png/revision/latest?cb=20250222151011"
+  },
+  {
+   "slot": "skill2",
+   "name": "Tidal Strike",
+   "description": "Charges forward and can leap into a slam that knocks enemies up.",
+   "cooldown": "13.0-11.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/91/Tidal_Strike.png/revision/latest?cb=20250222151009"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Tsunami Slam",
+   "description": "Grabs an enemy hero and slams them toward a chosen direction.",
+   "cooldown": "55.0-45.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a3/Tsunami_Slam.png/revision/latest?cb=20250222151010"
+  }
+ ],
+ "Karrie": [
+  {
+   "slot": "passive",
+   "name": "Lightwheel Mark",
+   "description": "Every few hits on a target deal bonus true damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/73/Lightwheel_Mark.png/revision/latest?cb=20180524145209"
+  },
+  {
+   "slot": "skill1",
+   "name": "Spinning Lightwheel",
+   "description": "Throws a lightwheel that damages and slows enemies in an area.",
+   "cooldown": "8.0",
+   "mana_cost": "40-65",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/be/Spinning_Lightwheel.png/revision/latest?cb=20180524145319"
+  },
+  {
+   "slot": "skill2",
+   "name": "Phantom Step",
+   "description": "Dashes and fires a lightwheel at nearby enemies.",
+   "cooldown": "4.5-2.5",
+   "mana_cost": "35-60",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/12/Phantom_Step.png/revision/latest?cb=20180524151835"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Speedy Lightwheel",
+   "description": "Fires double lightwheels with every basic attack for a while.",
+   "cooldown": "35.0",
+   "mana_cost": "70-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/da/Speedy_Lightwheel.png/revision/latest?cb=20180524151018"
+  }
+ ],
+ "Khaleed": [
+  {
+   "slot": "passive",
+   "name": "Sand Walk",
+   "description": "Moving builds desert power that empowers his next attack.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/fe/Sand_Walk.png/revision/latest?cb=20200719044846"
+  },
+  {
+   "slot": "skill1",
+   "name": "Desert Tornado",
+   "description": "Spins his scimitar to damage enemies around him several times.",
+   "cooldown": "6.5-4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ee/Desert_Tornado.png/revision/latest?cb=20210604062116"
+  },
+  {
+   "slot": "skill2",
+   "name": "Quicksand Guard",
+   "description": "Sits in sand to regain HP and slow nearby enemies.",
+   "cooldown": "22.0-17.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d9/Quicksand_Guard.png/revision/latest?cb=20210604062039"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Raging Sandstorm",
+   "description": "Charges forward and stuns enemies at the end of the dash.",
+   "cooldown": "46.0-38.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c2/Raging_Sandstorm.png/revision/latest?cb=20200719044626"
+  }
+ ],
+ "Khufra": [
+  {
+   "slot": "passive",
+   "name": "Spell Curse",
+   "description": "His attacks gain bonus damage after skills and reduce enemy dash abilities nearby.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/66/Spell_Curse.png/revision/latest?cb=20240113135908"
+  },
+  {
+   "slot": "skill1",
+   "name": "Tyrant's Revenge",
+   "description": "Leaps forward and knocks up the first enemy hit.",
+   "cooldown": "15.0-10.0",
+   "mana_cost": "80-105",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/04/Tyrant%27s_Revenge.png/revision/latest?cb=20240113140327"
+  },
+  {
+   "slot": "skill2",
+   "name": "Bouncing Ball",
+   "description": "Curls into a ball that blocks dashes and stuns enemies who try to pass.",
+   "cooldown": "10.0",
+   "mana_cost": "70-95",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/4c/Bouncing_Ball.png/revision/latest?cb=20240113140156"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Tyrant's Rage",
+   "description": "Sweeps enemies in front of him and slams them together.",
+   "cooldown": "50.0-40.0",
+   "mana_cost": "150-250",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/54/Tyrant%27s_Rage.png/revision/latest?cb=20240113140253"
+  }
+ ],
+ "Kimmy": [
+  {
+   "slot": "passive",
+   "name": "Aerial Dominance",
+   "description": "Aims her spray gun independently while moving and builds Starlium for enhanced attacks.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/85/Aerial_Dominance.png/revision/latest?cb=20250423105751"
+  },
+  {
+   "slot": "skill1",
+   "name": "Anti-Grav Thruster",
+   "description": "Takes flight with her jetpack, ignoring slows and terrain while firing bolts at nearby enemies.",
+   "cooldown": "14.0-9.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a1/Anti-Grav_Thruster.png/revision/latest?cb=20250423105752"
+  },
+  {
+   "slot": "skill2",
+   "name": "Starlium Beam",
+   "description": "Fires a beam that immobilizes enemies in its path and damages them over two seconds.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a4/Starlium_Beam.png/revision/latest?cb=20250423105753"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Traction Pulse",
+   "description": "Fires a pulse that explodes into a slowing field, which then contracts to pull enemies in.",
+   "cooldown": "40.0-30.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/80/Traction_Pulse.png/revision/latest?cb=20250423105754"
+  }
+ ],
+ "Lapu-Lapu": [
+  {
+   "slot": "passive",
+   "name": "Homeland Defender",
+   "description": "Landing skills builds up bravery that grants a shield.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/99/Homeland_Defender.png/revision/latest?cb=20210930071154"
+  },
+  {
+   "slot": "skill1",
+   "name": "Justice Blades",
+   "description": "Throws two blades that return to him, damaging enemies twice.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/84/Justice_Blades.png/revision/latest?cb=20210930071251"
+  },
+  {
+   "slot": "skill2",
+   "name": "Jungle Warrior",
+   "description": "Dashes forward with a slash that damages enemies in the path.",
+   "cooldown": "12.0-7.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/aa/Jungle_Warrior.png/revision/latest?cb=20210930071310"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Bravest Fighter",
+   "description": "Leaps and combines his blades into a heavy sword with new empowered skills.",
+   "cooldown": "20.0-15.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/88/Bravest_Fighter.png/revision/latest?cb=20210930071356"
+  }
+ ],
+ "Leomord": [
+  {
+   "slot": "passive",
+   "name": "The Oath Keeper",
+   "description": "His attacks always crit against enemies with low HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ac/The_Oath_Keeper.png/revision/latest?cb=20220628181202"
+  },
+  {
+   "slot": "skill1",
+   "name": "Momentum",
+   "description": "Charges up a slash that damages and slows, knocking back when fully charged.",
+   "cooldown": "6.0-4.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/dd/Momentum.png/revision/latest?cb=20220628181142"
+  },
+  {
+   "slot": "skill2",
+   "name": "Decimation Assault",
+   "description": "Dashes to a spot and slashes, slowing enemies hit.",
+   "cooldown": "12.0-10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f0/Decimation_Assault.png/revision/latest?cb=20220628181137"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Phantom Steed",
+   "description": "Summons his horse Barbiel to ride, gaining speed and mounted attacks.",
+   "cooldown": "30.0-20.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/ff/Phantom_Steed.png/revision/latest?cb=20220628181153"
+  }
+ ],
+ "Ling": [
+  {
+   "slot": "passive",
+   "name": "Cloud Walker",
+   "description": "Can leap onto walls and move along them unseen.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/68/Cloud_Walker.png/revision/latest?cb=20240622134906"
+  },
+  {
+   "slot": "skill1",
+   "name": "Finch Poise",
+   "description": "Jumps onto a wall or leaps off it to strike enemies below.",
+   "cooldown": "20.0",
+   "mana_cost": "30",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/14/Finch_Poise.png/revision/latest?cb=20240622134915"
+  },
+  {
+   "slot": "skill2",
+   "name": "Defiant Sword",
+   "description": "Dashes and slashes a target, gaining energy on hits.",
+   "cooldown": "2.5",
+   "mana_cost": "35",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ae/Defiant_Sword.png/revision/latest?cb=20240622134923"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Tempest of Blades",
+   "description": "Leaps into the air and lands with a ring of swords that slow and damage.",
+   "cooldown": "52.0-46.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Tempest_of_Blades.png/revision/latest?cb=20240622134931"
+  }
+ ],
+ "Lolita": [
+  {
+   "slot": "passive",
+   "name": "Noumenon Energy Core",
+   "description": "Her shield charges a stack that empowers her next basic attack.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7b/Noumenon_Energy_Core.png/revision/latest?cb=20250917083627"
+  },
+  {
+   "slot": "skill1",
+   "name": "Power Charge",
+   "description": "Blinks forward with her shield and stuns the enemy she reaches.",
+   "cooldown": "10.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e3/Power_Charge.png/revision/latest?cb=20250917083732"
+  },
+  {
+   "slot": "skill2",
+   "name": "Guardian's Reflection",
+   "description": "Raises her shield to reflect ranged attacks and projectiles back for a few seconds.",
+   "cooldown": "17.5-15.0",
+   "mana_cost": "90-115",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/da/Guardian%27s_Reflection.png/revision/latest?cb=20250917083743"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Noumenon Blast",
+   "description": "Charges a shockwave that damages and stuns enemies in a cone.",
+   "cooldown": "55.0-45.0",
+   "mana_cost": "120-160",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6a/Noumenon_Blast.png/revision/latest?cb=20250917083754"
+  }
+ ],
+ "Lukas": [
+  {
+   "slot": "passive",
+   "name": "Hero's Resolve",
+   "description": "Builds resolve over time and from damaging heroes, spent to stay in beast form.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b2/Hero%27s_Resolve.png/revision/latest?cb=20241221054549"
+  },
+  {
+   "slot": "skill1",
+   "name": "Flash Combo",
+   "description": "Basic attacks stack vigor; casting it releases a pulverizing strike based on stacks.",
+   "cooldown": "5.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5e/Flash_Combo.png/revision/latest?cb=20241221054546"
+  },
+  {
+   "slot": "skill2",
+   "name": "Flash Step",
+   "description": "Dashes and empowers his next attack to blink behind the target with a lightning burst.",
+   "cooldown": "12.0-8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/4f/Flash_Step.png/revision/latest?cb=20241221054548"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Unleash the Beast",
+   "description": "Transforms into his sacred beast form with boosted stats and new skill effects.",
+   "cooldown": "0.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/67/Unleash_the_Beast.png/revision/latest?cb=20241221054551"
+  }
+ ],
+ "Lunox": [
+  {
+   "slot": "passive",
+   "name": "Dreamland Twist",
+   "description": "Switches between Order and Chaos stances, each altering her passive bonuses.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7f/Dreamland_Twist.png/revision/latest?cb=20210816211509"
+  },
+  {
+   "slot": "skill1",
+   "name": "Starlight Pulse",
+   "description": "Fires bolts that damage nearby enemies and heal her per hit.",
+   "cooldown": "2.0",
+   "mana_cost": "75-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/09/Starlight_Pulse.png/revision/latest?cb=20210816211618"
+  },
+  {
+   "slot": "skill2",
+   "name": "Chaos Assault",
+   "description": "Hurls a bolt that damages a target and reduces their defense.",
+   "cooldown": "2.0",
+   "mana_cost": "30-55",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e2/Chaos_Assault.png/revision/latest?cb=20210816211707"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Order & Chaos",
+   "description": "In Order she turns invincible and damages nearby enemies; in Chaos she blinks and Chaos Assault recharges fast.",
+   "cooldown": "30.0-22.0",
+   "mana_cost": "120-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/27/Order_%26_Chaos.png/revision/latest?cb=20240208124046"
+  }
+ ],
+ "Luo Yi": [
+  {
+   "slot": "passive",
+   "name": "Duality",
+   "description": "Her skills mark targets with Yin or Yang; opposite marks collide for extra damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d4/Duality.png/revision/latest?cb=20260918024315"
+  },
+  {
+   "slot": "skill1",
+   "name": "Dispersion",
+   "description": "Fires an orb that marks and damages enemies hit.",
+   "cooldown": "1.2",
+   "mana_cost": "50-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/92/Dispersion.png/revision/latest?cb=20260918024347"
+  },
+  {
+   "slot": "skill2",
+   "name": "Rotation",
+   "description": "Drops a circle that marks and damages enemies inside.",
+   "cooldown": "12.0",
+   "mana_cost": "120-170",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c9/Rotation.png/revision/latest?cb=20260918024503"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Diversion",
+   "description": "Teleports herself and nearby allies to a distant spot.",
+   "cooldown": "55.0-45.0",
+   "mana_cost": "0",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/74/Diversion.png/revision/latest?cb=20260918024603"
+  }
+ ],
+ "Lylia": [
+  {
+   "slot": "passive",
+   "name": "Angry Gloom",
+   "description": "Skills that hit enemies stack up to boost her next Magic Shockwave.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9c/Angry_Gloom.png/revision/latest?cb=20210809093713"
+  },
+  {
+   "slot": "skill1",
+   "name": "Magic Shockwave",
+   "description": "Fires a wave of shadow energy that damages and slows enemies.",
+   "cooldown": "4.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b5/Magic_Shockwave.png/revision/latest?cb=20210809093754"
+  },
+  {
+   "slot": "skill2",
+   "name": "Shadow Energy",
+   "description": "Plants shadow bombs that detonate when a Shockwave passes through.",
+   "cooldown": "1.0",
+   "mana_cost": "40-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0c/Shadow_Energy.png/revision/latest?cb=20210809093832"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Black Shoes",
+   "description": "Returns to where she stood a moment ago, restoring HP and mana.",
+   "cooldown": "45.0-35.0",
+   "mana_cost": "120-0",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/94/Black_Shoes.png/revision/latest?cb=20210809093908"
+  }
+ ],
+ "Marcel": [
+  {
+   "slot": "passive",
+   "name": "Platinum Snap",
+   "description": "Snaps nearby enemies in place briefly and shields himself and the closest ally.",
+   "cooldown": "12.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f8/Platinum_Snap.png/revision/latest?cb=20260311075433"
+  },
+  {
+   "slot": "skill1",
+   "name": "Framed Moment",
+   "description": "Leaves his camera companion in place and can return to it.",
+   "cooldown": "12.5-10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a2/Framed_Moment.png/revision/latest?cb=20260311075430"
+  },
+  {
+   "slot": "skill2",
+   "name": "Tracking Shot",
+   "description": "Gains movement speed and can reactivate to dash forward.",
+   "cooldown": "12.5-10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/66/Tracking_Shot.png/revision/latest?cb=20260311075427"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Golden Hour",
+   "description": "Freezes everyone in an area in time while he moves freely inside.",
+   "cooldown": "74.0-62.0",
+   "mana_cost": "150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9c/Golden_Hour.png/revision/latest?cb=20260311075423"
+  }
+ ],
+ "Martis": [
+  {
+   "slot": "passive",
+   "name": "Asura's Wrath",
+   "description": "Landing skills raises his attack speed, with bonus attack at full stacks.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/4f/Asura%27s_Wrath.png/revision/latest?cb=20231226165530"
+  },
+  {
+   "slot": "skill1",
+   "name": "Asura Aura",
+   "description": "Sweeps his blades to pull enemies toward him and slow them.",
+   "cooldown": "7.0-5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/be/Asura_Aura.png/revision/latest?cb=20231226165646"
+  },
+  {
+   "slot": "skill2",
+   "name": "Mortal Coil",
+   "description": "Dashes with a series of slashes that knock enemies up.",
+   "cooldown": "8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/41/Mortal_Coil.png/revision/latest?cb=20231226165916"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Decimation",
+   "description": "Leaps onto a target for a strike that grows deadlier the lower their HP is.",
+   "cooldown": "36.0-28.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6f/Decimation.png/revision/latest?cb=20231226170036"
+  }
+ ],
+ "Masha": [
+  {
+   "slot": "passive",
+   "name": "Primal Pact",
+   "description": "Three HP bars; losing one clears control and blocks a hit, and damage dealt builds Feral that turns into HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d1/Primal_Pact.png/revision/latest?cb=20260918142334"
+  },
+  {
+   "slot": "skill1",
+   "name": "Feral Swipe",
+   "description": "Releases energy forward, damaging enemies in its path and slowing any hero hit.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/05/Feral_Swipe.png/revision/latest?cb=20260918142335"
+  },
+  {
+   "slot": "skill2",
+   "name": "Claw Strike",
+   "description": "Dashes in a direction for damage; resets whenever an HP bar is lost.",
+   "cooldown": "9.0-7.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/62/Claw_Strike.png/revision/latest?cb=20260918142333"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Savage Maul",
+   "description": "Charges an enemy hero, stunning them and knocking back others nearby.",
+   "cooldown": "42.0-34.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7c/Savage_Maul.png/revision/latest?cb=20260918142336"
+  }
+ ],
+ "Mathilda": [
+  {
+   "slot": "passive",
+   "name": "Ancestral Guidance",
+   "description": "Moving builds up a speed boost for her next basic attack.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/72/Ancestral_Guidance.png/revision/latest?cb=20210809085552"
+  },
+  {
+   "slot": "skill1",
+   "name": "Soul Bloom",
+   "description": "Summons wisps that fly at nearby enemies.",
+   "cooldown": "7.5",
+   "mana_cost": "60-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f1/Soul_Bloom.png/revision/latest?cb=20210809085520"
+  },
+  {
+   "slot": "skill2",
+   "name": "Guiding Wind",
+   "description": "Dashes to a spot; allies near her can follow the same path.",
+   "cooldown": "12.0-11.0",
+   "mana_cost": "75-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/16/Guiding_Wind.png/revision/latest?cb=20210809085631"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Circling Eagle",
+   "description": "Circles a target rapidly, then dives to knock them back.",
+   "cooldown": "40.0",
+   "mana_cost": "150-210",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/90/Circling_Eagle.png/revision/latest?cb=20210809085702"
+  }
+ ],
+ "Melissa": [
+  {
+   "slot": "passive",
+   "name": "Doll Buster",
+   "description": "Every few attacks she fires a needle that deals extra damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/86/Doll_Buster.png/revision/latest?cb=20220311092717"
+  },
+  {
+   "slot": "skill1",
+   "name": "Falling",
+   "description": "Dashes forward and gains attack speed.",
+   "cooldown": "7.5-5.0",
+   "mana_cost": "30-55",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b5/Falling%21.png/revision/latest?cb=20220311092948"
+  },
+  {
+   "slot": "skill2",
+   "name": "Eyes on You!",
+   "description": "Links a doll to an enemy so damage to the doll is copied to them.",
+   "cooldown": "9.0-7.0",
+   "mana_cost": "60-10",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/41/Eyes_on_You%21.png/revision/latest?cb=20220311093026"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Go Away!",
+   "description": "Places a field that pushes enemies out and keeps them away.",
+   "cooldown": "50.0-40.0",
+   "mana_cost": "120-180",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e4/Go_Away%21.png/revision/latest?cb=20220311093058"
+  }
+ ],
+ "Minotaur": [
+  {
+   "slot": "passive",
+   "name": "Rage Incarnate",
+   "description": "Builds rage in combat; at full rage his skills are empowered.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7b/Rage_Incarnate.png/revision/latest?cb=20210616060409"
+  },
+  {
+   "slot": "skill1",
+   "name": "Despair Stomp",
+   "description": "Leaps to a spot and stomps to damage and slow enemies.",
+   "cooldown": "12.0-9.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b9/Despair_Stomp.png/revision/latest?cb=20210616060356"
+  },
+  {
+   "slot": "skill2",
+   "name": "Motivation Roar",
+   "description": "Roars to heal himself and nearby allies.",
+   "cooldown": "10.0-7.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3e/Motivation_Rage.png/revision/latest?cb=20210616060342"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Minoan Fury",
+   "description": "Smashes the ground repeatedly, knocking enemies into the air.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/27/Minoan_Fury.png/revision/latest?cb=20210616060308"
+  }
+ ],
+ "Minsitthar": [
+  {
+   "slot": "passive",
+   "name": "Mark of the King",
+   "description": "Attacks on marked targets deal bonus damage and grant speed.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/61/Mark_of_the_King.png/revision/latest?cb=20230315070651"
+  },
+  {
+   "slot": "skill1",
+   "name": "Spear of Glory",
+   "description": "Thrusts his spear and drags the enemy hit toward him.",
+   "cooldown": "13.0-9.0",
+   "mana_cost": "95-145",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/16/Spear_of_Glory.png/revision/latest?cb=20230315070700"
+  },
+  {
+   "slot": "skill2",
+   "name": "Shield Assault",
+   "description": "Charges with his shield, knocking back enemies.",
+   "cooldown": "7.0-5.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/56/Shield_Assault.png/revision/latest?cb=20230315070653"
+  },
+  {
+   "slot": "ultimate",
+   "name": "King's Calling",
+   "description": "Summons a ring of guards that stops enemies from dashing across it.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": "150-250",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1d/King%27s_Calling.png/revision/latest?cb=20230315070647"
+  }
+ ],
+ "Moskov": [
+  {
+   "slot": "passive",
+   "name": "Spear of Quiescence",
+   "description": "Her basic attacks pierce through to hit enemies behind the target.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ea/Spear_of_Quiescence.png/revision/latest?cb=20231110024956"
+  },
+  {
+   "slot": "skill1",
+   "name": "Abyss Walker",
+   "description": "Blinks a short distance and resets her attack speed.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": "45-70",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/fa/Abyss_Walker.png/revision/latest?cb=20231110025034"
+  },
+  {
+   "slot": "skill2",
+   "name": "Spear of Misery",
+   "description": "A powerful strike that knocks the target back; hitting terrain or another hero stuns them.",
+   "cooldown": "12.0-9.5",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c1/Spear_of_Misery.png/revision/latest?cb=20231110025107"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Spear of Destruction",
+   "description": "Throws a spear across the map at a chosen hero.",
+   "cooldown": "55.0-45.0",
+   "mana_cost": "130-170",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a0/Spear_of_Destruction.png/revision/latest?cb=20231110025126"
+  }
+ ],
+ "Natalia": [
+  {
+   "slot": "passive",
+   "name": "Assassin Instinct",
+   "description": "Turns invisible in bushes and her next attack from stealth crits and silences.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/10/Assassin_Instinct.png/revision/latest?cb=20210816210625"
+  },
+  {
+   "slot": "skill1",
+   "name": "Claw Dash",
+   "description": "Dashes forward and can dash again after hitting an enemy.",
+   "cooldown": "10.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Claw_Dash.png/revision/latest?cb=20210816210737"
+  },
+  {
+   "slot": "skill2",
+   "name": "Smoke Bomb",
+   "description": "Drops smoke that makes her dodge basic attacks and slows enemies inside.",
+   "cooldown": "12.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/eb/Smoke_Bomb.png/revision/latest?cb=20210816210831"
+  },
+  {
+   "slot": "ultimate",
+   "name": "The Hunt",
+   "description": "Boosts her speed and empowers her next attacks.",
+   "cooldown": "3.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c8/The_Hunt.png/revision/latest?cb=20210816210938"
+  }
+ ],
+ "Natan": [
+  {
+   "slot": "passive",
+   "name": "Theory of Everything",
+   "description": "His skills stack a mark that raises his attack speed and damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/57/Theory_of_Everything.png/revision/latest?cb=20210903170055"
+  },
+  {
+   "slot": "skill1",
+   "name": "Superposition",
+   "description": "Fires a wave that damages and slows enemies in a line.",
+   "cooldown": "8.0-5.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/68/Superposition.png/revision/latest?cb=20210903170126"
+  },
+  {
+   "slot": "skill2",
+   "name": "Interference!",
+   "description": "Throws a gravity bomb that pulls enemies toward it.",
+   "cooldown": "12.0-10.0",
+   "mana_cost": "60-85",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/49/Interference%21.png/revision/latest?cb=20210903170153"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Entropy?",
+   "description": "Summons a clone that mirrors his movement and attacks.",
+   "cooldown": "24.0-16.0",
+   "mana_cost": "100-0",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/53/Entropy%3F.png/revision/latest?cb=20210903170224"
+  }
+ ],
+ "Nolan": [
+  {
+   "slot": "passive",
+   "name": "Dimensional Rift",
+   "description": "His skills leave rifts; when rifts overlap they pull enemies in and explode.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/46/Dimensional_Rift.png/revision/latest?cb=20231110015640"
+  },
+  {
+   "slot": "skill1",
+   "name": "Expansion",
+   "description": "Cuts a rectangle in front of him and leaves a rift at the first enemy hit.",
+   "cooldown": "2.0-1.0",
+   "mana_cost": "25",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/bb/Expansion.png/revision/latest?cb=20231110015656"
+  },
+  {
+   "slot": "skill2",
+   "name": "Gauge",
+   "description": "Blinks forward, leaving a rift behind him.",
+   "cooldown": "2.0-1.0",
+   "mana_cost": "25",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/90/Gauge.png/revision/latest?cb=20231110015706"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Fracture",
+   "description": "Slashes three times in front of him, leaving several rifts.",
+   "cooldown": "21.0-15.0",
+   "mana_cost": "0",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ed/Fracture.png/revision/latest?cb=20231110015726"
+  }
+ ],
+ "Novaria": [
+  {
+   "slot": "passive",
+   "name": "Star Trail",
+   "description": "Her skills reveal and pass through terrain in a comet trail.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/ff/Star_Trail.png/revision/latest?cb=20230420164248"
+  },
+  {
+   "slot": "skill1",
+   "name": "Astral Meteor",
+   "description": "Drops a meteor that grows in damage as it travels.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": "60-100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c5/Astral_Meteor.png/revision/latest?cb=20230420164231"
+  },
+  {
+   "slot": "skill2",
+   "name": "Astral Recall",
+   "description": "Summons a distant sphere and pulls it back to her, gaining speed and passing terrain, then launches it.",
+   "cooldown": "8.0",
+   "mana_cost": "60-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/09/Astral_Recall.png/revision/latest?cb=20230420164237"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Astral Echo",
+   "description": "Scatters echoes that slow enemies hit, reveal them and enlarge their hitbox.",
+   "cooldown": "45.0-35.0",
+   "mana_cost": "100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/03/Astral_Echo.png/revision/latest?cb=20230420164226"
+  }
+ ],
+ "Obsidia": [
+  {
+   "slot": "passive",
+   "name": "Return to Bone",
+   "description": "Damaging enemies builds Bone Energy that converts into shards which empower her skills.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e3/Return_to_Bone.png/revision/latest?cb=20250918010853"
+  },
+  {
+   "slot": "skill1",
+   "name": "Abyssal Bone Needle",
+   "description": "Fires a needle that pierces enemies and triggers her passive on the first hero hit.",
+   "cooldown": "4.5-3.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/ff/Abyssal_Bone_Needle.png/revision/latest?cb=20250918010947"
+  },
+  {
+   "slot": "skill2",
+   "name": "Phantom Shadowmeld",
+   "description": "Dives into the shadows for a burst of movement speed.",
+   "cooldown": "4.5-3.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Phantom_Shadowmeld.png/revision/latest?cb=20250918011152"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Hunt of Bone",
+   "description": "Shoots bones that stun the first hero hit, pull her to them and tether them so they cannot escape.",
+   "cooldown": "40.0-30.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/33/Hunt_of_Bone.png/revision/latest?cb=20250918011139"
+  }
+ ],
+ "Odette": [
+  {
+   "slot": "passive",
+   "name": "Lakeshore Ambience",
+   "description": "Casting skills adds a bouncing energy ball to her next basic attack.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a4/Lakeshore_Ambience.png/revision/latest?cb=20210930072957"
+  },
+  {
+   "slot": "skill1",
+   "name": "Avian Authority",
+   "description": "Sends a swan that damages and slows enemies in an area.",
+   "cooldown": "6.0-5.0",
+   "mana_cost": "90-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5a/Avian_Authority.png/revision/latest?cb=20210930073008"
+  },
+  {
+   "slot": "skill2",
+   "name": "Blue Nova",
+   "description": "Fires an orb that roots the first enemy hit and nearby enemies.",
+   "cooldown": "12.0-10.0",
+   "mana_cost": "90-115",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/37/Blue_Nova.png/revision/latest?cb=20210930073018"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Swan Song",
+   "description": "Channels a storm of energy that damages everything around her.",
+   "cooldown": "50.0-40.0",
+   "mana_cost": "200-280",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e0/Swan_Song.png/revision/latest?cb=20210930073037"
+  }
+ ],
+ "Paquito": [
+  {
+   "slot": "passive",
+   "name": "Champ Stance",
+   "description": "Every third skill cast enters Champ Stance, giving an enhanced skill that ignores its cooldown.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/45/Champ_Stance.png/revision/latest?cb=20210315233746"
+  },
+  {
+   "slot": "skill1",
+   "name": "Heavy Left Punch",
+   "description": "Punches forward and gains a shield.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2a/Heavy_Left_Punch.png/revision/latest?cb=20210315233622"
+  },
+  {
+   "slot": "skill2",
+   "name": "Jab",
+   "description": "Dashes and jabs, dealing damage and slowing.",
+   "cooldown": "8.0-5.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/cd/Jab.png/revision/latest?cb=20210315233645"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Knockout Strike",
+   "description": "A heavy elbow that knocks the target back.",
+   "cooldown": "18.0-15.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/43/Knockout_Strike.png/revision/latest?cb=20210315233719"
+  }
+ ],
+ "Pharsa": [
+  {
+   "slot": "passive",
+   "name": "Spiritual Unity",
+   "description": "Her crow marks enemies, and her attacks on marked targets deal bonus damage.",
+   "cooldown": "8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5f/Spiritual_Unity.png/revision/latest?cb=20240120063431"
+  },
+  {
+   "slot": "skill1",
+   "name": "Curse of Crow",
+   "description": "Fires a curse that damages and stuns the enemy hit.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": "60-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/15/Curse_of_Crow.png/revision/latest?cb=20240122034020"
+  },
+  {
+   "slot": "skill2",
+   "name": "Energy Impact",
+   "description": "Fires an energy bolt in a direction.",
+   "cooldown": "5.0",
+   "mana_cost": "50-80",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a9/Energy_Impact.png/revision/latest?cb=20240122034024"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Feathered Air Strike",
+   "description": "Flies up and bombards an area with several magic strikes.",
+   "cooldown": "36.0-30.0",
+   "mana_cost": "120-180",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c7/Feathered_Air_Strike.png/revision/latest?cb=20240122034028"
+  }
+ ],
+ "Phoveus": [
+  {
+   "slot": "passive",
+   "name": "Demonic Force",
+   "description": "After a skill his next basic attack charges at the enemy and knocks them back.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3f/Demonic_Force.png/revision/latest?cb=20240929060141"
+  },
+  {
+   "slot": "skill1",
+   "name": "Demonic Impact",
+   "description": "Slams his monolith into the ground to damage and slow enemies in the area.",
+   "cooldown": "6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ee/Demonic_Impact.png/revision/latest?cb=20240929060119"
+  },
+  {
+   "slot": "skill2",
+   "name": "Dark Wave",
+   "description": "Releases demonic power in a direction that knocks enemies airborne.",
+   "cooldown": "10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/30/Dark_Wave.png/revision/latest?cb=20240929060137"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Infernal Pursuit",
+   "description": "Leaps onto an enemy hero who dashed nearby, smashing down for damage while healing himself.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a2/Infernal_Pursuit.png/revision/latest?cb=20240802111808"
+  }
+ ],
+ "Popol and Kupa": [
+  {
+   "slot": "passive",
+   "name": "We Are Friends",
+   "description": "Kupa fights alongside Popol and grows stronger with his skill upgrades.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/80/We_Are_Friends.png/revision/latest?cb=20210809083507"
+  },
+  {
+   "slot": "skill1",
+   "name": "Bite 'em, Kupa!",
+   "description": "Sends Kupa to bite a target.",
+   "cooldown": "6.5",
+   "mana_cost": "50-80",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/71/Bite_%27em%2C_Kupa%21.png/revision/latest?cb=20210809083631"
+  },
+  {
+   "slot": "skill2",
+   "name": "Kupa, Help!",
+   "description": "Calls Kupa back to shield Popol.",
+   "cooldown": "6.5",
+   "mana_cost": "80-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0e/Kupa%2C_Help%21.png/revision/latest?cb=20210809083707"
+  },
+  {
+   "slot": "ultimate",
+   "name": "We Are Angry!",
+   "description": "Kupa enters an enraged form with boosted damage and defense.",
+   "cooldown": "38.0-32.0",
+   "mana_cost": "100-140",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/cd/We_Are_Angry%21.png/revision/latest?cb=20210905105738"
+  }
+ ],
+ "Rafaela": [
+  {
+   "slot": "passive",
+   "name": "Divine Resurrection",
+   "description": "Periodically can channel to resurrect a fallen ally, who respawns at base with a speed boost.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/40/Divine_Resurrection.png/revision/latest?cb=20250917074635"
+  },
+  {
+   "slot": "skill1",
+   "name": "Light of Retribution",
+   "description": "Damages nearby enemies and reveals them.",
+   "cooldown": "4.0",
+   "mana_cost": "70-145",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f6/Light_of_Retribution.png/revision/latest?cb=20240118091251"
+  },
+  {
+   "slot": "skill2",
+   "name": "Holy Healing",
+   "description": "Heals herself and nearby allies and speeds them up.",
+   "cooldown": "10.5-8.5",
+   "mana_cost": "100-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a5/Holy_Healing.png/revision/latest?cb=20200917011935"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Holy Baptism",
+   "description": "Fires a beam that damages and stuns enemies in a line.",
+   "cooldown": "42.0-34.0",
+   "mana_cost": "150-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/40/Holy_Baptism.png/revision/latest?cb=20200917011934"
+  }
+ ],
+ "Roger": [
+  {
+   "slot": "passive",
+   "name": "Full Moon Curse",
+   "description": "Switching forms grants bonus effects to his next attack.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f9/Full_Moon_Curse.png/revision/latest?cb=20210905105058"
+  },
+  {
+   "slot": "skill1",
+   "name": "Open Fire",
+   "description": "Fires a bullet that damages and slows the first enemy hit.",
+   "cooldown": "7.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c1/Open_Fire.png/revision/latest?cb=20210905105026"
+  },
+  {
+   "slot": "skill2",
+   "name": "Hunter's Steps",
+   "description": "Gains a burst of movement speed.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": "50",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1d/Hunter%27s_Steps.png/revision/latest?cb=20210905104945"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Wolf Transformation",
+   "description": "Turns into a wolf with new melee skills and a leaping strike.",
+   "cooldown": "6.0-4.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b2/Wolf_Transformation.png/revision/latest?cb=20210905104842"
+  }
+ ],
+ "Ruby": [
+  {
+   "slot": "passive",
+   "name": "Let's Dance!",
+   "description": "Skills let her dash after casting and she gains lifesteal from basic attacks.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ab/Let%27s_dance%21.png/revision/latest?cb=20210816063243"
+  },
+  {
+   "slot": "skill1",
+   "name": "Be Good!",
+   "description": "Swings her scythe forward and lets her dash.",
+   "cooldown": "4.0",
+   "mana_cost": "25",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/90/Be_good%21.png/revision/latest?cb=20210816063353"
+  },
+  {
+   "slot": "skill2",
+   "name": "Don't Run, Wolf King!",
+   "description": "Sweeps twice, stunning enemies hit on the second swing.",
+   "cooldown": "7.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0a/Don%27t_run%2C_Wolf_King%21.png/revision/latest?cb=20210816063441"
+  },
+  {
+   "slot": "ultimate",
+   "name": "I'm Offended!",
+   "description": "Pulls enemies in front of her toward herself.",
+   "cooldown": "26.0-20.0",
+   "mana_cost": "80-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a9/I%27m_offended%21.png/revision/latest?cb=20210816063549"
+  }
+ ],
+ "Selena": [
+  {
+   "slot": "passive",
+   "name": "Symbiosis",
+   "description": "Switches between an Elf form with traps and a shadow form with melee strikes.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/44/Symbiosis.png/revision/latest?cb=20211108070339"
+  },
+  {
+   "slot": "skill1",
+   "name": "Abyssal Trap",
+   "description": "Places traps that slow and mark enemies who step on them.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": "60-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ed/Abyssal_Trap.png/revision/latest?cb=20211108070434"
+  },
+  {
+   "slot": "skill2",
+   "name": "Abyssal Arrow",
+   "description": "Fires an arrow that stuns longer the farther it flies.",
+   "cooldown": "12.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c2/Abyssal_Arrow.png/revision/latest?cb=20211108070444"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Primal Darkness",
+   "description": "Transforms into her shadow form, swapping her skills for melee attacks.",
+   "cooldown": "5.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b4/Primal_Darkness.png/revision/latest?cb=20211108070514"
+  }
+ ],
+ "Silvanna": [
+  {
+   "slot": "passive",
+   "name": "Knightess' Resolve",
+   "description": "Her skills mark enemies to reduce their magic defense.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7f/Knightess%27_Resolve.png/revision/latest?cb=20210802142628"
+  },
+  {
+   "slot": "skill1",
+   "name": "Cometic Lance",
+   "description": "Dashes and swings her lance to damage and stun nearby enemies.",
+   "cooldown": "11.0-9.0",
+   "mana_cost": "70-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/13/Cometic_Lance_2.png/revision/latest?cb=20220220064643"
+  },
+  {
+   "slot": "skill2",
+   "name": "Spiral Strangling",
+   "description": "Spins her lance to damage and heal from nearby enemies.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8b/Spiral_Strangling.png/revision/latest?cb=20210802142752"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Imperial Justice",
+   "description": "Leaps to a spot and traps enemies inside a circle.",
+   "cooldown": "52.0-44.0",
+   "mana_cost": "130-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8a/Imperial_Justice.png/revision/latest?cb=20210802142931"
+  }
+ ],
+ "Sora": [
+  {
+   "slot": "passive",
+   "name": "Mystic Surge",
+   "description": "Damaging heroes stacks cloudstep; at full stacks his ultimate lets him ascend.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/8c/Mystic_Surge.png/revision/latest?cb=20251218013740"
+  },
+  {
+   "slot": "skill1",
+   "name": "Sundering Strike",
+   "description": "Strikes twice and lunges forward, changing effect with his current form.",
+   "cooldown": "5.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a5/Sundering_Strike.png/revision/latest?cb=20251218013739"
+  },
+  {
+   "slot": "skill2",
+   "name": "Windstride",
+   "description": "Leaps forward and slams down to damage and slow enemies.",
+   "cooldown": "8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/93/Windstride.png/revision/latest?cb=20251218013738"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Shifting Skies",
+   "description": "Ascends into Thunder (assassin) or Torrent (tank) form by swiping a direction.",
+   "cooldown": "32.0-24.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/cc/Shifting_Skies.png/revision/latest?cb=20251218013737"
+  }
+ ],
+ "Sun": [
+  {
+   "slot": "passive",
+   "name": "Simian God",
+   "description": "His attacks hit harder against enemies with more HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/17/Simian_God.png/revision/latest?cb=20240208125440"
+  },
+  {
+   "slot": "skill1",
+   "name": "Endless Variety",
+   "description": "Throws his staff and creates a clone that fights.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f9/Endless_Variety.png/revision/latest?cb=20240208125547"
+  },
+  {
+   "slot": "skill2",
+   "name": "Swift Exchange",
+   "description": "Throws his staff forward for damage and leaves a clone behind while he slips out of sight.",
+   "cooldown": "10.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9c/Swift_Exchange.png/revision/latest?cb=20240208125456"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Clone Techniques",
+   "description": "Summons a clone that attacks and heals him with each hit.",
+   "cooldown": "36.0-28.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b7/Clone_Techniques.png/revision/latest?cb=20240208125649"
+  }
+ ],
+ "Suyou": [
+  {
+   "slot": "passive",
+   "name": "Transient Immortal",
+   "description": "Switches between a fast mortal form and a sturdier immortal form.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3c/Transient_Immortal.png/revision/latest?cb=20240921145922"
+  },
+  {
+   "slot": "skill1",
+   "name": "Blade Surge",
+   "description": "Throws his weapon and blinks to it for a slash.",
+   "cooldown": "8.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/ca/Blade_Surge.png/revision/latest?cb=20240921145922"
+  },
+  {
+   "slot": "skill2",
+   "name": "Soul Sever",
+   "description": "Sweeps to deal damage that scales with the enemy's lost HP.",
+   "cooldown": "8.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/01/Soul_Sever.png/revision/latest?cb=20240921145921"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Evil Queller",
+   "description": "His third skill: blinks back while swinging to damage and slow nearby foes. Suyou has no ultimate.",
+   "cooldown": "8.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/89/Evil_Queller.png/revision/latest?cb=20240921145920"
+  }
+ ],
+ "Terizla": [
+  {
+   "slot": "passive",
+   "name": "Body of Smith",
+   "description": "Loses attack speed in exchange for bonus damage as his HP drops.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c3/Body_of_Smith.png/revision/latest?cb=20220204074740"
+  },
+  {
+   "slot": "skill1",
+   "name": "Revenge Strike",
+   "description": "Slams his hammer forward and can slam again.",
+   "cooldown": "8.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/3d/Revenge_Strike.png/revision/latest?cb=20220204074814"
+  },
+  {
+   "slot": "skill2",
+   "name": "Execution Strike",
+   "description": "Leaps and hammers the ground to damage enemies in a line.",
+   "cooldown": "9.0-4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/93/Execution_Strike.png/revision/latest?cb=20220204074847"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Penalty Zone",
+   "description": "Drops a machine that pulls enemies into it.",
+   "cooldown": "50.0-36.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/49/Penalty_Zone.png/revision/latest?cb=20220204074917"
+  }
+ ],
+ "Thamuz": [
+  {
+   "slot": "passive",
+   "name": "Grand Lord Lava",
+   "description": "His scythes attach to enemies and burn them over time.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/af/Grand_Lord_Lava.png/revision/latest?cb=20250917080548"
+  },
+  {
+   "slot": "skill1",
+   "name": "Molten Scythes",
+   "description": "Throws scythes that return to him, damaging enemies twice.",
+   "cooldown": "3.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/44/Molten_Scythes.png/revision/latest?cb=20250917080550"
+  },
+  {
+   "slot": "skill2",
+   "name": "Chasm Trample",
+   "description": "Leaps to a spot to damage and slow enemies there.",
+   "cooldown": "8.0-6.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/51/Chasm_Trample.png/revision/latest?cb=20250917080546"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Cauterant Inferno",
+   "description": "Ignites himself to burn nearby enemies and boost his own stats.",
+   "cooldown": "38.0-30.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/06/Cauterant_Inferno.png/revision/latest?cb=20250917080545"
+  }
+ ],
+ "Uranus": [
+  {
+   "slot": "passive",
+   "name": "Radiance",
+   "description": "Taking damage builds stacks that regenerate his HP.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/71/Radiance.png/revision/latest?cb=20210903163930"
+  },
+  {
+   "slot": "skill1",
+   "name": "Ionic Edge",
+   "description": "Fires two energy blades that damage and slow enemies.",
+   "cooldown": "4.0",
+   "mana_cost": "60-85",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/61/Ionic_Edge.png/revision/latest?cb=20210903164010"
+  },
+  {
+   "slot": "skill2",
+   "name": "Transcendent Ward",
+   "description": "Dashes and gains a shield and movement speed.",
+   "cooldown": "10.0",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/71/Transcendent_Ward.png/revision/latest?cb=20210903164056"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Consecration",
+   "description": "Removes debuffs and boosts his regeneration and speed.",
+   "cooldown": "42.0-36.0",
+   "mana_cost": "100-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/96/Consecration.png/revision/latest?cb=20210903164156"
+  }
+ ],
+ "Vale": [
+  {
+   "slot": "passive",
+   "name": "Windtalk",
+   "description": "Each skill can be upgraded into a damage or control version.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/83/Windtalk.png/revision/latest?cb=20250918050055"
+  },
+  {
+   "slot": "skill1",
+   "name": "Wind Blade",
+   "description": "Sends out blades of wind in a direction.",
+   "cooldown": "6.0-4.0",
+   "mana_cost": "60-85",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c4/Wind_Blade.png/revision/latest?cb=20250918050123"
+  },
+  {
+   "slot": "skill2",
+   "name": "Wind Blow",
+   "description": "Blows a gust that knocks enemies back.",
+   "cooldown": "10.0",
+   "mana_cost": "90-115",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9d/Windblow.png/revision/latest?cb=20250918050129"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Windstorm",
+   "description": "Summons a tornado that damages and pulls enemies inside.",
+   "cooldown": "40.0-32.0",
+   "mana_cost": "150-250",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b1/Windstorm.png/revision/latest?cb=20250918050134"
+  }
+ ],
+ "Valentina": [
+  {
+   "slot": "passive",
+   "name": "Primal Force",
+   "description": "Gains bonus experience from skills and grows stronger with level.",
+   "cooldown": "2.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/68/Primal_Force.png/revision/latest?cb=20211202092807"
+  },
+  {
+   "slot": "skill1",
+   "name": "Shadow Strike",
+   "description": "Fires a bolt that damages and slows the enemy hit.",
+   "cooldown": "7.0-5.0",
+   "mana_cost": "70-95",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/46/Shadow_Strike.png/revision/latest?cb=20211202092839"
+  },
+  {
+   "slot": "skill2",
+   "name": "Arcane Shade",
+   "description": "Dashes and marks enemies, gaining a follow-up hit.",
+   "cooldown": "12.0",
+   "mana_cost": "45-70",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/56/Arcane_Shade.png/revision/latest?cb=20211202092934"
+  },
+  {
+   "slot": "ultimate",
+   "name": "I Am You",
+   "description": "Copies a target hero's ultimate for a while.",
+   "cooldown": "Varying (>= 10 seconds)",
+   "mana_cost": "Varying",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/37/I_Am_You.png/revision/latest?cb=20211202093159"
+  }
+ ],
+ "Valir": [
+  {
+   "slot": "passive",
+   "name": "Ashing",
+   "description": "His fire skills stack burns that eventually stun the target.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6a/Ashing.png/revision/latest?cb=20210903173840"
+  },
+  {
+   "slot": "skill1",
+   "name": "Burst Fireball",
+   "description": "Throws a fireball that explodes on the first enemy hit.",
+   "cooldown": "1.5",
+   "mana_cost": "50-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5f/Burst_Fireball.png/revision/latest?cb=20210903173909"
+  },
+  {
+   "slot": "skill2",
+   "name": "Searing Torrent",
+   "description": "Sends a wave of flame that knocks enemies back.",
+   "cooldown": "13-10.0",
+   "mana_cost": "80-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7f/Searing_Torrent.png/revision/latest?cb=20210903173933"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Vengeance Flame",
+   "description": "Cleanses debuffs and empowers his skills for a while.",
+   "cooldown": "36.0-30.0",
+   "mana_cost": "100-150",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/1e/Vengeance_Flame.png/revision/latest?cb=20210903173958"
+  }
+ ],
+ "Vexana": [
+  {
+   "slot": "passive",
+   "name": "Nether Touch",
+   "description": "Enemies hit by her skills explode when killed, damaging others nearby.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ec/Nether_Touch.png/revision/latest?cb=20241018163634"
+  },
+  {
+   "slot": "skill1",
+   "name": "Deathly Grasp",
+   "description": "Fires a projectile that terrifies and knocks back the first hero hit, then explodes to terrify others.",
+   "cooldown": "14.0-11.0",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ed/Deathly_Grasp.png/revision/latest?cb=20241018163631"
+  },
+  {
+   "slot": "skill2",
+   "name": "Cursed Blast",
+   "description": "Marks an area that erupts after a short delay, damaging enemies inside.",
+   "cooldown": "7.0-5.5",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/37/Cursed_Blast.png/revision/latest?cb=20241018163628"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Eternal Guard",
+   "description": "Summons a knight that fights for her and taunts enemies.",
+   "cooldown": "60.0-46.0",
+   "mana_cost": "120-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c5/Eternal_Guard.png/revision/latest?cb=20241018163624"
+  }
+ ],
+ "Wanwan": [
+  {
+   "slot": "passive",
+   "name": "Tiger Pace",
+   "description": "Her basic attacks let her hop; hitting an enemy's weak points unlocks her ultimate.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/50/Tiger_Pace.png/revision/latest?cb=20210809084948"
+  },
+  {
+   "slot": "skill1",
+   "name": "Swallow's Path",
+   "description": "Throws a fire swallow that splits into daggers which fly back to her, hitting enemies both ways.",
+   "cooldown": "10.0-8.0",
+   "mana_cost": "85-110",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ef/Swallow%27s_Path.png/revision/latest?cb=20210809085051"
+  },
+  {
+   "slot": "skill2",
+   "name": "Needles in Flowers",
+   "description": "Cleanses debuffs and fires needles at nearby enemies.",
+   "cooldown": "24.0-20.0",
+   "mana_cost": "100-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7e/Needles_in_Flowers.png/revision/latest?cb=20210809085122"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Crossbow of Tang",
+   "description": "Becomes untargetable and rapid-fires arrows at a target.",
+   "cooldown": "50.0-42.0",
+   "mana_cost": "130-170",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/3/32/Crossbow_of_Tang.png/revision/latest?cb=20191128203850"
+  }
+ ],
+ "X.Borg": [
+  {
+   "slot": "passive",
+   "name": "Firaga Armor",
+   "description": "Fights inside a suit of armor with its own HP bar and burns nearby enemies.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7b/Firaga_Armor.png/revision/latest?cb=20220302070112"
+  },
+  {
+   "slot": "skill1",
+   "name": "Fire Missiles",
+   "description": "Sprays flames in a cone that damages and burns enemies.",
+   "cooldown": "4.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a0/Fire_Missiles.png/revision/latest?cb=20220302070149"
+  },
+  {
+   "slot": "skill2",
+   "name": "Fire Stake",
+   "description": "Fires stakes that pull enemies toward him.",
+   "cooldown": "12-9",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/1/18/Fire_Stake.png/revision/latest?cb=20220302070221"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Last Insanity",
+   "description": "Charges forward and self-destructs the armor for a big explosion.",
+   "cooldown": "30.0-24.0",
+   "mana_cost": "100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a5/Last_Insanity.png/revision/latest?cb=20220302070257"
+  }
+ ],
+ "Xavier": [
+  {
+   "slot": "passive",
+   "name": "Transcendence",
+   "description": "Landing skills stacks up to enhance his next skill.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/85/Transcendence.png/revision/latest?cb=20220317095446"
+  },
+  {
+   "slot": "skill1",
+   "name": "Infinite Extension",
+   "description": "Fires a bolt that extends when it hits an enemy.",
+   "cooldown": "6.5-6.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/98/Infinite_Extension.png/revision/latest?cb=20220317095424"
+  },
+  {
+   "slot": "skill2",
+   "name": "Mystic Field",
+   "description": "Creates a barrier that slows enemies and speeds up allies.",
+   "cooldown": "13.0",
+   "mana_cost": "80-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ad/Mystic_Field.png/revision/latest?cb=20220317095438"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Dawning Light",
+   "description": "Fires a global beam that damages every enemy in its line.",
+   "cooldown": "56.0",
+   "mana_cost": "120-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/9a/Dawning_Light.png/revision/latest?cb=20220317095409"
+  }
+ ],
+ "Yi Sun-shin": [
+  {
+   "slot": "passive",
+   "name": "Heavenly Vow",
+   "description": "Switches between a bow and a sword depending on distance.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/ee/Heavenly_Vow.png/revision/latest?cb=20260905054701"
+  },
+  {
+   "slot": "skill1",
+   "name": "Traceless",
+   "description": "Dashes and fires a piercing arrow.",
+   "cooldown": "12.0-7.0",
+   "mana_cost": "50-75",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/d9/Traceless.png/revision/latest?cb=20260905054849"
+  },
+  {
+   "slot": "skill2",
+   "name": "Blood Floods",
+   "description": "Charges an arrow that deals more damage the longer it is held.",
+   "cooldown": "11.0",
+   "mana_cost": "60-85",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b3/Blood_Floods.png/revision/latest?cb=20260905054911"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Mountain Shocker",
+   "description": "Calls a fleet to bombard the map and reveal enemies.",
+   "cooldown": "60.0",
+   "mana_cost": "150-210",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/2b/Mountain_Shocker.png/revision/latest?cb=20260905055001"
+  }
+ ],
+ "Yin": [
+  {
+   "slot": "passive",
+   "name": "Leave It to Me",
+   "description": "Deals more damage and gains spell vamp when no allies are nearby.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ad/Leave_It_to_Me.png/revision/latest?cb=20220108155655"
+  },
+  {
+   "slot": "skill1",
+   "name": "Charged Punch",
+   "description": "Dashes forward and punches the first enemy hit.",
+   "cooldown": "10.0-7.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/e/e2/Charged_Punch.png/revision/latest?cb=20220108155643"
+  },
+  {
+   "slot": "skill2",
+   "name": "Instant Blast",
+   "description": "Fires a shockwave that damages and slows enemies.",
+   "cooldown": "14.0-10.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/ad/Instant_Blast.png/revision/latest?cb=20220108155652"
+  },
+  {
+   "slot": "ultimate",
+   "name": "My Turn",
+   "description": "Drags an enemy into a separate arena for a one-on-one fight.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/a/a8/My_Turn.png/revision/latest?cb=20220108155647"
+  }
+ ],
+ "Yu Zhong": [
+  {
+   "slot": "passive",
+   "name": "Cursing Touch",
+   "description": "His attacks stack a curse that bursts for bonus damage.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/00/Cursing_Touch.png/revision/latest?cb=20240819053114"
+  },
+  {
+   "slot": "skill1",
+   "name": "Dragon Tail",
+   "description": "Whips a tail that damages enemies in a cone.",
+   "cooldown": "6.0-4.5",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/8/88/Dragon_Tail.png/revision/latest?cb=20240819053214"
+  },
+  {
+   "slot": "skill2",
+   "name": "Soul Grip",
+   "description": "Sends out an energy pull that damages and slows enemies.",
+   "cooldown": "14.0-11.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/2/20/Soul_Grip.png/revision/latest?cb=20240819053317"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Black Dragon Form",
+   "description": "Transforms into a dragon that flies over terrain and knocks enemies up.",
+   "cooldown": "85.0-65.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/5/5c/Black_Dragon_Form.png/revision/latest?cb=20240819054031"
+  }
+ ],
+ "Yve": [
+  {
+   "slot": "passive",
+   "name": "Galactic Power",
+   "description": "Her skills gain extra effects while she stands in her void field.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/f6/Galactic_Power.png/revision/latest?cb=20210315234218"
+  },
+  {
+   "slot": "skill1",
+   "name": "Void Blast",
+   "description": "Fires a wave of energy that damages enemies in a line.",
+   "cooldown": "5.0-2.5",
+   "mana_cost": "65-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/b0/Void_Blast.png/revision/latest?cb=20210315234044"
+  },
+  {
+   "slot": "skill2",
+   "name": "Void Crystal",
+   "description": "Sends crystals that damage and slow enemies.",
+   "cooldown": "14.0-12.0",
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/9/96/Void_Crystal.png/revision/latest?cb=20210315234111"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Real World Manipulation",
+   "description": "Opens a grid field she can tap to detonate damage across the area.",
+   "cooldown": "60.0",
+   "mana_cost": "180-260",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/c/c8/Real_World_Manipulation.png/revision/latest?cb=20210315234144"
+  }
+ ],
+ "Zetian": [
+  {
+   "slot": "passive",
+   "name": "Celestial Armament",
+   "description": "Knocks back enemies who get too close and shields her.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/7/7e/Celestial_Armament.png/revision/latest?cb=20250118135549"
+  },
+  {
+   "slot": "skill1",
+   "name": "Phoenix Strike",
+   "description": "Fires three waves of magic damage, the last one larger and pulling enemies.",
+   "cooldown": "7.0-5.0",
+   "mana_cost": "70-120",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/49/Phoenix_Strike.png/revision/latest?cb=20250118135551"
+  },
+  {
+   "slot": "skill2",
+   "name": "Phoenix Descent",
+   "description": "Summons a spirit that damages and weakens enemies in an area.",
+   "cooldown": "15.0",
+   "mana_cost": "80-130",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/f/fd/Phoenix_Descent.png/revision/latest?cb=20250118135552"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Fury of the Phoenix",
+   "description": "Speeds up allies while damaging and stunning every enemy hero.",
+   "cooldown": "90.0-70.0",
+   "mana_cost": "150-210",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/db/Fury_of_the_Phoenix.png/revision/latest?cb=20250118135550"
+  }
+ ],
+ "Zhask": [
+  {
+   "slot": "passive",
+   "name": "Decimation",
+   "description": "On death he summons a frenzied spawn that fights until its HP runs out.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/b/bf/Decimation_%28Zhask%29.png/revision/latest?cb=20220203075416"
+  },
+  {
+   "slot": "skill1",
+   "name": "Nightmaric Spawn",
+   "description": "Summons a spawn that attacks nearby enemies.",
+   "cooldown": "13.0-10.0",
+   "mana_cost": "60-90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/45/Nightmaric_Spawn.png/revision/latest?cb=20220203075736"
+  },
+  {
+   "slot": "skill2",
+   "name": "Mind Eater",
+   "description": "Fires a wave that damages and slows enemies in a line.",
+   "cooldown": "8.0",
+   "mana_cost": "50-95",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/dc/Mind_Eater.png/revision/latest?cb=20220203075810"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Dominator's Descent",
+   "description": "Merges with his spawn to become a powerful mobile turret.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": "100-200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/6/6d/Dominator%27s_Descent.png/revision/latest?cb=20220203080019"
+  }
+ ],
+ "Zhuxin": [
+  {
+   "slot": "passive",
+   "name": "Crimson Butterflies",
+   "description": "Mana spent on her lantern skill returns as butterflies that restore mana.",
+   "cooldown": null,
+   "mana_cost": null,
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/d/dc/Crimson_Butterflies.png/revision/latest?cb=20240620224157"
+  },
+  {
+   "slot": "skill1",
+   "name": "Fluttering Grace",
+   "description": "Releases a fan of magic that damages enemies in front.",
+   "cooldown": "12.0-10.0",
+   "mana_cost": "100",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/43/Fluttering_Grace.png/revision/latest?cb=20240620224301"
+  },
+  {
+   "slot": "skill2",
+   "name": "Lantern Flare",
+   "description": "Guides a floating lantern around to damage and mark enemies it touches.",
+   "cooldown": "0.5",
+   "mana_cost": "90",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/0/0e/Lantern_Flare.png/revision/latest?cb=20240620224332"
+  },
+  {
+   "slot": "ultimate",
+   "name": "Crimson Beacon",
+   "description": "Summons a lantern field that slows and damages enemies inside.",
+   "cooldown": "60.0-50.0",
+   "mana_cost": "200",
+   "icon_url": "https://static.wikia.nocookie.net/mobile-legends/images/4/40/Crimson_Beacon.png/revision/latest?cb=20240620224352"
+  }
+ ]
+}

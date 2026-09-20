@@ -24,12 +24,7 @@ import type { Hero } from '@/types/hero';
 const DIFFICULTY_ORDER = ['Easy', 'Medium', 'Hard'];
 const SAVED_PREVIEW = 5;
 
-function timeLabel(ms: number): string {
-  const d = new Date(ms);
-  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-}
-
-/** Small status badge: coloured text on a soft tint of the same colour. */
+/** Small status badge: coloured text on a soft tint of the same colour. Only used for the offline notice now. */
 function StatusPill({ label, color, soft, border }: { label: string; color: string; soft: string; border: string }) {
   return (
     <View style={[styles.pill, { backgroundColor: soft, borderColor: border }]}>
@@ -92,13 +87,9 @@ export default function HomeScreen() {
   const multiRole = dash.heroes.some((h) => h.roles.length > 1);
   const savedPreview = favorites.slice(-SAVED_PREVIEW).reverse();
 
-  const status = dash.stale
-    ? { label: 'Offline · cached', color: theme.warning, soft: 'rgba(255,159,90,0.14)', border: 'rgba(255,159,90,0.34)' }
-    : { label: 'Live data', color: theme.success, soft: theme.successSoft, border: 'rgba(123,224,138,0.34)' };
-
   return (
     <Screen>
-      <ScreenHeader right={<IconButton icon="info" label="About MetaDex" onPress={() => router.push('/about')} />}>
+      <ScreenHeader>
         <BrandMark />
       </ScreenHeader>
 
@@ -113,12 +104,11 @@ export default function HomeScreen() {
             progressBackgroundColor={theme.surface}
           />
         }>
-        <View style={styles.pills}>
-          {hasData || dash.error ? <StatusPill {...status} /> : null}
-          {dash.updatedAt ? (
-            <StatusPill label={`Updated ${timeLabel(dash.updatedAt)}`} color={theme.info} soft={theme.infoSoft} border={theme.infoBorder} />
-          ) : null}
-        </View>
+        {dash.stale ? (
+          <View style={styles.pills}>
+            <StatusPill label="Offline · cached" color={theme.warning} soft="rgba(255,159,90,0.14)" border="rgba(255,159,90,0.34)" />
+          </View>
+        ) : null}
 
         <Pressable
           onPress={() => router.push({ pathname: '/heroes', params: { focus: '1', t: String(Date.now()) } })}

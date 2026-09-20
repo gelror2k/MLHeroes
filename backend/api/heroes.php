@@ -5,6 +5,7 @@
  *
  * POST /api/heroes.php   (header X-Admin-Key required)
  *      Create a hero. JSON body: { name, role, lane, difficulty, picture }.
+ *      picture is optional (a URL, or "" / omitted for no portrait link).
  *      Returns 201 with the new hero, 400 on validation errors, 409 if the name exists.
  */
 require_once __DIR__ . '/../includes/helpers.php';

@@ -5,7 +5,8 @@
  *
  * PUT    /api/hero.php?id=12   (header X-Admin-Key required)
  *        Update a hero. JSON body with any of { name, role, lane, difficulty, picture }.
- *        Fields left out keep their current value. Returns the updated hero.
+ *        Fields left out keep their current value; picture: "" removes the portrait link.
+ *        Returns the updated hero.
  *
  * DELETE /api/hero.php?id=12   (header X-Admin-Key required)
  *        Delete a hero (and its skills, if that table exists). Returns { hero_id }.

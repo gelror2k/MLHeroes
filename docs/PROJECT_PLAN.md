@@ -31,7 +31,7 @@ Favorites are stored locally on purpose. Server-side favorites would need a `use
 ### 1.4 Extensions (each needs a new table first)
 | Extension | New table required |
 |-----------|-------------------|
-| Skills (passive + 3 skills per hero) | `hero_skills` — SQL already drafted in `database/upgrade.sql` |
+| Skills (passive + 3 skills per hero) | `hero_skills` — created by `database/upgrade.sql`, filled by `database/seed_skills.sql` |
 | Recommended item builds | `items`, `builds`, `build_items` |
 | Counters (strong/weak against) | `hero_counters` |
 | User accounts + synced favorites | `users`, `favorites` |
@@ -142,7 +142,7 @@ Android 9 (API 28) and above reject `http://` traffic by default. The symptom is
 2. Fallback, HTTP only: set `"android": { "usesCleartextTraffic": true }` in `app.json`. This needs a development build or EAS build — it has no effect inside Expo Go.
 
 ### 5.3 Free-tier limits to design around
-- Storage is small. Keep storing image **URLs** in `picture`, never image files in the database or on the host.
+- Storage is small. Keep storing image **URLs** in `picture`, never image files in the database or on the host. Photos the user picks in the app are kept on that phone only (`expo-file-system` document directory) and are never uploaded.
 - Free hosts throttle, sleep, and occasionally suspend accounts. Export the table from phpMyAdmin weekly and commit the `.sql` to Git so you can rebuild in minutes.
 - Design every screen to survive a slow or failed request: show a retry button, not a blank page.
 
@@ -158,7 +158,7 @@ Android 9 (API 28) and above reject `http://` traffic by default. The symptom is
 | 3 | `role` | VARCHAR(255) | No | One or two roles, e.g. `Mage/Tank` |
 | 4 | `lane` | VARCHAR(255) | No | One or more lanes, e.g. `Mid` |
 | 5 | `difficulty` | VARCHAR(255) | No | Currently free text |
-| 6 | `picture` | VARCHAR(1000) | No | Full image URL |
+| 6 | `picture` | VARCHAR(1000) | No | Full image URL, or `''` for none |
 
 Collation `utf8mb4_0900_ai_ci`, so special characters in hero names are safe.
 
@@ -168,7 +168,7 @@ Collation `utf8mb4_0900_ai_ci`, so special characters in hero names are safe.
 | `role` | Separate multiple roles with `/`, no spaces | `Fighter/Marksman` |
 | `lane` | Same separator | `Gold/EXP` |
 | `difficulty` | One of exactly three words | `Easy`, `Medium`, `Hard` |
-| `picture` | Full `https://` URL | `https://.../layla.png` |
+| `picture` | Full `https://` URL, or empty for no link | `https://.../layla.png` |
 
 The API splits `role` and `lane` on `/`, `,` and `|`, so it tolerates either separator — but mixing them makes your own data hard to check by eye. Consistency matters more than which symbol you pick.
 

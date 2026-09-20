@@ -1,4 +1,5 @@
 import { Feather } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useState, type ReactNode } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
@@ -20,6 +21,7 @@ import { difficultyColor, roleColor } from '@/constants/roleColors';
 import { Gutter, Radius, Spacing } from '@/constants/theme';
 import { useFilters } from '@/hooks/use-filters';
 import { useHero } from '@/hooks/use-hero';
+import { usePortraits } from '@/hooks/use-portraits';
 import { useTheme } from '@/hooks/use-theme';
 import { createHero, deleteHero, updateHero } from '@/services/heroService';
 import type { Hero, HeroInput } from '@/types/hero';
@@ -27,8 +29,10 @@ import type { Hero, HeroInput } from '@/types/hero';
 // The API accepts exactly these; it's a data convention, not a filter list.
 const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
 
+// `picture` is the server-side image link. The form never edits it directly any more:
+// it is kept from the loaded hero and cleared by "Remove", while new portraits are
+// photos stored on this device (see hooks/use-portraits).
 const EMPTY: HeroInput = { name: '', role: '', lane: '', difficulty: '', picture: '' };
-const URL_PATTERN = /^https?:\/\/\S+$/i;
 
 /** "Mage/Tank" -> ["Mage", "Tank"], mirroring the API's split rules. */
 function splitList(value: string): string[] {
@@ -76,11 +80,16 @@ function HeroEditor({ hero }: { hero: Hero | null }) {
   const toast = useToast();
   const insets = useSafeAreaInsets();
   const { filters } = useFilters();
+  const { portraitFor, setPortrait, clearPortrait } = usePortraits();
   const isEdit = hero !== null;
 
   const [initial] = useState<HeroInput>(() => (hero ? toInput(hero) : EMPTY));
   const [form, setForm] = useState<HeroInput>(initial);
   const [touched, setTouched] = useState<Touched>({});
+  // Device photo shown for this hero: the stored one on open, then whatever was picked. null = none.
+  const [initialPhoto] = useState<string | null>(() => (hero ? portraitFor(hero.hero_id) : null));
+  const [photo, setPhoto] = useState<string | null>(initialPhoto);
+  const [picking, setPicking] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirming, setConfirming] = useState(false);
@@ -95,13 +104,51 @@ function HeroEditor({ hero }: { hero: Hero | null }) {
     if (splitList(form.role).length === 0) p.role = 'At least one role is required.';
     if (splitList(form.lane).length === 0) p.lane = 'At least one lane is required.';
     if (!DIFFICULTIES.includes(form.difficulty)) p.difficulty = 'Pick a difficulty.';
-    if (!URL_PATTERN.test(form.picture.trim())) p.picture = 'Enter a full http(s) image link.';
     return p;
   }, [form]);
 
   const valid = Object.keys(problems).length === 0;
-  const dirty = JSON.stringify(normalise(form)) !== JSON.stringify(normalise(initial));
+  const recordDirty = JSON.stringify(normalise(form)) !== JSON.stringify(normalise(initial));
+  const photoDirty = photo !== initialPhoto;
+  const dirty = recordDirty || photoDirty;
   const canSave = valid && !saving && (!isEdit || dirty);
+
+  async function choosePhoto() {
+    setPicking(true);
+    try {
+      // The system picker needs no permission prompt for the photo library on either platform.
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+      });
+      const asset = result.canceled ? null : result.assets[0];
+      if (asset) setPhoto(asset.uri);
+    } catch (e) {
+      toast.show(getErrorMessage(e), 'danger');
+    } finally {
+      setPicking(false);
+    }
+  }
+
+  /** Drop both the device photo and the server-side image link; the hero shows a monogram. */
+  function removePicture() {
+    setPhoto(null);
+    set('picture')('');
+  }
+
+  /** Store or drop the device photo once the record exists. Resolves false if the file copy failed. */
+  async function persistPhoto(heroId: number): Promise<boolean> {
+    if (!photoDirty) return true;
+    try {
+      if (photo) await setPortrait(heroId, photo);
+      else clearPortrait(heroId);
+      return true;
+    } catch {
+      return false;
+    }
+  }
 
   async function save() {
     if (!canSave) return;
@@ -109,15 +156,20 @@ function HeroEditor({ hero }: { hero: Hero | null }) {
     setError(null);
     const payload = normalise(form);
     try {
-      if (hero) {
-        await updateHero(hero.hero_id, payload);
-        toast.show(`${payload.name} updated.`);
-        router.back();
+      // A photo-only change on an existing hero never touches the API.
+      let saved: Hero;
+      if (hero === null) saved = (await createHero(payload)).data;
+      else if (recordDirty) saved = (await updateHero(hero.hero_id, payload)).data;
+      else saved = hero;
+
+      const stored = await persistPhoto(saved.hero_id);
+      if (!stored) {
+        toast.show(`${payload.name} saved, but the photo could not be stored on this device.`, 'danger');
       } else {
-        const res = await createHero(payload);
-        toast.show(`${payload.name} added to the roster.`);
-        router.replace({ pathname: '/hero/[id]', params: { id: String(res.data.hero_id) } });
+        toast.show(hero ? `${payload.name} updated.` : `${payload.name} added to the roster.`);
       }
+      if (hero) router.back();
+      else router.replace({ pathname: '/hero/[id]', params: { id: String(saved.hero_id) } });
     } catch (e) {
       setError(getErrorMessage(e));
       setSaving(false);
@@ -139,13 +191,19 @@ function HeroEditor({ hero }: { hero: Hero | null }) {
     }
   }
 
-  const pictureValid = URL_PATTERN.test(form.picture.trim());
+  const pictureUrl = form.picture.trim();
+  const hasPortrait = photo !== null || pictureUrl !== '';
   const previewHero = {
     hero_id: hero?.hero_id ?? 0,
     name: form.name.trim() || '?',
-    picture: pictureValid ? form.picture.trim() : '',
+    picture: pictureUrl,
     roles: splitList(form.role),
   };
+  const portraitNote = photo
+    ? 'Photo from your gallery. It is kept on this phone only.'
+    : pictureUrl
+      ? 'Portrait loads from the saved image link.'
+      : 'No portrait yet. Choose a photo from your gallery.';
 
   return (
     <>
@@ -166,16 +224,39 @@ function HeroEditor({ hero }: { hero: Hero | null }) {
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
           <View style={[styles.preview, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-            <HeroPortrait hero={previewHero} size={64} />
-            <View style={styles.previewText}>
-              <ThemedText type="bodyStrong" numberOfLines={1}>
-                {form.name.trim() || 'New hero'}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="textMuted">
-                {pictureValid
-                  ? 'Portrait loads from the image link below.'
-                  : 'Add an image link below to preview the portrait.'}
-              </ThemedText>
+            <View style={styles.previewRow}>
+              <HeroPortrait hero={previewHero} uri={photo ?? pictureUrl} size={64} />
+              <View style={styles.previewText}>
+                <ThemedText type="bodyStrong" numberOfLines={1}>
+                  {form.name.trim() || 'New hero'}
+                </ThemedText>
+                <ThemedText type="caption" themeColor="textMuted">
+                  {portraitNote}
+                </ThemedText>
+              </View>
+            </View>
+            <View style={styles.previewActions}>
+              <Button
+                label={hasPortrait ? 'Change photo' : 'Choose photo'}
+                icon="image"
+                variant="secondary"
+                compact
+                loading={picking}
+                disabled={saving}
+                onPress={choosePhoto}
+                style={styles.previewAction}
+              />
+              {hasPortrait ? (
+                <Button
+                  label="Remove"
+                  icon="x"
+                  variant="danger"
+                  compact
+                  disabled={saving || picking}
+                  onPress={removePicture}
+                  style={styles.previewAction}
+                />
+              ) : null}
             </View>
           </View>
 
@@ -262,20 +343,6 @@ function HeroEditor({ hero }: { hero: Hero | null }) {
               ))}
             </View>
           </View>
-
-          <TextField
-            label="Picture URL"
-            value={form.picture}
-            onChangeText={set('picture')}
-            onBlur={touch('picture')}
-            error={touched.picture ? problems.picture : null}
-            hint="A direct link to an image. It is stored as a link, never uploaded."
-            placeholder="https://…"
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="url"
-            maxLength={1000}
-          />
 
           {error ? (
             <View style={[styles.banner, { backgroundColor: theme.dangerSoft, borderColor: theme.dangerBorder }]}>
@@ -373,16 +440,27 @@ const styles = StyleSheet.create({
     gap: Spacing.lg,
   },
   preview: {
-    flexDirection: 'row',
-    alignItems: 'center',
     gap: 14,
     padding: 14,
     borderRadius: Radius.md,
     borderWidth: 1,
   },
+  previewRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+  },
   previewText: {
     flex: 1,
     gap: Spacing.xs,
+  },
+  previewActions: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+  },
+  previewAction: {
+    flex: 1,
+    paddingHorizontal: Spacing.md,
   },
   field: {
     gap: Spacing.sm + 2,

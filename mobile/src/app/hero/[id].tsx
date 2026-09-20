@@ -1,3 +1,4 @@
+import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Share, StyleSheet, View } from 'react-native';
@@ -27,6 +28,43 @@ import type { Skill } from '@/types/hero';
 
 const SLOT_BADGE: Record<Skill['slot'], string> = { passive: 'P', skill1: '1', skill2: '2', ultimate: 'ULT' };
 const SLOT_NAME: Record<Skill['slot'], string> = { passive: 'Passive', skill1: 'Skill 1', skill2: 'Skill 2', ultimate: 'Ultimate' };
+const BANNER_HEIGHT = 220;
+
+/** Skill icon from `icon_url`; the slot badge (P / 1 / 2 / ULT) stands in when there is no link or it fails to load. */
+function SkillIcon({ skill }: { skill: Skill }) {
+  const theme = useTheme();
+  const [failed, setFailed] = useState(false);
+  const ultimate = skill.slot === 'ultimate';
+  const box = [
+    styles.slot,
+    ultimate
+      ? { backgroundColor: theme.accentSoft, borderColor: theme.accentBorder }
+      : { backgroundColor: theme.surfaceRaised, borderColor: theme.border },
+  ];
+
+  if (skill.icon_url && !failed) {
+    return (
+      <View style={box}>
+        <Image
+          source={{ uri: skill.icon_url }}
+          style={StyleSheet.absoluteFill}
+          contentFit="cover"
+          transition={150}
+          cachePolicy="disk"
+          onError={() => setFailed(true)}
+          accessibilityLabel={`${skill.name} icon`}
+        />
+      </View>
+    );
+  }
+  return (
+    <View style={box}>
+      <ThemedText type="numeral" style={{ color: ultimate ? theme.accent : theme.textMuted, fontSize: 12 }}>
+        {SLOT_BADGE[skill.slot] ?? '?'}
+      </ThemedText>
+    </View>
+  );
+}
 
 function SkillRow({ skill }: { skill: Skill }) {
   const theme = useTheme();
@@ -37,18 +75,11 @@ function SkillRow({ skill }: { skill: Skill }) {
 
   return (
     <View style={styles.skillRow} accessibilityLabel={`${SLOT_NAME[skill.slot]}: ${skill.name}`}>
-      <View
-        style={[
-          styles.slot,
-          ultimate
-            ? { backgroundColor: theme.accentSoft, borderColor: theme.accentBorder }
-            : { backgroundColor: theme.surfaceRaised, borderColor: theme.border },
-        ]}>
-        <ThemedText type="numeral" style={{ color: ultimate ? theme.accent : theme.textMuted, fontSize: 12 }}>
-          {SLOT_BADGE[skill.slot] ?? '?'}
-        </ThemedText>
-      </View>
+      <SkillIcon skill={skill} />
       <View style={styles.skillText}>
+        <ThemedText type="micro" style={{ color: ultimate ? theme.accent : theme.textMuted }}>
+          {SLOT_NAME[skill.slot] ?? skill.slot}
+        </ThemedText>
         <ThemedText type="smallStrong" style={styles.skillName}>
           {skill.name}
         </ThemedText>
@@ -67,7 +98,7 @@ function SkillRow({ skill }: { skill: Skill }) {
   );
 }
 
-/** Hero detail: identity block, overview card (lane + difficulty meter), skills, sticky action bar. */
+/** Hero detail: full-width picture, name + tags, overview card (lane + difficulty meter), skills with icons, sticky action bar. */
 export default function HeroDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const heroId = Number(id);
@@ -131,7 +162,7 @@ export default function HeroDetailScreen() {
         <>
           <ScrollView contentContainerStyle={styles.content}>
             <View style={styles.identity}>
-              <HeroPortrait hero={hero} size={84} radius={Radius.lg} />
+              <HeroPortrait hero={hero} size={BANNER_HEIGHT} radius={Radius.lg} style={styles.banner} />
               <View style={styles.identityText}>
                 <ThemedText type="display" accessibilityRole="header">
                   {hero.name}
@@ -236,12 +267,13 @@ const styles = StyleSheet.create({
     gap: Spacing.lg,
   },
   identity: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.lg,
+    gap: Spacing.md,
+  },
+  banner: {
+    width: '100%',
+    height: BANNER_HEIGHT,
   },
   identityText: {
-    flex: 1,
     gap: 9,
   },
   tags: {
@@ -269,12 +301,14 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   slot: {
-    width: 42,
-    height: 42,
+    width: 48,
+    height: 48,
     borderRadius: Radius.sm,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
+    flexShrink: 0,
   },
   skillText: {
     flex: 1,
