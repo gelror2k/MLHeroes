@@ -1,0 +1,1620 @@
+{
+  "info": {
+    "name": "MLHeroes API",
+    "description": "Mobile Legends hero API (plain PHP + MySQL on Freehostia).\n\nEvery response uses the envelope { success, message, data, meta? }.\n\n**Before running:** select the 'MLHeroes - live' environment and set `adminKey` to the ADMIN_KEY value from backend/config/database.php. Never commit the real key.\n\n**Safe to run end to end.** The write folder creates one throwaway hero, exercises it, and deletes it again, so the 133-hero roster is left exactly as it was found. Requests marked REGRESSION TEST cover bugs found in QA - they must stay green.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://gelror.duckdns.org/api"
+    },
+    {
+      "key": "heroId",
+      "value": ""
+    },
+    {
+      "key": "probeName",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1 - Health and reference",
+      "item": [
+        {
+          "name": "Health check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health.php"
+              ],
+              "query": []
+            },
+            "description": "Open this first after uploading. Confirms PHP reached MySQL and can see the heroes table."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('database connected', () => pm.expect(body.data.database).to.eql('connected'));",
+                  "pm.test('reports a hero count', () => pm.expect(body.data.heroes).to.be.a('number'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/filters.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filters.php"
+              ],
+              "query": []
+            },
+            "description": "Distinct roles, lanes and difficulties. The source of truth for the app's filter chips - never hardcode these."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('three non-empty lists', function () {",
+                  "    pm.expect(body.data.roles).to.be.an('array').that.is.not.empty;",
+                  "    pm.expect(body.data.lanes).to.be.an('array').that.is.not.empty;",
+                  "    pm.expect(body.data.difficulties).to.be.an('array').that.is.not.empty;",
+                  "});",
+                  "pm.test('difficulty order is Easy, Medium, Hard', () => pm.expect(body.data.difficulties).to.eql(['Easy','Medium','Hard']));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2 - Read heroes",
+      "item": [
+        {
+          "name": "List (default page)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "First page of the roster, 20 per page, ordered by name A-Z."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('meta is complete', function () {",
+                  "    ['page','per_page','total','total_pages'].forEach(k => pm.expect(body.meta).to.have.property(k));",
+                  "});",
+                  "pm.test('hero carries pre-split roles and lanes', function () {",
+                  "    const h = body.data[0];",
+                  "    pm.expect(h.roles).to.be.an('array');",
+                  "    pm.expect(h.lanes).to.be.an('array');",
+                  "});",
+                  "pm.test('sorted A-Z', function () {",
+                  "    const names = body.data.map(h => h.name.toLowerCase());",
+                  "    pm.expect(names).to.eql([...names].sort());",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List (page 2, per_page 50)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php?page=2&per_page=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2"
+                },
+                {
+                  "key": "per_page",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Paging. The app's getAllHeroes() uses per_page=50, the server maximum."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('per_page honoured', () => pm.expect(body.meta.per_page).to.eql(50));",
+                  "pm.test('page honoured', () => pm.expect(body.meta.page).to.eql(2));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List (per_page above the cap)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php?per_page=999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "999"
+                }
+              ]
+            },
+            "description": "per_page above 50 must clamp rather than dump the whole table."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('clamped to 50', () => pm.expect(body.meta.per_page).to.eql(50));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List (page below 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php?page=-3&per_page=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "-3"
+                },
+                {
+                  "key": "per_page",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "A nonsense page number clamps to 1 instead of producing a negative OFFSET."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('clamped to page 1', () => pm.expect(body.meta.page).to.eql(1));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Search by name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php?search=Layla",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Layla"
+                }
+              ]
+            },
+            "description": "Case-insensitive substring match on name."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('finds Layla', () => pm.expect(body.data.map(h => h.name)).to.include('Layla'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Search for a literal % (regression)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php?search=%25",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "%25"
+                }
+              ]
+            },
+            "description": "REGRESSION TEST. '%' and '_' are LIKE metacharacters. They must be escaped server-side, so searching for '%' matches no hero name instead of returning the entire roster."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('a literal % matches nothing', () => pm.expect(body.meta.total).to.eql(0));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Search for a literal _ (regression)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php?search=_",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "_"
+                }
+              ]
+            },
+            "description": "REGRESSION TEST. '_' is the LIKE single-character wildcard and must also be escaped."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('a literal _ matches nothing', () => pm.expect(body.meta.total).to.eql(0));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filter by role and lane",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php?role=Mage&lane=Mid",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": [
+                {
+                  "key": "role",
+                  "value": "Mage"
+                },
+                {
+                  "key": "lane",
+                  "value": "Mid"
+                }
+              ]
+            },
+            "description": "Multi-value cells such as 'Mage/Tank' match on either part."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('every hero matches both filters', function () {",
+                  "    body.data.forEach(function (h) {",
+                  "        pm.expect(h.role.toLowerCase()).to.include('mage');",
+                  "        pm.expect(h.lane.toLowerCase()).to.include('mid');",
+                  "    });",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filter by difficulty",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php?difficulty=Easy",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": [
+                {
+                  "key": "difficulty",
+                  "value": "Easy"
+                }
+              ]
+            },
+            "description": "Exact match, case-insensitive on the way in."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('all Easy', () => body.data.forEach(h => pm.expect(h.difficulty).to.eql('Easy')));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "One hero with skills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": "A single hero plus skills[]. Returns skills: [] when the hero_skills table is absent."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('has a skills array', () => pm.expect(body.data.skills).to.be.an('array'));",
+                  "pm.test('every slot is valid', function () {",
+                  "    const slots = ['passive','skill1','skill2','ultimate'];",
+                  "    body.data.skills.forEach(s => pm.expect(slots).to.include(s.slot));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3 - Read error paths",
+      "item": [
+        {
+          "name": "Missing id -> 400",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": []
+            },
+            "description": "id is required and must be digits."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Non-numeric id -> 400",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id=abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "abc"
+                }
+              ]
+            },
+            "description": "ctype_digit guard."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "id=0 -> 400 (regression)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "REGRESSION TEST. hero_id is AUTO_INCREMENT and starts at 1, so 0 is a malformed id. It used to fall through to a 404, which read as 'this hero was deleted'."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Unknown id -> 404",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id=999999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "999999"
+                }
+              ]
+            },
+            "description": "A well-formed id that does not exist."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Wrong method -> 405",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "heroes.php accepts GET and POST only, and must advertise that in an Allow header."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 405', () => pm.response.to.have.status(405));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);",
+                  "pm.test('Allow header lists the methods', () => pm.expect(pm.response.headers.get('Allow')).to.include('GET'));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4 - Write (needs X-Admin-Key)",
+      "item": [
+        {
+          "name": "Create without the key -> 401",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "Writes are refused outright without the shared admin key.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Should Not Exist\",\n  \"role\": \"Mage\",\n  \"lane\": \"Mid\",\n  \"difficulty\": \"Easy\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 401', () => pm.response.to.have.status(401));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create with an empty body -> 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "Every missing required field is reported in one response.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);",
+                  "pm.test('names every missing field', function () {",
+                  "    ['name','role','lane','difficulty'].forEach(f => pm.expect(body.message).to.include(f));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create with a wrong-typed field -> 400 (regression)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "REGRESSION TEST. A present-but-wrong-typed field is its own mistake. {\"name\": 123} used to be reported as 'name is required', which pointed the caller at the wrong problem.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": 123,\n  \"role\": \"Mage\",\n  \"lane\": \"Mid\",\n  \"difficulty\": \"Easy\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);",
+                  "pm.test('says name must be text', () => pm.expect(body.message).to.include('must be text'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create with a bad difficulty -> 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "difficulty must be Easy, Medium or Hard.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bad Difficulty\",\n  \"role\": \"Mage\",\n  \"lane\": \"Mid\",\n  \"difficulty\": \"Insane\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create with a data: URI picture -> 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "picture must be a full http(s) URL. Image data is never stored in the database.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bad Picture\",\n  \"role\": \"Mage\",\n  \"lane\": \"Mid\",\n  \"difficulty\": \"Easy\",\n  \"picture\": \"data:image/png;base64,AAAA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create a duplicate name -> 409",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "Names are unique case-insensitively, so 'layla' collides with 'Layla'.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"layla\",\n  \"role\": \"Mage\",\n  \"lane\": \"Mid\",\n  \"difficulty\": \"Easy\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create the probe hero -> 201",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/heroes.php",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heroes.php"
+              ],
+              "query": []
+            },
+            "description": "Creates a throwaway hero for the requests below. Role and lane are deliberately messy to prove normalisation, and picture is omitted, which must store an empty string.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{probeName}}\",\n  \"role\": \"mage , TANK | mage\",\n  \"lane\": \"mid,MID\",\n  \"difficulty\": \"hArD\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 201', () => pm.response.to.have.status(201));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('role normalised and de-duped', () => pm.expect(body.data.roles).to.eql(['Mage','Tank']));",
+                  "pm.test('lane de-duped', () => pm.expect(body.data.lanes).to.eql(['Mid']));",
+                  "pm.test('difficulty canonicalised', () => pm.expect(body.data.difficulty).to.eql('Hard'));",
+                  "pm.test('omitted picture stored as an empty string', () => pm.expect(body.data.picture).to.eql(''));",
+                  "pm.collectionVariables.set('heroId', body.data.hero_id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update the probe hero -> 200",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id={{heroId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{heroId}}"
+                }
+              ]
+            },
+            "description": "Partial update: fields left out of the body keep their current value.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"difficulty\": \"Easy\",\n  \"picture\": \"https://example.com/portrait.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('difficulty changed', () => pm.expect(body.data.difficulty).to.eql('Easy'));",
+                  "pm.test('picture set', () => pm.expect(body.data.picture).to.eql('https://example.com/portrait.png'));",
+                  "pm.test('name left alone', () => pm.expect(body.data.name).to.eql(pm.collectionVariables.get('probeName')));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Clear the picture with an empty string -> 200",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id={{heroId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{heroId}}"
+                }
+              ]
+            },
+            "description": "An empty string removes the portrait link; the app then shows a monogram tile.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"picture\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('picture cleared', () => pm.expect(body.data.picture).to.eql(''));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "picture: null -> 400 (regression)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id={{heroId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{heroId}}"
+                }
+              ]
+            },
+            "description": "REGRESSION TEST. null is neither an omitted field nor an empty string. It used to silently wipe the portrait link; it must now be rejected as a type error.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"picture\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);",
+                  "pm.test('says picture must be text', () => pm.expect(body.message).to.include('must be text'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update with no recognised field -> 400",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id={{heroId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{heroId}}"
+                }
+              ]
+            },
+            "description": "A body the endpoint cannot act on is a mistake worth reporting rather than a silent no-op.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"win_rate\": 55\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Rename onto an existing hero -> 409",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id={{heroId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{heroId}}"
+                }
+              ]
+            },
+            "description": "Uniqueness is enforced on update as well as create.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Layla\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 409', () => pm.response.to.have.status(409));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete the probe hero -> 200",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id={{heroId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{heroId}}"
+                }
+              ]
+            },
+            "description": "Removes the hero and any linked hero_skills rows, leaving the roster as it was found."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('success is true', () => pm.expect(body.success).to.be.true);",
+                  "pm.test('returns the deleted id', function () {",
+                  "    pm.expect(String(body.data.hero_id)).to.eql(String(pm.collectionVariables.get('heroId')));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete the same hero again -> 404",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-Admin-Key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero.php?id={{heroId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hero.php"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "{{heroId}}"
+                }
+              ]
+            },
+            "description": "Confirms the row really is gone."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "pm.test('envelope has success, message, data', function () {",
+                  "    pm.expect(body).to.have.property('success');",
+                  "    pm.expect(body).to.have.property('message');",
+                  "    pm.expect(body).to.have.property('data');",
+                  "});",
+                  "pm.test('HTTP 404', () => pm.response.to.have.status(404));",
+                  "pm.test('success is false', () => pm.expect(body.success).to.be.false);",
+                  "pm.test('data is null', () => pm.expect(body.data).to.be.null);",
+                  "pm.test('message is plain language', () => pm.expect(body.message).to.be.a('string').and.not.empty);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Unique name per run, so a half-finished run never blocks the next one with a 409.",
+          "if (!pm.collectionVariables.get('probeName')) {",
+          "    pm.collectionVariables.set('probeName', 'ZZ Postman Probe ' + Date.now());",
+          "}"
+        ]
+      }
+    }
+  ]
+}

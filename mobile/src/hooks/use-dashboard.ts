@@ -40,6 +40,11 @@ function fetchRoster(): Promise<Outcome> {
   );
 }
 
+/** The API's ORDER BY name ASC, which is case-insensitive. */
+function byName(a: Hero, b: Hero): number {
+  return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+}
+
 function countBy(heroes: Hero[], pick: (hero: Hero) => string[]): CountRow[] {
   const counts = new Map<string, number>();
   for (const hero of heroes) {
@@ -98,8 +103,30 @@ export function useDashboard() {
     };
   }, [apply]);
 
-  // A hero was created, edited or deleted somewhere in the app: recount quietly.
-  useEffect(() => heroEvents.subscribe(() => fetchRoster().then(apply)), [apply]);
+  // A hero was created, edited or deleted somewhere in the app. This hook holds the
+  // whole unfiltered roster, so every count can be recomputed from the list already
+  // in memory — re-paging all 133 heroes over the network just to change one row is
+  // three requests for nothing. The event carries the server's own response, so the
+  // hero is already canonicalised.
+  useEffect(
+    () =>
+      heroEvents.subscribe((event) => {
+        setRoster((r) => {
+          if (r.heroes.length === 0) return r; // nothing loaded yet; the fetch will cover it
+          let heroes: Hero[];
+          if (event.type === 'deleted') {
+            heroes = r.heroes.filter((h) => h.hero_id !== event.heroId);
+            if (heroes.length === r.heroes.length) return r;
+          } else {
+            heroes = [...r.heroes.filter((h) => h.hero_id !== event.hero.hero_id), event.hero].sort(byName);
+          }
+          const next: Cached = { heroes, total: heroes.length, updatedAt: r.updatedAt ?? Date.now() };
+          saveJson<Cached>(CACHE_KEY, next);
+          return { ...r, ...next };
+        });
+      }),
+    [],
+  );
 
   const { heroes } = roster;
   const roles = useMemo(() => countBy(heroes, (h) => h.roles), [heroes]);

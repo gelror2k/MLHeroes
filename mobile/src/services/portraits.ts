@@ -42,7 +42,8 @@ export async function loadPortraits(): Promise<PortraitMap> {
   return alive;
 }
 
-export function savePortraits(map: PortraitMap): Promise<void> {
+/** Resolves false if the device refused the write; the copied file is unaffected. */
+export function savePortraits(map: PortraitMap): Promise<boolean> {
   return saveJson(STORAGE_KEY, map);
 }
 

@@ -59,7 +59,11 @@ Set `DB_PASS` and `ADMIN_KEY` in `backend/config/database.php` (copy `config.sam
    EXPO_PUBLIC_ADMIN_KEY=<same value as ADMIN_KEY on the server>
    ```
 
-   Leave `EXPO_PUBLIC_ADMIN_KEY` out for a read-only build; the add/edit/delete controls disappear.
+   Leave `EXPO_PUBLIC_ADMIN_KEY` out for a read-only build; the add/edit/delete controls and the Manage tab disappear.
+
+   > **Do that for any build you hand to someone else.** `EXPO_PUBLIC_*` values are compiled into the JS
+   > bundle, so the key is readable in plain text inside the APK — and since the API is HTTP-only it is also
+   > readable on the wire. It gates writes against a casual visitor hitting the public URL, nothing more.
 
 3. Start the dev server
 

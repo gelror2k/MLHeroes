@@ -20,7 +20,7 @@ export interface HeroListState {
   stale: boolean; // showing cached data because the request failed
 }
 
-type Mode = 'initial' | 'more' | 'refresh' | 'silent';
+type Mode = 'initial' | 'more' | 'refresh';
 type Query = Omit<HeroQuery, 'page' | 'per_page'>;
 
 /** Everything that arrives with a response. `key` records which query it answers. */
@@ -35,23 +35,73 @@ interface Loaded {
 
 const NOTHING: Loaded = { key: '', heroes: [], total: 0, hasMore: false, error: null, stale: false };
 
+/** The cached first page, plus the roster total it was a page of. */
+type CachedPage = { heroes: Hero[]; total: number };
+
+/** Older builds cached a bare Hero[]; read both shapes so an upgrade isn't a cache miss. */
+function readCache(raw: Hero[] | CachedPage | null): CachedPage | null {
+  if (!raw) return null;
+  const page = Array.isArray(raw) ? { heroes: raw, total: raw.length } : raw;
+  return page.heroes?.length ? page : null;
+}
+
 type PageOutcome =
   | { ok: true; heroes: Hero[]; total: number; hasMore: boolean }
-  | { ok: false; error: string; cached: Hero[] | null };
+  | { ok: false; error: string; cached: CachedPage | null };
 
 /** One page of results. Never throws: a failure resolves with the cached first page, if any. */
 function fetchPage(query: Query, page: number, useCacheOnError: boolean): Promise<PageOutcome> {
   return getHeroes({ ...query, page, per_page: PER_PAGE }).then(
     (res) => {
       const totalPages = res.meta?.total_pages ?? 1;
-      if (page === 1 && useCacheOnError) saveJson(CACHE_KEY, res.data);
-      return { ok: true, heroes: res.data, total: res.meta?.total ?? res.data.length, hasMore: page < totalPages };
+      const total = res.meta?.total ?? res.data.length;
+      if (page === 1 && useCacheOnError) saveJson<CachedPage>(CACHE_KEY, { heroes: res.data, total });
+      return { ok: true, heroes: res.data, total, hasMore: page < totalPages };
     },
     async (e) => {
-      const cached = page === 1 && useCacheOnError ? await loadJson<Hero[]>(CACHE_KEY) : null;
-      return { ok: false, error: getErrorMessage(e), cached: cached && cached.length ? cached : null };
+      const raw = page === 1 && useCacheOnError ? await loadJson<Hero[] | CachedPage>(CACHE_KEY) : null;
+      return { ok: false, error: getErrorMessage(e), cached: readCache(raw) };
     },
   );
+}
+
+/**
+ * Does this hero still belong in the list the user is looking at? Mirrors what
+ * heroes.php does server-side: substring on name/role/lane, exact on difficulty.
+ * Used to drop a hero that an edit just moved out of the active filter.
+ */
+function matchesQuery(hero: Hero, query: Query): boolean {
+  const has = (haystack: string, needle?: string) =>
+    !needle || haystack.toLowerCase().includes(needle.toLowerCase());
+  return (
+    has(hero.name, query.search) &&
+    has(hero.role, query.role) &&
+    has(hero.lane, query.lane) &&
+    (!query.difficulty || hero.difficulty.toLowerCase() === query.difficulty.toLowerCase())
+  );
+}
+
+/** The API's ORDER BY name ASC, which is case-insensitive. */
+function byName(a: Hero, b: Hero): number {
+  return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+}
+
+/**
+ * Append the next page, dropping heroes already on screen.
+ *
+ * LIMIT/OFFSET paging assumes the table does not move under it. Applying a
+ * create or delete to the loaded list (see the heroEvents effect below) breaks
+ * that assumption: an insert pushes every later row down by one, so the next
+ * page repeats a hero the list already has — and duplicate keys make FlatList
+ * misbehave. Filtering by id here makes the append idempotent.
+ *
+ * The mirror case, a delete pulling rows up so one hero falls between the pages
+ * we fetched, cannot be repaired from the client. It is rare, harmless, and
+ * pull-to-refresh restores it.
+ */
+function appendPage(loaded: Hero[], next: Hero[]): Hero[] {
+  const seen = new Set(loaded.map((h) => h.hero_id));
+  return [...loaded, ...next.filter((h) => !seen.has(h.hero_id))];
 }
 
 /**
@@ -83,7 +133,7 @@ export function useHeroes(query: Query) {
           pageRef.current = page;
           setData((d) => ({
             key: queryKey,
-            heroes: mode === 'more' ? [...d.heroes, ...outcome.heroes] : outcome.heroes,
+            heroes: mode === 'more' ? appendPage(d.heroes, outcome.heroes) : outcome.heroes,
             total: outcome.total,
             hasMore: outcome.hasMore,
             error: null,
@@ -93,8 +143,8 @@ export function useHeroes(query: Query) {
           const { cached, error } = outcome;
           setData((d) => ({
             key: queryKey,
-            heroes: cached ?? (mode === 'more' ? d.heroes : []),
-            total: cached ? cached.length : mode === 'more' ? d.total : 0,
+            heroes: cached ? cached.heroes : mode === 'more' ? d.heroes : [],
+            total: cached ? cached.total : mode === 'more' ? d.total : 0,
             hasMore: false,
             error: cached ? null : error,
             stale: Boolean(cached),
@@ -112,15 +162,45 @@ export function useHeroes(query: Query) {
     promise.then(apply);
   }, [request]);
 
-  // A hero was created, edited or deleted somewhere in the app: reload quietly.
-  useEffect(
-    () =>
-      heroEvents.subscribe(() => {
-        const { promise, apply } = request(1, 'silent');
-        promise.then(apply);
-      }),
-    [request],
-  );
+  // A hero was created, edited or deleted somewhere in the app. Apply the change to
+  // the pages already loaded rather than re-requesting page 1: a refetch would throw
+  // away every page after the first and snap the user back to the top of the list.
+  useEffect(() => {
+    const query: Query = { search, role, lane, difficulty };
+    return heroEvents.subscribe((event) => {
+      setData((d) => {
+        // Mid-reload for another query, or showing an error rather than a list.
+        if (d.key !== queryKey || d.error) return d;
+
+        if (event.type === 'deleted') {
+          if (!d.heroes.some((h) => h.hero_id === event.heroId)) return d;
+          return {
+            ...d,
+            heroes: d.heroes.filter((h) => h.hero_id !== event.heroId),
+            total: Math.max(d.total - 1, 0),
+          };
+        }
+
+        const hero = event.hero;
+        const rest = d.heroes.filter((h) => h.hero_id !== hero.hero_id);
+        const wasListed = rest.length !== d.heroes.length;
+
+        // An edit can move a hero out of the active filter (Mage -> Tank while
+        // filtering Mage), or into it.
+        if (!matchesQuery(hero, query)) {
+          return wasListed ? { ...d, heroes: rest, total: Math.max(d.total - 1, 0) } : d;
+        }
+
+        // A hero that sorts past everything loaded belongs to a page we have not
+        // fetched yet, so only the count changes.
+        const last = rest[rest.length - 1];
+        if (!wasListed && d.hasMore && last && byName(hero, last) > 0) {
+          return { ...d, total: d.total + 1 };
+        }
+        return { ...d, heroes: [...rest, hero].sort(byName), total: wasListed ? d.total : d.total + 1 };
+      });
+    });
+  }, [search, role, lane, difficulty, queryKey]);
 
   const loading = data.key !== queryKey;
   const current = loading && data.error ? { ...data, error: null } : data;

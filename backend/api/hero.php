@@ -15,7 +15,9 @@ require_once __DIR__ . '/../includes/helpers.php';
 require_method(array('GET', 'PUT', 'DELETE'));
 
 $id = isset($_GET['id']) ? trim($_GET['id']) : '';
-if ($id === '' || !ctype_digit($id)) {
+// ctype_digit lets "0" through; hero_id is AUTO_INCREMENT so it starts at 1.
+// Rejecting it here means every malformed id answers 400, not a mix of 400/404.
+if ($id === '' || !ctype_digit($id) || (int) $id < 1) {
     json_error('A numeric id is required', 400);
 }
 $id = (int) $id;

@@ -66,18 +66,20 @@ $offset = ($page - 1) * $per_page;
 $where  = array();
 $params = array();
 
+// like_escape() keeps a typed "%" or "_" a literal character instead of a
+// wildcard, so searching for "50%" cannot quietly return the whole roster.
 if ($search !== '') {
-    $where[]           = 'name LIKE :search';
-    $params[':search'] = '%' . $search . '%';
+    $where[]           = "name LIKE :search ESCAPE '!'";
+    $params[':search'] = '%' . like_escape($search) . '%';
 }
 // role/lane cells can hold "Mage/Tank", so match the value anywhere in the cell.
 if ($role !== '') {
-    $where[]         = 'role LIKE :role';
-    $params[':role'] = '%' . $role . '%';
+    $where[]         = "role LIKE :role ESCAPE '!'";
+    $params[':role'] = '%' . like_escape($role) . '%';
 }
 if ($lane !== '') {
-    $where[]         = 'lane LIKE :lane';
-    $params[':lane'] = '%' . $lane . '%';
+    $where[]         = "lane LIKE :lane ESCAPE '!'";
+    $params[':lane'] = '%' . like_escape($lane) . '%';
 }
 if ($difficulty !== '') {
     $where[]               = 'difficulty = :difficulty';

@@ -65,7 +65,11 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       // Strip skills so a favorite saved from the detail screen stays small.
       const { skills: _skills, ...slim } = hero;
       const next = exists ? current.filter((h) => h.hero_id !== hero.hero_id) : [...current, slim];
-      saveJson(STORAGE_KEY, next);
+      // If the device refused the write, put the list back: a bookmark that silently
+      // fails to persist would look saved now and be gone after a restart.
+      saveJson(STORAGE_KEY, next).then((ok) => {
+        if (!ok) setFavorites(current);
+      });
       return next;
     });
   }, []);

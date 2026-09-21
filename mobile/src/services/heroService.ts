@@ -29,11 +29,16 @@ export async function getHeroes(query: HeroQuery = {}): Promise<ApiResponse<Hero
  * Rows from the API always win when present.
  */
 type BundledSkill = Omit<Skill, 'skill_id'>;
-const BUNDLED_SKILLS = bundledSkills as Record<string, BundledSkill[]>;
+// A Map, not the raw object: hero names are admin-editable, and indexing a plain
+// object with "constructor" or "toString" would hand back an inherited function
+// instead of undefined and blow up on .map below.
+const BUNDLED_SKILLS = new Map<string, BundledSkill[]>(
+  Object.entries(bundledSkills as Record<string, BundledSkill[]>),
+);
 
 function withBundledSkills(hero: Hero): Hero {
   if (hero.skills && hero.skills.length > 0) return hero;
-  const rows = BUNDLED_SKILLS[hero.name];
+  const rows = BUNDLED_SKILLS.get(hero.name);
   if (!rows) return hero;
   // Negative ids so they can never collide with real hero_skills rows.
   return { ...hero, skills: rows.map((row, i) => ({ ...row, skill_id: -(i + 1) })) };
@@ -84,11 +89,16 @@ const ALL_MAX_PAGES = 10; // sanity guard: 500 heroes is far beyond the real ros
  */
 export async function getAllHeroes(): Promise<{ heroes: Hero[]; total: number }> {
   const first = await getHeroes({ page: 1, per_page: ALL_PER_PAGE });
-  const heroes = [...first.data];
   const totalPages = Math.min(first.meta?.total_pages ?? 1, ALL_MAX_PAGES);
+
+  // Page 1 tells us how many are left; fetch those together rather than in a
+  // chain, so the dashboard costs two round trips instead of one per page.
+  const rest: Promise<ApiResponse<Hero[]>>[] = [];
   for (let page = 2; page <= totalPages; page++) {
-    const res = await getHeroes({ page, per_page: ALL_PER_PAGE });
-    heroes.push(...res.data);
+    rest.push(getHeroes({ page, per_page: ALL_PER_PAGE }));
   }
+  const heroes = [...first.data];
+  for (const res of await Promise.all(rest)) heroes.push(...res.data);
+
   return { heroes, total: first.meta?.total ?? heroes.length };
 }

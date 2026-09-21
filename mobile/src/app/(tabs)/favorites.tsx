@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 
 import { HeroCard } from '@/components/hero-card';
@@ -20,6 +20,9 @@ export default function FavoritesScreen() {
   const keyExtractor = useCallback((item: Hero) => String(item.hero_id), []);
 
   const count = favorites.length;
+  // toggleFavorite appends, so storage order is oldest-first. The header promises
+  // newest first (and Home's preview shows newest first), so reverse for display.
+  const ordered = useMemo(() => [...favorites].reverse(), [favorites]);
 
   return (
     <Screen>
@@ -37,7 +40,7 @@ export default function FavoritesScreen() {
         <LoadingState message="Loading saved heroes…" />
       ) : (
         <FlatList
-          data={favorites}
+          data={ordered}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
           numColumns={2}

@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
@@ -19,6 +19,11 @@ type HeroPortraitProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+const MAX_TRIES = 3;
+const RETRY_DELAY_MS = 600; // 600ms, then 1200ms
+
+const EMPTY_ATTEMPT = { uri: '', tries: 0 };
+
 /** "Lancelot" -> "LA". Two letters read better than one at tile sizes. */
 export function monogram(name: string): string {
   const letters = name.replace(/[^a-z0-9]/gi, '');
@@ -35,10 +40,36 @@ export function HeroPortrait({ hero, uri, size = 44, radius = Radius.md, style }
   const theme = useTheme();
   const { portraitFor } = usePortraits();
   const source = uri ?? portraitFor(hero.hero_id) ?? hero.picture;
-  // Remember which URI failed so a recycled tile with a new hero gets a fresh attempt.
-  const [failedUri, setFailedUri] = useState<string | null>(null);
-  const failed = failedUri !== null && failedUri === source;
+  // Attempts made for this exact URI. Tagging the count with the URI means a
+  // recycled tile showing a different hero starts from zero again.
+  const [attempt, setAttempt] = useState<{ uri: string; tries: number }>(EMPTY_ATTEMPT);
+  const tries = attempt.uri === source ? attempt.tries : 0;
+  const failed = tries >= MAX_TRIES;
+  const retryTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const accent = roleColor(hero.roles[0] ?? '');
+
+  useEffect(
+    () => () => {
+      if (retryTimer.current) clearTimeout(retryTimer.current);
+    },
+    [],
+  );
+
+  /**
+   * One dead image must not permanently demote the tile to a monogram: these URLs
+   * live on an external CDN that can refuse a request it would serve a moment later,
+   * and mobile networks drop requests all the time. Back off, try again, and only
+   * fall through to the monogram once MAX_TRIES attempts have really failed.
+   */
+  function onImageError() {
+    const next = tries + 1;
+    if (next >= MAX_TRIES) {
+      setAttempt({ uri: source, tries: next });
+      return;
+    }
+    if (retryTimer.current) clearTimeout(retryTimer.current);
+    retryTimer.current = setTimeout(() => setAttempt({ uri: source, tries: next }), RETRY_DELAY_MS * next);
+  }
 
   const frame = [
     styles.frame,
@@ -59,13 +90,15 @@ export function HeroPortrait({ hero, uri, size = 44, radius = Radius.md, style }
   return (
     <View style={frame}>
       <Image
+        // Remounts on each retry so the request is actually made again.
+        key={`${source}#${tries}`}
         source={{ uri: source }}
         style={StyleSheet.absoluteFill}
         contentFit="cover"
         contentPosition="top"
         transition={150}
         cachePolicy="disk"
-        onError={() => setFailedUri(source)}
+        onError={onImageError}
         accessibilityLabel={`${hero.name} portrait`}
       />
     </View>

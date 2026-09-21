@@ -1,10 +1,10 @@
-import axios, { AxiosError } from 'axios';
+import { create, isAxiosError, type AxiosError } from 'axios';
 
 /**
  * Single Axios instance for the PHP API.
  * Base URL comes from mobile/.env (EXPO_PUBLIC_API_URL), never hardcoded.
  */
-export const api = axios.create({
+export const api = create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
   timeout: 10000,
   headers: { Accept: 'application/json' },
@@ -21,7 +21,7 @@ interface ApiErrorBody {
  * Prefers the API's own `message`, then network conditions, then a generic fallback.
  */
 export function getErrorMessage(error: unknown): string {
-  if (axios.isAxiosError(error)) {
+  if (isAxiosError(error)) {
     const err = error as AxiosError<ApiErrorBody>;
     const apiMessage = err.response?.data?.message;
     if (typeof apiMessage === 'string' && apiMessage.trim() !== '') {

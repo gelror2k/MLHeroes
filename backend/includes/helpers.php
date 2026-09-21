@@ -5,6 +5,14 @@
  */
 
 // ---- Headers + CORS preflight ------------------------------------------
+// Don't advertise the PHP version to every caller. Must run before the first header().
+if (function_exists('header_remove')) {
+    header_remove('X-Powered-By');
+}
+// Transparent gzip. Silently does nothing if zlib is unavailable on the host;
+// a 50-hero page is ~12 KB uncompressed and ~3 KB gzipped.
+@ini_set('zlib.output_compression', '1');
+
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
@@ -148,7 +156,15 @@ function validate_hero_input($input, $partial = false)
             }
             continue;
         }
-        $v = is_string($input[$f]) ? trim($input[$f]) : '';
+        // A present-but-wrong-typed field is its own mistake, not a missing one.
+        // Saying so beats reporting `{"name": 123}` as "name is required", and it
+        // stops `{"picture": null}` from silently wiping the portrait link: only
+        // an omitted field keeps its value, and only "" clears it.
+        if (!is_string($input[$f])) {
+            $errors[] = $f . ' must be text';
+            continue;
+        }
+        $v = trim($input[$f]);
 
         switch ($f) {
             case 'name':
@@ -156,6 +172,8 @@ function validate_hero_input($input, $partial = false)
                     $errors[] = 'name is required';
                 } elseif (mb_strlen($v) > 255) {
                     $errors[] = 'name must be 255 characters or fewer';
+                } elseif (preg_match('/[[:cntrl:]]/', $v)) {
+                    $errors[] = 'name cannot contain control characters';
                 } else {
                     $values['name'] = $v;
                 }
@@ -281,6 +299,21 @@ function db()
 }
 
 // ---- Row formatting ------------------------------------------------------
+/**
+ * Escape the LIKE metacharacters in a user-supplied search term so "%" and "_"
+ * match themselves instead of "anything". Pair with  LIKE :x ESCAPE '!'  in the
+ * query. "!" is used rather than a backslash so NO_BACKSLASH_ESCAPES cannot
+ * change the meaning of the pattern.
+ */
+function like_escape($value)
+{
+    return str_replace(
+        array('!', '%', '_'),
+        array('!!', '!%', '!_'),
+        (string) $value
+    );
+}
+
 /** Split "Mage/Tank", "Gold, EXP" or "Mid|Roam" into a clean array. */
 function split_list($value)
 {
