@@ -3,14 +3,30 @@
 Mobile Legends: Bang Bang hero reference app.
 Expo + React Native front end, plain PHP + MySQL REST API on the back.
 
+## APIs used
+
+The app consumes two separate APIs:
+
+| | API | URL | Used for |
+|---|---|---|---|
+| 1 | **MLHeroes REST API** (self-hosted, PHP + MySQL) | `http://gelror.duckdns.org/api/` | Full CRUD on the hero table: list/search/filter (`GET heroes.php`), detail (`GET hero.php`), create (`POST heroes.php`), update (`PUT hero.php`), delete (`DELETE hero.php`) |
+| 2 | **Rone Arena API** (third-party, public, no key) | **https://arena.rone.dev/api** · docs: https://arena.rone.dev/api/docs | Live Mobile Legends ranked statistics |
+
+Third-party endpoints the app calls (`mobile/src/services/metaService.ts`):
+
+- `GET https://arena.rone.dev/api/heroes/rank?days=7&rank=all&sort_field=win_rate&sort_order=desc&size=5`: the **Live ranked meta** card on Home, with the top 5 heroes by win, pick or ban rate. Tapping a row opens that hero's profile.
+- `GET https://arena.rone.dev/api/heroes/{name}/stats?rank=all&size=1`: the **Live ranked stats** card on each hero profile, with that hero's win, pick and ban rates.
+
+These numbers are fetched live and never stored in our database.
+
 ## Folder layout
 
 ```
 MLHeroes/
 ├── mobile/        # Expo app (TypeScript, Expo Router)
-│   ├── src/app/          screens — (tabs)/index, favorites, about; hero/[id]
-│   ├── src/components/   hero-card, filter-bar, search-input, state-views, …
-│   ├── src/services/     heroService (API calls), storage (AsyncStorage)
+│   ├── src/app/          screens — (tabs)/index, heroes, favorites, manage; hero/[id], hero/form
+│   ├── src/components/   hero-card, filter-bar, live-meta, confirm-dialog, state-views, …
+│   ├── src/services/     heroService (our API), metaService (Rone Arena API), storage (AsyncStorage)
 │   ├── src/constants/    theme, role colours
 │   └── src/hooks/        use-heroes, use-filters, use-favorites, …
 ├── backend/       # PHP API — mirrors /www/gelror.duckdns.org/ on the host

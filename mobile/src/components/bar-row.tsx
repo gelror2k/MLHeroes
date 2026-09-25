@@ -19,9 +19,11 @@ export function BarRow({ label, ratio, value, color, labelWidth = 74 }: BarRowPr
   const pct = Math.round(Math.min(Math.max(ratio, 0), 1) * 100);
   return (
     <View style={styles.row} accessibilityLabel={`${label}: ${value}`}>
-      <ThemedText type="small" themeColor="textSecondary" style={{ width: labelWidth }} numberOfLines={1}>
-        {label}
-      </ThemedText>
+      {label ? (
+        <ThemedText type="small" themeColor="textSecondary" style={{ width: labelWidth }} numberOfLines={1}>
+          {label}
+        </ThemedText>
+      ) : null}
       <View style={[styles.track, { backgroundColor: theme.surfaceRaised }]}>
         <View style={[styles.fill, { width: `${pct}%`, backgroundColor: color ?? theme.accent }]} />
       </View>

@@ -7,6 +7,7 @@ import { BrandMark } from '@/components/brand-mark';
 import { Chip } from '@/components/chip';
 import { HeroPortrait } from '@/components/hero-portrait';
 import { IconButton } from '@/components/icon-button';
+import { LiveMetaCard } from '@/components/live-meta';
 import { RoleRing } from '@/components/role-ring';
 import { Screen } from '@/components/screen';
 import { ScreenHeader } from '@/components/screen-header';
@@ -130,6 +131,9 @@ export default function HomeScreen() {
           <StatTile value={hasData ? dash.roles.length : '—'} label="Roles" />
           <StatTile value={favorites.length} label="Saved" tone="accent" />
         </View>
+
+        {/* Third-party API: loads on its own, so it shows even when our API is down. */}
+        <LiveMetaCard roster={dash.heroes} />
 
         {dash.loading && !hasData ? (
           <View style={styles.stateWrap}>

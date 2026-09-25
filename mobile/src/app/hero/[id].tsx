@@ -12,6 +12,7 @@ import { DifficultyMeter } from '@/components/difficulty-meter';
 import { FavoriteButton } from '@/components/favorite-button';
 import { HeroPortrait } from '@/components/hero-portrait';
 import { IconButton } from '@/components/icon-button';
+import { HeroMetaCard } from '@/components/live-meta';
 import { Screen } from '@/components/screen';
 import { ScreenHeader } from '@/components/screen-header';
 import { SectionCard } from '@/components/section-card';
@@ -198,6 +199,8 @@ export default function HeroDetailScreen() {
               <View style={[styles.divider, { backgroundColor: theme.border }]} />
               <DifficultyMeter difficulty={hero.difficulty} />
             </SectionCard>
+
+            <HeroMetaCard name={hero.name} />
 
             <SectionCard
               title="Skills"
