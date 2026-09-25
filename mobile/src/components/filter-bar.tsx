@@ -35,7 +35,7 @@ function ScrollRow({ title, values, selected, colorFor, onSelect }: RowProps) {
   if (values.length === 0) return null;
   return (
     <View style={styles.row}>
-      <ThemedText type="eyebrow" themeColor="textMuted" style={styles.rowTitle}>
+      <ThemedText type="eyebrow" themeColor="textSecondary" style={styles.rowTitle}>
         {title}
       </ThemedText>
       <ScrollView
@@ -59,13 +59,17 @@ function ScrollRow({ title, values, selected, colorFor, onSelect }: RowProps) {
 }
 
 /**
- * Role chips always visible (wrapped, like the design); lane and difficulty rows
+ * Role chips always visible on one scrolling row; lane and difficulty rows
  * appear when expanded. Values come from filters.php and are never hardcoded.
  */
 export function FilterBar({ filters, selection, onChange, expanded }: FilterBarProps) {
   return (
     <View style={styles.container}>
-      <View style={styles.wrapChips}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.scrollChips}
+        keyboardShouldPersistTaps="handled">
         <Chip label="All" selected={selection.role === ''} onPress={() => onChange({ ...selection, role: '' })} />
         {filters.roles.map((role) => (
           <Chip
@@ -76,7 +80,7 @@ export function FilterBar({ filters, selection, onChange, expanded }: FilterBarP
             onPress={() => onChange({ ...selection, role: selection.role === role ? '' : role })}
           />
         ))}
-      </View>
+      </ScrollView>
       {expanded && (
         <>
           <ScrollRow
@@ -101,12 +105,6 @@ export function FilterBar({ filters, selection, onChange, expanded }: FilterBarP
 const styles = StyleSheet.create({
   container: {
     gap: Spacing.md,
-  },
-  wrapChips: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Spacing.sm,
-    paddingHorizontal: Gutter,
   },
   row: {
     gap: Spacing.sm,

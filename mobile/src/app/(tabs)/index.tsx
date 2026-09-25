@@ -29,7 +29,7 @@ const SAVED_PREVIEW = 5;
 function StatusPill({ label, color, soft, border }: { label: string; color: string; soft: string; border: string }) {
   return (
     <View style={[styles.pill, { backgroundColor: soft, borderColor: border }]}>
-      <ThemedText type="eyebrow" style={{ color, letterSpacing: 0.9 }}>
+      <ThemedText type="micro" style={{ color }}>
         {label}
       </ThemedText>
     </View>
@@ -46,7 +46,7 @@ function Spotlight({ hero }: { hero: Hero }) {
     <SectionCard
       title="Hero spotlight"
       aside={
-        <ThemedText type="eyebrow" themeColor="accent" style={{ letterSpacing: 0.9 }}>
+        <ThemedText type="small" themeColor="accent">
           Today
         </ThemedText>
       }>

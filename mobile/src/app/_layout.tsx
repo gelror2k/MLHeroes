@@ -1,5 +1,4 @@
-import { ChakraPetch_500Medium, ChakraPetch_600SemiBold, ChakraPetch_700Bold } from '@expo-google-fonts/chakra-petch';
-import { Manrope_400Regular, Manrope_500Medium, Manrope_600SemiBold, Manrope_700Bold } from '@expo-google-fonts/manrope';
+import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
 import { DarkTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -11,7 +10,7 @@ import { Palette } from '@/constants/theme';
 import { FavoritesProvider } from '@/hooks/use-favorites';
 import { PortraitsProvider } from '@/hooks/use-portraits';
 
-// Hold the splash until the two typefaces are ready so text never flashes in a system font.
+// Hold the splash until the typeface is ready so text never flashes in a system font.
 SplashScreen.preventAutoHideAsync();
 
 /** Navigation colours follow the palette so transitions never flash a foreign background. */
@@ -31,13 +30,10 @@ const NavigationTheme = {
 /** Root stack: the tab group, plus hero detail and the hero form pushed on top of it. */
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    ChakraPetch_500Medium,
-    ChakraPetch_600SemiBold,
-    ChakraPetch_700Bold,
-    Manrope_400Regular,
-    Manrope_500Medium,
-    Manrope_600SemiBold,
-    Manrope_700Bold,
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
   });
 
   useEffect(() => {

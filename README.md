@@ -10,12 +10,12 @@ The app consumes two separate APIs:
 | | API | URL | Used for |
 |---|---|---|---|
 | 1 | **MLHeroes REST API** (self-hosted, PHP + MySQL) | `http://gelror.duckdns.org/api/` | Full CRUD on the hero table: list/search/filter (`GET heroes.php`), detail (`GET hero.php`), create (`POST heroes.php`), update (`PUT hero.php`), delete (`DELETE hero.php`) |
-| 2 | **Rone Arena API** (third-party, public, no key) | **https://arena.rone.dev/api** · docs: https://arena.rone.dev/api/docs | Live Mobile Legends ranked statistics |
+| 2 | **Moonton MLBB data API** (third-party, public, no key) | **https://api.gms.moontontech.com/api/gms/source/2669606** | Live Mobile Legends ranked statistics: the same data the official MLBB website shows |
 
 Third-party endpoints the app calls (`mobile/src/services/metaService.ts`):
 
-- `GET https://arena.rone.dev/api/heroes/rank?days=7&rank=all&sort_field=win_rate&sort_order=desc&size=5`: the **Live ranked meta** card on Home, with the top 5 heroes by win, pick or ban rate. Tapping a row opens that hero's profile.
-- `GET https://arena.rone.dev/api/heroes/{name}/stats?rank=all&size=1`: the **Live ranked stats** card on each hero profile, with that hero's win, pick and ban rates.
+- `POST https://api.gms.moontontech.com/api/gms/source/2669606/2756569` with body `{"pageSize":5,"pageIndex":1,"filters":[{"field":"bigrank","operator":"eq","value":"101"},{"field":"match_type","operator":"eq","value":"0"}],"sorts":[{"data":{"field":"main_hero_win_rate","order":"desc"},"type":"sequence"}]}`: the **Live ranked meta** card on Home, with the top 5 heroes by win, pick or ban rate over the last 7 days (sort field `main_hero_win_rate`, `main_hero_appearance_rate` or `main_hero_ban_rate`). Tapping a row opens that hero's profile.
+- The same request with `pageSize: 200` fetches every hero once; the **Live ranked stats** card on each hero profile shows that hero's win, pick and ban rates from it.
 
 These numbers are fetched live and never stored in our database.
 
@@ -26,7 +26,7 @@ MLHeroes/
 ├── mobile/        # Expo app (TypeScript, Expo Router)
 │   ├── src/app/          screens — (tabs)/index, heroes, favorites, manage; hero/[id], hero/form
 │   ├── src/components/   hero-card, filter-bar, live-meta, confirm-dialog, state-views, …
-│   ├── src/services/     heroService (our API), metaService (Rone Arena API), storage (AsyncStorage)
+│   ├── src/services/     heroService (our API), metaService (Moonton MLBB data API), storage (AsyncStorage)
 │   ├── src/constants/    theme, role colours
 │   └── src/hooks/        use-heroes, use-filters, use-favorites, …
 ├── backend/       # PHP API — mirrors /www/gelror.duckdns.org/ on the host

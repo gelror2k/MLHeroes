@@ -1,10 +1,10 @@
 /**
- * Live ranked statistics from the third-party Rone Arena API (https://arena.rone.dev),
- * an unofficial community API for Mobile Legends: Bang Bang. Nothing here is stored in
+ * Live ranked statistics from the third-party MLBB data API (api.gms.moontontech.com),
+ * Moonton's public data backend for Mobile Legends: Bang Bang. Nothing here is stored in
  * our database; it is fetched on demand and shown as-is.
  */
 
-/** Which rate the Home leaderboard is sorted by. Values are the API's `sort_field`. */
+/** Which rate the Home leaderboard is sorted by. Mapped to the API's sort fields in metaService. */
 export type MetaSort = 'win_rate' | 'pick_rate' | 'ban_rate';
 
 /** One hero's ranked numbers, flattened out of the API's nested record. Rates are 0..1. */

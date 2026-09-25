@@ -34,7 +34,7 @@ export default function TabsLayout() {
           paddingTop: Spacing.sm,
         },
         tabBarItemStyle: { paddingVertical: Spacing.xs },
-        tabBarLabelStyle: { fontFamily: Fonts.bodySemi, fontSize: 11, marginTop: 2 },
+        tabBarLabelStyle: { fontFamily: Fonts.bodyMedium, fontSize: 12, marginTop: 2 },
         sceneStyle: { backgroundColor: Palette.background },
       }}>
       <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: tabIcon('home') }} />

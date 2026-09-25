@@ -52,14 +52,14 @@ export function useHeroMeta(name: string | undefined) {
   useEffect(() => {
     if (!name) return;
     let ignore = false;
-    getHeroMeta(name).then(
+    getHeroMeta(name, attempt > 0).then(
       (value) => !ignore && setData({ key, value, error: null }),
       (e) => !ignore && setData({ key, value: null, error: getErrorMessage(e) }),
     );
     return () => {
       ignore = true;
     };
-  }, [name, key]);
+  }, [name, key, attempt]);
 
   const retry = useCallback(() => setAttempt((n) => n + 1), []);
   const answered = data?.key === key;

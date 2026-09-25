@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, Share, StyleSheet, View } from 'react-native';
+import { ScrollView, Share, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { getErrorMessage, isAdminEnabled } from '@/api/client';
@@ -10,7 +10,7 @@ import { Chip } from '@/components/chip';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { DifficultyMeter } from '@/components/difficulty-meter';
 import { FavoriteButton } from '@/components/favorite-button';
-import { HeroPortrait } from '@/components/hero-portrait';
+import { HeroHologram } from '@/components/hero-hologram';
 import { IconButton } from '@/components/icon-button';
 import { HeroMetaCard } from '@/components/live-meta';
 import { Screen } from '@/components/screen';
@@ -29,7 +29,6 @@ import type { Skill } from '@/types/hero';
 
 const SLOT_BADGE: Record<Skill['slot'], string> = { passive: 'P', skill1: '1', skill2: '2', ultimate: 'ULT' };
 const SLOT_NAME: Record<Skill['slot'], string> = { passive: 'Passive', skill1: 'Skill 1', skill2: 'Skill 2', ultimate: 'Ultimate' };
-const BANNER_HEIGHT = 220;
 
 /** Skill icon from `icon_url`; the slot badge (P / 1 / 2 / ULT) stands in when there is no link or it fails to load. */
 function SkillIcon({ skill }: { skill: Skill }) {
@@ -99,7 +98,7 @@ function SkillRow({ skill }: { skill: Skill }) {
   );
 }
 
-/** Hero detail: full-width picture, name + tags, overview card (lane + difficulty meter), skills with icons, sticky action bar. */
+/** Hero detail: draggable hologram stage, name + tags, overview card (lane + difficulty meter), skills with icons, sticky action bar. */
 export default function HeroDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const heroId = Number(id);
@@ -109,6 +108,7 @@ export default function HeroDetailScreen() {
   const router = useRouter();
   const toast = useToast();
   const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
   const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -163,7 +163,9 @@ export default function HeroDetailScreen() {
         <>
           <ScrollView contentContainerStyle={styles.content}>
             <View style={styles.identity}>
-              <HeroPortrait hero={hero} size={BANNER_HEIGHT} radius={Radius.lg} style={styles.banner} />
+              <View style={styles.stage}>
+                <HeroHologram hero={hero} width={width} />
+              </View>
               <View style={styles.identityText}>
                 <ThemedText type="display" accessibilityRole="header">
                   {hero.name}
@@ -272,9 +274,10 @@ const styles = StyleSheet.create({
   identity: {
     gap: Spacing.md,
   },
-  banner: {
-    width: '100%',
-    height: BANNER_HEIGHT,
+  stage: {
+    // Full-bleed: cancel the content gutter and top padding.
+    marginHorizontal: -Gutter,
+    marginTop: -Spacing.sm,
   },
   identityText: {
     gap: 9,

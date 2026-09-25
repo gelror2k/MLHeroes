@@ -6,7 +6,7 @@ import { Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 type SectionCardProps = {
-  /** Uppercase eyebrow in the top-left, e.g. "ROLE DISTRIBUTION". */
+  /** Card title in the top-left, e.g. "Role distribution". */
   title?: string;
   /** Small text or a link on the top-right. */
   aside?: ReactNode;
@@ -15,7 +15,7 @@ type SectionCardProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-/** The dashboard card: 16px padding, 8px radius, 1px border, optional eyebrow header row. */
+/** The dashboard card: 16px padding, 12px radius, 1px border, optional title row. */
 export function SectionCard({ title, aside, children, gap = Spacing.md + 2, style }: SectionCardProps) {
   const theme = useTheme();
   return (
@@ -23,7 +23,7 @@ export function SectionCard({ title, aside, children, gap = Spacing.md + 2, styl
       {title || aside ? (
         <View style={styles.header}>
           {title ? (
-            <ThemedText type="eyebrow" themeColor="textMuted">
+            <ThemedText type="cardTitle">
               {title}
             </ThemedText>
           ) : (

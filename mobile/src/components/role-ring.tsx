@@ -65,7 +65,7 @@ export function RoleRing({ segments, centerValue, centerLabel = 'Heroes', size =
         <ThemedText type="stat" style={styles.value}>
           {centerValue}
         </ThemedText>
-        <ThemedText type="micro" themeColor="textMuted" style={styles.label}>
+        <ThemedText type="micro" themeColor="textMuted">
           {centerLabel}
         </ThemedText>
       </View>
@@ -86,8 +86,5 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 27,
     lineHeight: 32,
-  },
-  label: {
-    letterSpacing: 1.6,
   },
 });

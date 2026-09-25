@@ -27,12 +27,11 @@ export function HeroCardSkeleton() {
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
       style={[styles.card, { backgroundColor: theme.surface, borderColor: theme.border, opacity: pulse }]}>
-      <View style={styles.top}>
-        <View style={[styles.portrait, block]} />
-        <View style={[styles.icon, block]} />
+      <View style={[styles.portrait, block]} />
+      <View style={styles.body}>
+        <View style={[styles.name, block]} />
+        <View style={[styles.meta, block]} />
       </View>
-      <View style={[styles.name, block]} />
-      <View style={[styles.meta, block]} />
     </Animated.View>
   );
 }
@@ -57,28 +56,22 @@ const styles = StyleSheet.create({
   card: {
     flexBasis: '48%',
     flexGrow: 1,
-    padding: 13,
     borderRadius: Radius.md,
     borderWidth: 1,
-    gap: Spacing.sm + 2,
-  },
-  top: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    overflow: 'hidden',
   },
   portrait: {
-    width: 56,
-    height: 56,
-    borderRadius: Radius.md,
+    height: 148, // matches PORTRAIT_HEIGHT in hero-card
   },
-  icon: {
-    width: 20,
-    height: 20,
-    borderRadius: 4,
+  body: {
+    paddingHorizontal: Spacing.md,
+    paddingTop: Spacing.sm + 4,
+    paddingBottom: Spacing.md + 2,
+    gap: Spacing.sm,
   },
   name: {
     width: '70%',
-    height: 14,
+    height: 15,
     borderRadius: 4,
   },
   meta: {

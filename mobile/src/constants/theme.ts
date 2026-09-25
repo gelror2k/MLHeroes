@@ -1,6 +1,6 @@
 /**
- * Design tokens for the MetaDex look: a single dark palette, two typefaces
- * (Chakra Petch for display/numbers, Manrope for reading), and a 4-point
+ * Design tokens for the MetaDex look: a single dark palette, one typeface
+ * (Inter, in four weights; numbers use tabular figures), and a 4-point
  * spacing scale. Every screen and component pulls from here; nothing is
  * hardcoded at the call site.
  */
@@ -49,13 +49,13 @@ export type ThemeColor = keyof typeof Palette;
  * is chosen here rather than through `fontWeight`.
  */
 export const Fonts = {
-  display: 'ChakraPetch_700Bold',
-  displaySemi: 'ChakraPetch_600SemiBold',
-  displayMedium: 'ChakraPetch_500Medium',
-  body: 'Manrope_400Regular',
-  bodyMedium: 'Manrope_500Medium',
-  bodySemi: 'Manrope_600SemiBold',
-  bodyBold: 'Manrope_700Bold',
+  display: 'Inter_700Bold',
+  displaySemi: 'Inter_600SemiBold',
+  displayMedium: 'Inter_500Medium',
+  body: 'Inter_400Regular',
+  bodyMedium: 'Inter_500Medium',
+  bodySemi: 'Inter_600SemiBold',
+  bodyBold: 'Inter_700Bold',
   mono: Platform.select({ ios: 'ui-monospace', web: 'var(--font-mono)', default: 'monospace' }) as string,
 } as const;
 
@@ -70,9 +70,9 @@ export const Spacing = {
 } as const;
 
 export const Radius = {
-  sm: 6,
-  md: 8,
-  lg: 10,
+  sm: 8,
+  md: 12,
+  lg: 16,
   pill: 999,
 } as const;
 

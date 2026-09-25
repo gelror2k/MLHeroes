@@ -14,7 +14,10 @@ type HeroCardProps = {
   hero: Hero;
 };
 
-/** Grid tile: portrait + bookmark on top, name, then role and difficulty in their colours. */
+/** Card height of the portrait strip. Wiki portraits are tall, so the crop keeps the face. */
+const PORTRAIT_HEIGHT = 148;
+
+/** Grid tile: full-width portrait with the bookmark in its corner, then name, role and difficulty. */
 function HeroCardInner({ hero }: HeroCardProps) {
   const router = useRouter();
   const theme = useTheme();
@@ -22,7 +25,12 @@ function HeroCardInner({ hero }: HeroCardProps) {
 
   return (
     <Pressable
-      onPress={() => router.push({ pathname: '/hero/[id]', params: { id: String(hero.hero_id) } })}
+      onPress={() =>
+        router.push({
+          pathname: '/hero/[id]',
+          params: { id: String(hero.hero_id) },
+        })
+      }
       accessibilityRole="button"
       accessibilityLabel={`${hero.name}, ${hero.roles.join(' and ')}, ${hero.difficulty}`}
       style={({ pressed }) => [
@@ -30,25 +38,27 @@ function HeroCardInner({ hero }: HeroCardProps) {
         { backgroundColor: theme.surface, borderColor: theme.border },
         pressed && styles.pressed,
       ]}>
-      <View style={styles.top}>
-        <HeroPortrait hero={hero} size={56} />
-        <FavoriteButton hero={hero} variant="bare" />
+      <View>
+        <HeroPortrait hero={hero} size={PORTRAIT_HEIGHT} radius={0} style={styles.portrait} />
+        <FavoriteButton hero={hero} variant="bare" style={[styles.bookmark, { backgroundColor: theme.overlay }]} />
       </View>
 
-      <ThemedText type="cardTitle" numberOfLines={1}>
-        {hero.name}
-      </ThemedText>
+      <View style={styles.body}>
+        <ThemedText type="cardTitle" numberOfLines={1}>
+          {hero.name}
+        </ThemedText>
 
-      <View style={styles.meta}>
-        <ThemedText type="micro" style={[styles.metaText, { color: roleColor(primaryRole) }]} numberOfLines={1}>
-          {hero.roles.join(' / ')}
-        </ThemedText>
-        <ThemedText type="micro" themeColor="textMuted" style={styles.metaText}>
-          {' · '}
-        </ThemedText>
-        <ThemedText type="micro" style={[styles.metaText, { color: difficultyColor(hero.difficulty) }]}>
-          {hero.difficulty}
-        </ThemedText>
+        <View style={styles.meta}>
+          <ThemedText type="micro" style={[styles.metaText, { color: roleColor(primaryRole) }]} numberOfLines={1}>
+            {hero.roles.join(' / ')}
+          </ThemedText>
+          <ThemedText type="micro" themeColor="textMuted" style={styles.metaText}>
+            {' · '}
+          </ThemedText>
+          <ThemedText type="micro" style={[styles.metaText, { color: difficultyColor(hero.difficulty) }]}>
+            {hero.difficulty}
+          </ThemedText>
+        </View>
       </View>
     </Pressable>
   );
@@ -60,18 +70,27 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     maxWidth: '50%', // a lone card on the last row keeps its column width
-    padding: 13,
     borderRadius: Radius.md,
     borderWidth: 1,
-    gap: Spacing.sm + 2,
+    overflow: 'hidden',
   },
   pressed: {
     opacity: 0.8,
   },
-  top: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
+  portrait: {
+    width: '100%',
+    borderWidth: 0,
+  },
+  bookmark: {
+    position: 'absolute',
+    top: Spacing.sm,
+    right: Spacing.sm,
+  },
+  body: {
+    paddingHorizontal: Spacing.md,
+    paddingTop: Spacing.sm + 2,
+    paddingBottom: Spacing.md,
+    gap: 3,
   },
   meta: {
     flexDirection: 'row',
@@ -79,6 +98,5 @@ const styles = StyleSheet.create({
   },
   metaText: {
     flexShrink: 1,
-    letterSpacing: 1,
   },
 });

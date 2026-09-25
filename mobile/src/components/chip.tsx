@@ -2,13 +2,13 @@ import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'rea
 
 import { ThemedText } from '@/components/themed-text';
 import { withAlpha } from '@/constants/roleColors';
-import { Radius, Sizes, Spacing } from '@/constants/theme';
+import { Radius } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 type ChipProps = {
   label: string;
   /**
-   * filter = 44px pill that toggles (gold when selected).
+   * filter = 38px pill that toggles (gold when selected), 46px touch area with the slop.
    * tag = small uppercase label with a soft tint of `color`, for role/lane/difficulty on cards.
    */
   variant?: 'filter' | 'tag';
@@ -19,6 +19,9 @@ type ChipProps = {
   style?: StyleProp<ViewStyle>;
 };
 
+/** 38px pill plus 4px of invisible slop above and below keeps the touch target over 44px. */
+const CHIP_SLOP = { top: 4, bottom: 4 };
+
 export function Chip({ label, variant = 'filter', color, selected = false, onPress, style }: ChipProps) {
   const theme = useTheme();
 
@@ -26,7 +29,7 @@ export function Chip({ label, variant = 'filter', color, selected = false, onPre
     const accent = color ?? theme.textSecondary;
     return (
       <View style={[styles.tag, { backgroundColor: color ? withAlpha(accent, 0.16) : theme.surfaceRaised }, style]}>
-        <ThemedText type="eyebrow" style={[styles.tagLabel, { color: accent }]} numberOfLines={1}>
+        <ThemedText type="eyebrow" style={{ color: accent }} numberOfLines={1}>
           {label}
         </ThemedText>
       </View>
@@ -38,6 +41,7 @@ export function Chip({ label, variant = 'filter', color, selected = false, onPre
     <Pressable
       onPress={onPress}
       disabled={!onPress}
+      hitSlop={CHIP_SLOP}
       accessibilityRole="button"
       accessibilityState={{ selected }}
       style={({ pressed }) => [
@@ -61,8 +65,8 @@ export function Chip({ label, variant = 'filter', color, selected = false, onPre
 
 const styles = StyleSheet.create({
   filter: {
-    height: Sizes.touch,
-    paddingHorizontal: Spacing.lg,
+    height: 38,
+    paddingHorizontal: 14,
     borderRadius: Radius.pill,
     borderWidth: 1,
     flexDirection: 'row',
@@ -82,8 +86,5 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 7,
     alignSelf: 'flex-start',
-  },
-  tagLabel: {
-    letterSpacing: 0.8,
   },
 });

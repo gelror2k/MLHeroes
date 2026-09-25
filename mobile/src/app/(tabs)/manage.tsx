@@ -30,7 +30,7 @@ type RecordCardProps = {
   onOpen: (hero: Hero) => void;
 };
 
-/** One database row: identity on top, Edit / Delete underneath. */
+/** One database row: identity on the left, compact Edit / Delete icon buttons on the right. */
 function RecordCardInner({ hero, onEdit, onDelete, onOpen }: RecordCardProps) {
   const theme = useTheme();
   const primaryRole = hero.roles[0] ?? '';
@@ -41,23 +41,21 @@ function RecordCardInner({ hero, onEdit, onDelete, onOpen }: RecordCardProps) {
         accessibilityRole="button"
         accessibilityLabel={`Open ${hero.name}`}
         style={({ pressed }) => [styles.recordTop, pressed && styles.pressed]}>
-        <HeroPortrait hero={hero} size={42} radius={Radius.sm} />
+        <HeroPortrait hero={hero} size={44} radius={Radius.sm} />
         <View style={styles.recordText}>
           <ThemedText type="cardTitle" numberOfLines={1}>
             {hero.name}
           </ThemedText>
-          <ThemedText type="micro" style={{ color: roleColor(primaryRole), letterSpacing: 1 }} numberOfLines={1}>
-            {hero.roles.join(' / ')}
+          <ThemedText type="micro" themeColor="textMuted" numberOfLines={1}>
+            <ThemedText type="micro" style={{ color: roleColor(primaryRole) }}>
+              {hero.roles.join(' / ')}
+            </ThemedText>
+            {`  ·  #${hero.hero_id}`}
           </ThemedText>
         </View>
-        <ThemedText type="caption" themeColor="textMuted">
-          #{hero.hero_id}
-        </ThemedText>
       </Pressable>
-      <View style={styles.recordActions}>
-        <Button label="Edit" icon="edit-2" variant="secondary" compact onPress={() => onEdit(hero)} style={styles.recordAction} />
-        <Button label="Delete" icon="trash-2" variant="danger" compact onPress={() => onDelete(hero)} style={styles.recordAction} />
-      </View>
+      <IconButton icon="edit-2" label={`Edit ${hero.name}`} iconSize={17} onPress={() => onEdit(hero)} />
+      <IconButton icon="trash-2" label={`Delete ${hero.name}`} tone="danger" iconSize={17} onPress={() => onDelete(hero)} />
     </View>
   );
 }
@@ -213,13 +211,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   record: {
-    padding: Spacing.md,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: Spacing.sm + 2,
+    paddingLeft: Spacing.md,
     borderRadius: Radius.md,
     borderWidth: 1,
-    gap: 11,
-    marginBottom: Spacing.md,
+    gap: Spacing.sm,
+    marginBottom: Spacing.sm + 2,
   },
   recordTop: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
@@ -227,13 +229,6 @@ const styles = StyleSheet.create({
   recordText: {
     flex: 1,
     gap: 3,
-  },
-  recordActions: {
-    flexDirection: 'row',
-    gap: Spacing.sm,
-  },
-  recordAction: {
-    flex: 1,
   },
   pressed: {
     opacity: 0.7,

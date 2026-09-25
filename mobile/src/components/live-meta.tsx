@@ -18,7 +18,7 @@ import type { Hero } from '@/types/hero';
 import type { HeroMeta, MetaSort } from '@/types/meta';
 
 /**
- * Cards fed by the third-party Rone Arena API (live MLBB ranked data).
+ * Cards fed by the third-party MLBB data API (Moonton GMS, live ranked data).
  * They load on their own, so a slow or failing external API never blocks the
  * rest of the screen, which comes from our PHP API.
  */
@@ -36,7 +36,7 @@ function pct(rate: number): string {
 function SourceNote() {
   return (
     <ThemedText type="caption" themeColor="textMuted">
-      Live ranked data · last {META_DAYS} days · all ranks · via Rone Arena API
+      Live ranked data · last {META_DAYS} days · all ranks · via Moonton MLBB API
     </ThemedText>
   );
 }
@@ -64,6 +64,11 @@ function InlineError({ message, onRetry }: { message: string; onRetry: () => voi
   );
 }
 
+/** Borderless refresh icon; the negative margin keeps its 44px touch area from padding the card header. */
+function RefreshButton({ onPress }: { onPress: () => void }) {
+  return <IconButton icon="refresh-cw" label="Reload live stats" onPress={onPress} iconSize={16} style={styles.refresh} />;
+}
+
 function HeroHead({ uri, size }: { uri: string; size: number }) {
   const theme = useTheme();
   const [failed, setFailed] = useState(false);
@@ -87,8 +92,8 @@ export function LiveMetaCard({ roster }: { roster: Hero[] }) {
 
   return (
     <SectionCard
-      title="Live ranked meta"
-      aside={<IconButton icon="refresh-cw" label="Reload live stats" onPress={top.retry} iconSize={16} />}>
+      title="Live Ranked Meta"
+      aside={<RefreshButton onPress={top.retry} />}>
       <View style={styles.sortRow}>
         {SORTS.map((s) => (
           <Chip key={s.value} label={`${s.label} rate`} selected={s.value === sort} onPress={() => setSort(s.value)} />
@@ -136,7 +141,6 @@ export function LiveMetaCard({ roster }: { roster: Hero[] }) {
         })
       )}
 
-      <SourceNote />
     </SectionCard>
   );
 }
@@ -148,7 +152,7 @@ export function HeroMetaCard({ name }: { name: string }) {
   return (
     <SectionCard
       title="Live ranked stats"
-      aside={<IconButton icon="refresh-cw" label="Reload live stats" onPress={meta.retry} iconSize={16} />}>
+      aside={<RefreshButton onPress={meta.retry} />}>
       {meta.loading ? (
         <InlineLoading message="Fetching live stats…" />
       ) : meta.error ? (
@@ -170,6 +174,11 @@ export function HeroMetaCard({ name }: { name: string }) {
 }
 
 const styles = StyleSheet.create({
+  refresh: {
+    borderWidth: 0,
+    backgroundColor: 'transparent',
+    margin: -10,
+  },
   sortRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',

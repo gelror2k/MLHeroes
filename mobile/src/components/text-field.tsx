@@ -21,7 +21,7 @@ export function TextField({ label, hint, error, style, onFocus, onBlur, ...input
 
   return (
     <View style={styles.field}>
-      <ThemedText type="eyebrow" themeColor="textMuted" style={styles.label}>
+      <ThemedText type="eyebrow" themeColor="textSecondary">
         {label}
       </ThemedText>
       <TextInput
@@ -54,9 +54,6 @@ export function TextField({ label, hint, error, style, onFocus, onBlur, ...input
 const styles = StyleSheet.create({
   field: {
     gap: 7,
-  },
-  label: {
-    letterSpacing: 1.1,
   },
   input: {
     height: Sizes.input,

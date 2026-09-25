@@ -214,7 +214,7 @@ function HeroEditor({ hero }: { hero: Hero | null }) {
         right={
           dirty ? (
             <View style={[styles.pill, { backgroundColor: theme.accentSoft, borderColor: theme.accentBorder }]}>
-              <ThemedText type="eyebrow" themeColor="accent" style={{ letterSpacing: 0.9 }}>
+              <ThemedText type="small" themeColor="accent">
                 Unsaved
               </ThemedText>
             </View>
@@ -327,7 +327,7 @@ function HeroEditor({ hero }: { hero: Hero | null }) {
           </View>
 
           <View style={styles.field}>
-            <ThemedText type="eyebrow" themeColor="textMuted" style={styles.label}>
+            <ThemedText type="eyebrow" themeColor="textSecondary">
               Difficulty
             </ThemedText>
             <View style={styles.segmented}>
